@@ -251,16 +251,23 @@ irc_server_strncasecmp (struct t_irc_server *server,
 int
 irc_server_sasl_enabled (struct t_irc_server *server)
 {
+    int sasl_mechanism;
     const char *sasl_username, *sasl_password;
 
+    sasl_mechanism = IRC_SERVER_OPTION_INTEGER(server,
+                                               IRC_SERVER_OPTION_SASL_MECHANISM);
     sasl_username = IRC_SERVER_OPTION_STRING(server,
                                              IRC_SERVER_OPTION_SASL_USERNAME);
     sasl_password = IRC_SERVER_OPTION_STRING(server,
                                              IRC_SERVER_OPTION_SASL_PASSWORD);
 
-    /* SASL is enabled if username AND password are set */
-    return (sasl_username && sasl_username[0]
-            && sasl_password && sasl_password[0]) ? 1 : 0;
+    /*
+     * SASL is enabled if using mechanism "external"
+     * or if both username AND password are set
+     */
+    return ((sasl_mechanism == IRC_SASL_MECHANISM_EXTERNAL)
+            || (sasl_username && sasl_username[0]
+                && sasl_password && sasl_password[0])) ? 1 : 0;
 }
 
 /*
@@ -1215,8 +1222,12 @@ irc_server_free (struct t_irc_server *server)
     if (!server)
         return;
 
-    /* close server buffer (and all channels/privates) */
-    if (server->buffer)
+    /*
+     * close server buffer (and all channels/privates)
+     * (only if we are not in a /upgrade, because during upgrade we want to
+     * keep connections and closing server buffer would disconnect from server)
+     */
+    if (server->buffer && !irc_signal_upgrade_received)
         weechat_buffer_close (server->buffer);
 
     /* remove server from queue */
