@@ -240,6 +240,7 @@ gui_chat_string_real_pos (const char *string, int pos)
         return 0;
 
     real_pos = string;
+    real_pos_prev = string;
     ptr_string = string;
     while (ptr_string && ptr_string[0] && (pos > 0))
     {
