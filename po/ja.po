@@ -2595,7 +2595,7 @@ msgstr "ニックモードが (half)op/voice でなければ空白を表示"
 msgid ""
 "enable terminal \"bracketed paste mode\" (not supported in all terminals/"
 "multiplexers): in this mode, pasted text is bracketed with control sequences "
-"so that WeeChat can differentiate pasted text from typed-in text \"(ESC[200~"
+"so that WeeChat can differentiate pasted text from typed-in text (\"ESC[200~"
 "\", followed by the pasted text, followed by \"ESC[201~\")"
 msgstr "端末の「括弧付きペーストモード」を有効化 (一部の端末/マルチプレクサで利用可能): このモードでは、ペーストされたテキストはコントロールシーケンスで括られる。これにより WeeChat はペーストされたテキストとタイプされたテキストを区別する (\"ESC[200~\" 、ペーストされたテキスト、\"ESC[201~\")。"
 
