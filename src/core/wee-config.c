@@ -125,6 +125,7 @@ struct t_config_option *config_look_mouse;
 struct t_config_option *config_look_mouse_timer_delay;
 struct t_config_option *config_look_nickmode;
 struct t_config_option *config_look_nickmode_empty;
+struct t_config_option *config_look_paste_bracketed;
 struct t_config_option *config_look_paste_max_lines;
 struct t_config_option *config_look_prefix[GUI_CHAT_NUM_PREFIXES];
 struct t_config_option *config_look_prefix_align;
@@ -461,6 +462,21 @@ config_change_hotlist (void *data, struct t_config_option *option)
     (void) option;
 
     gui_hotlist_resort ();
+}
+
+/*
+ * config_change_paste_bracketed: called when bracketed paste mode is changed
+ */
+
+void
+config_change_paste_bracketed (void *data, struct t_config_option *option)
+{
+    /* make C compiler happy */
+    (void) data;
+    (void) option;
+
+    if (gui_ok)
+        gui_window_set_bracketed_paste_mode (CONFIG_BOOLEAN(config_look_paste_bracketed));
 }
 
 /*
@@ -1956,12 +1972,21 @@ config_weechat_init_options ()
         "nickmode_empty", "boolean",
         N_("display space if nick mode is not (half)op/voice"),
         NULL, 0, 0, "off", NULL, 0, NULL, NULL, &config_change_buffers, NULL, NULL, NULL);
+    config_look_paste_bracketed = config_file_new_option (
+        weechat_config_file, ptr_section,
+        "paste_bracketed", "boolean",
+        N_("enable terminal \"bracketed paste mode\" (not supported in all "
+           "terminals/multiplexers): in this mode, pasted text is bracketed "
+           "with control sequences so that WeeChat can differentiate pasted "
+           "text from typed-in text \"(ESC[200~\", followed by the pasted text, "
+           "followed by \"ESC[201~\")"),
+        NULL, 0, 0, "off", NULL, 0, NULL, NULL, &config_change_paste_bracketed, NULL, NULL, NULL);
     config_look_paste_max_lines = config_file_new_option (
         weechat_config_file, ptr_section,
         "paste_max_lines", "integer",
         N_("max number of lines for paste without asking user "
-           "(0 = disable this feature)"),
-        NULL, 0, INT_MAX, "3", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+           "(-1 = disable this feature)"),
+        NULL, -1, INT_MAX, "3", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
     config_look_prefix[GUI_CHAT_PREFIX_ERROR] = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_error", "string",
