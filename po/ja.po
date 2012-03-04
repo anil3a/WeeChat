@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2012-02-29 14:32+0100\n"
-"PO-Revision-Date: 2012-03-04 03:55+0900\n"
+"PO-Revision-Date: 2012-03-04 05:24+0900\n"
 "Last-Translator: \"AYANOKOUZI, Ryuunosuke\" <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -6209,11 +6209,11 @@ msgstr "%s%s%s%s%s に kill されました"
 
 #, c-format
 msgid "%sMode %s%s %s[%s%s%s]%s by %s%s"
-msgstr "%sモード %s%s %s[%s%s%s]%s by %s%s"
+msgstr "%1$s %9$s%10$s がモードを変更 %2$s%3$s %4$s[%5$s%6$s%7$s]%8$s"
 
 #, c-format
 msgid "%sUser mode %s[%s%s%s]%s by %s%s"
-msgstr "%sユーザモード %s[%s%s%s]%s by %s%s"
+msgstr "%1$s %7$s%8$s がユーザモードを変更 %2$s[%3$s%4$s%5$s]%6$s"
 
 #, c-format
 msgid "%sYou are now known as %s%s%s"
@@ -6285,9 +6285,7 @@ msgstr "%s%s[%s%s%s] (%s%s@%s%s)%s は %s でした"
 msgid ""
 "%s%s[%s%s%s]%s idle: %s%d %s%s, %s%02d %s%s %s%02d %s%s %s%02d %s%s, signon "
 "at: %s%s"
-msgstr ""
-"%s%s[%s%s%s]%s アイドル時間: %s%d %s%s, %s%02d %s%s %s%02d %s%s %s%02d %s%s, "
-"サインオン時間: %s%s"
+msgstr "%s%s[%s%s%s]%s アイドル時間: %s%d %s%s, %s%02d %s%s %s%02d %s%s %s%02d %s%s、利用開始日時: %s%s"
 
 msgid "hour"
 msgid_plural "hours"
@@ -6296,9 +6294,7 @@ msgstr[0] "時間"
 #, c-format
 msgid ""
 "%s%s[%s%s%s]%s idle: %s%02d %s%s %s%02d %s%s %s%02d %s%s, signon at: %s%s"
-msgstr ""
-"%s%s[%s%s%s]%s アイドル時間: %s%02d %s%s %s%02d %s%s %s%02d %s%s, サインオン"
-"時間: %s%s"
+msgstr "%s%s[%s%s%s]%s アイドル時間: %s%02d %s%s %s%02d %s%s %s%02d %s%s、利用開始日時: %s%s"
 
 #, c-format
 msgid "%sMode %s%s %s[%s%s%s]"
@@ -6311,12 +6307,12 @@ msgstr "%s%s%s%s の URL: %s"
 #. TRANSLATORS: "%s" after "created on" is a date
 #, c-format
 msgid "%sChannel created on %s"
-msgstr "%sチャンネル日時 %s"
+msgstr "%sチャンネルの作成日時 %s"
 
 #. TRANSLATORS: "%s" after "created on" is a date
 #, c-format
 msgid "%sChannel %s%s%s created on %s"
-msgstr "%sチャンネル %s%s%s は %s に作成されました"
+msgstr "%sチャンネル %s%s%s の作成日時 %s"
 
 #, c-format
 msgid "%sNo topic set for channel %s%s"
@@ -6564,7 +6560,7 @@ msgstr "%s: ラグが長いです、サーバとの接続を切断中..."
 
 #, c-format
 msgid "%s: reconnecting to server in %d %s, %d %s"
-msgstr "%s: サーバに再接続中 %d %s, %d %s"
+msgstr "%s: サーバに再接続中 %d %s、%d %s"
 
 #, c-format
 msgid "%s: reconnecting to server in %d %s"
@@ -6576,7 +6572,7 @@ msgstr "%s: アドレスの変更中 %s/%d"
 
 #, c-format
 msgid "%s: connected to %s/%d (%s)"
-msgstr "%s: %s/%d (%s) に接続しました"
+msgstr "%s: %s/%d (%s) に接続完了"
 
 #, c-format
 msgid "%s%s: proxy address \"%s\" not found"
@@ -6642,18 +6638,18 @@ msgstr "gnutls: %d-ビット Diffie-Hellman 共有鍵交換を使って接続中
 
 #, c-format
 msgid "%sgnutls: error while checking peer's certificate"
-msgstr "%sgnutls: ピアの証明書の確認中にエラー"
+msgstr "%sgnutls: ピア証明書の確認中にエラー"
 
 #, c-format
 msgid "%sgnutls: peer's certificate is NOT trusted"
-msgstr "%sgnutls: ピアの証明書は信頼できません"
+msgstr "%sgnutls: ピア証明書は信頼できません"
 
 msgid "gnutls: peer's certificate is trusted"
-msgstr "gnutls: ピアの証明書は信頼できます"
+msgstr "gnutls: ピア証明書は信頼できます"
 
 #, c-format
 msgid "%sgnutls: peer's certificate issuer is unknown"
-msgstr "%sgnutls: ピア証明書の問題が不明です"
+msgstr "%sgnutls: ピア証明書に未知の問題"
 
 #, c-format
 msgid "%sgnutls: the certificate has been revoked"
@@ -6725,11 +6721,11 @@ msgstr ""
 
 #, c-format
 msgid "%s: connecting to server %s/%d%s%s via %s proxy %s/%d%s..."
-msgstr "%s: サーバ %s/%d%s%s に %s プロキシ %s/%d%s を通じて接続中..."
+msgstr "%s: サーバ %s/%d%s%s に %s プロキシ %s/%d%s で接続中..."
 
 #, c-format
 msgid "Connecting to server %s/%d%s%s via %s proxy %s/%d%s..."
-msgstr "サーバ %s/%d%s%s に %s プロキシ %s/%d%s を通じて接続中..."
+msgstr "サーバ %s/%d%s%s に %s プロキシ %s/%d%s で接続中..."
 
 #, c-format
 msgid "%s: connecting to server %s/%d%s%s..."
