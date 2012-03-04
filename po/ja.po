@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2012-02-29 14:32+0100\n"
-"PO-Revision-Date: 2012-03-04 23:00+0900\n"
+"PO-Revision-Date: 2012-03-05 03:48+0900\n"
 "Last-Translator: \"AYANOKOUZI, Ryuunosuke\" <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -6218,11 +6218,11 @@ msgstr "%s%s%s%s%s に kill されました"
 
 #, c-format
 msgid "%sMode %s%s %s[%s%s%s]%s by %s%s"
-msgstr "%1$s %9$s%10$s がモードを変更 %2$s%3$s %4$s[%5$s%6$s%7$s]%8$s"
+msgstr "%1$s %9$s%10$s%8$s がモードを変更 %2$s%3$s %4$s[%5$s%6$s%7$s]%8$s"
 
 #, c-format
 msgid "%sUser mode %s[%s%s%s]%s by %s%s"
-msgstr "%1$s %7$s%8$s がユーザモードを変更 %2$s[%3$s%4$s%5$s]%6$s"
+msgstr "%1$s %7$s%8$s%6$s がユーザモードを変更 %2$s[%3$s%4$s%5$s]%6$s"
 
 #, c-format
 msgid "%sYou are now known as %s%s%s"
@@ -6280,7 +6280,7 @@ msgstr "%s%s%s%s のユーザモードは %s[%s%s%s] です"
 
 #, c-format
 msgid "%s%s[%s%s%s]%s is away: %s"
-msgstr "%s%s[%s%s%s]%s は離席状態: %s"
+msgstr "%s%s[%s%s%s]%s 離席状態: %s"
 
 #, c-format
 msgid "%sUsers online: %s%s"
