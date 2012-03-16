@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-03-09 10:32+0100\n"
+"POT-Creation-Date: 2012-03-12 10:27+0100\n"
 "PO-Revision-Date: 2012-02-26 09:16+0100\n"
 "Last-Translator: Andras Voroskoi <voroskoi@frugalware.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -5638,6 +5638,11 @@ msgstr "%s nincs csatlakozva szerverhez!\n"
 msgid "%s%s: this buffer is not a channel!"
 msgstr "Ez az ablak nem egy szoba!\n"
 
+#. TRANSLATORS: "unknown" is the status for /notify when ison answer has not been received (check pending)
+#, fuzzy
+msgid "unknown"
+msgstr "(ismeretlen)"
+
 msgid "offline"
 msgstr ""
 
@@ -5659,11 +5664,19 @@ msgid "Notify list is empty on all servers"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "%snotify: %s%s%s has joined %s%s"
+msgid "%snotify: %s%s%s is connected"
 msgstr "%s%s%s kirúgta %s%s%s-t a(z) %s%s szobából"
 
 #, fuzzy, c-format
-msgid "%snotify: %s%s%s has quit %s%s"
+msgid "%snotify: %s%s%s is offline"
+msgstr "%s%s%s kirúgta %s%s%s-t a(z) %s%s szobából"
+
+#, fuzzy, c-format
+msgid "%snotify: %s%s%s has joined"
+msgstr "%s%s%s kirúgta %s%s%s-t a(z) %s%s szobából"
+
+#, fuzzy, c-format
+msgid "%snotify: %s%s%s has quit"
 msgstr "%s%s%s kirúgta %s%s%s-t a(z) %s%s szobából"
 
 #, fuzzy, c-format
