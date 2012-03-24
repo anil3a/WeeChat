@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2012-02-29 14:32+0100\n"
-"PO-Revision-Date: 2012-03-05 04:14+0900\n"
+"PO-Revision-Date: 2012-03-18 12:32+0900\n"
 "Last-Translator: \"AYANOKOUZI, Ryuunosuke\" <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -6117,9 +6117,8 @@ msgid "%s%s: this buffer is not a channel!"
 msgstr "%s%s: このバッファはチャンネルではありません"
 
 #. TRANSLATORS: "unknown" is the status for /notify when ison answer has not been received (check pending)
-#, fuzzy
 msgid "unknown"
-msgstr "(未定義)"
+msgstr "不明"
 
 msgid "offline"
 msgstr "オフライン"
@@ -6140,21 +6139,21 @@ msgstr "全てのサーバの通知リスト:"
 msgid "Notify list is empty on all servers"
 msgstr "全てのサーバの通知リストは空です"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%snotify: %s%s%s is connected"
-msgstr "%s通知: %s%s%s が %s%s に参加"
+msgstr "%s通知: %s%s%s が接続しました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%snotify: %s%s%s is offline"
-msgstr "%s通知: %s%s%s が %s%s に参加"
+msgstr "%s通知: %s%s%s はオフライン状態"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%snotify: %s%s%s has joined"
-msgstr "%s通知: %s%s%s が %s%s に参加"
+msgstr "%s通知: %s%s%s が参加"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%snotify: %s%s%s has quit"
-msgstr "%s通知: %s%s%s が %s%s から終了"
+msgstr "%s通知: %s%s%s が終了"
 
 #, c-format
 msgid "%snotify: %s%s%s is now away: \"%s\""
