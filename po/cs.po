@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-03-12 10:27+0100\n"
+"POT-Creation-Date: 2012-03-24 12:52+0100\n"
 "PO-Revision-Date: 2012-02-26 09:16+0100\n"
 "Last-Translator: Jiri Golembiovsky <golemj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -2905,6 +2905,12 @@ msgid ""
 msgstr ""
 "maximální počet příkazů, který zobrazit jako výchozí v seznamu historie (0 = "
 "nekonečno)"
+
+#, fuzzy
+msgid ""
+"timeout (in seconds) for connection to a remote host (made in a child "
+"process)"
+msgstr "časový limit (v sekundách) pro gnutls handshake"
 
 msgid ""
 "file containing the certificate authorities (\"%h\" will be replaced by "
@@ -6610,6 +6616,10 @@ msgstr ""
 msgid "%s%s: not enough memory"
 msgstr "%s%s: nedostatek paměti"
 
+#, fuzzy, c-format
+msgid "%s%s: timeout"
+msgstr "%s%s: vypršel časový limit \"%s\" pro %s"
+
 #, c-format
 msgid "gnutls: connected using %d-bit Diffie-Hellman shared secret exchange"
 msgstr ""
@@ -7845,6 +7855,11 @@ msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "jméno skriptu (může začínat nebo končit \"*\" jako zástupným znakem) "
 "(volitelné)"
+
+#, fuzzy, c-format
+msgid ""
+"%s%s: warning, invalid pointer (\"%s\") for function \"%s\" (script: %s)"
+msgstr "%s%s: špatné parametry pro funkci \"%s\" (skript: %s)"
 
 #, c-format
 msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"

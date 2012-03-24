@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-03-12 10:27+0100\n"
+"POT-Creation-Date: 2012-03-24 12:52+0100\n"
 "PO-Revision-Date: 2012-02-26 09:16+0100\n"
 "Last-Translator: Sergio Durigan Junior <sergiosdj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -3001,6 +3001,13 @@ msgid ""
 msgstr ""
 "número máximo de comandos para mostrar por padrão na listagem de histórico "
 "(0 = ilimitado)"
+
+# better not translate handshake
+#, fuzzy
+msgid ""
+"timeout (in seconds) for connection to a remote host (made in a child "
+"process)"
+msgstr "tempo de espera (em segundos) pelo handshake do gnutls"
 
 msgid ""
 "file containing the certificate authorities (\"%h\" will be replaced by "
@@ -6315,6 +6322,10 @@ msgstr ""
 msgid "%s%s: not enough memory"
 msgstr "%s%s: memória insuficiente"
 
+#, fuzzy, c-format
+msgid "%s%s: timeout"
+msgstr "%s%s: tempo esgotado para \"%s\" com %s"
+
 #, c-format
 msgid "gnutls: connected using %d-bit Diffie-Hellman shared secret exchange"
 msgstr ""
@@ -7479,6 +7490,11 @@ msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "nome do script (pode começar ou terminar com \"*\" como um coringa) "
 "(opcional)"
+
+#, fuzzy, c-format
+msgid ""
+"%s%s: warning, invalid pointer (\"%s\") for function \"%s\" (script: %s)"
+msgstr "%s%s: argumentos inválidos para a função \"%s\" (script: %s)"
 
 #, c-format
 msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"

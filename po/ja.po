@@ -2977,6 +2977,12 @@ msgid ""
 msgstr ""
 "履歴をリストアップする際にデフォルトで表示するコマンドの最大数 (0 = 制限無し)"
 
+#, fuzzy
+msgid ""
+"timeout (in seconds) for connection to a remote host (made in a child "
+"process)"
+msgstr "gnutls ハンドシェイクのタイムアウト (秒単位)"
+
 msgid ""
 "file containing the certificate authorities (\"%h\" will be replaced by "
 "WeeChat home, \"~/.weechat\" by default)"
@@ -6653,6 +6659,10 @@ msgstr ""
 msgid "%s%s: not enough memory"
 msgstr "%s%s: メモリが足りません"
 
+#, fuzzy, c-format
+msgid "%s%s: timeout"
+msgstr "%s%s: \"%s\" のタイムアウト %s"
+
 #, c-format
 msgid "gnutls: connected using %d-bit Diffie-Hellman shared secret exchange"
 msgstr "gnutls: %d-ビット Diffie-Hellman 共有鍵交換を使って接続中"
@@ -7865,6 +7875,11 @@ msgstr "スクリプトポインタ (オプション)"
 msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "スクリプト名 (ワイルドカードとして \"*\" で始めるか終われる) (オプション)"
+
+#, fuzzy, c-format
+msgid ""
+"%s%s: warning, invalid pointer (\"%s\") for function \"%s\" (script: %s)"
+msgstr "%s%s: 関数 \"%s\" の不正な引数 (スクリプト: %s)"
 
 #, c-format
 msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-03-12 10:27+0100\n"
+"POT-Creation-Date: 2012-03-24 12:52+0100\n"
 "PO-Revision-Date: 2012-02-26 09:16+0100\n"
 "Last-Translator: Andras Voroskoi <voroskoi@frugalware.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -2571,6 +2571,12 @@ msgid ""
 msgstr ""
 "megjeleníthető parancsok maximális száma előzmények listázásakor ( 0 = "
 "korlátlan)"
+
+#, fuzzy
+msgid ""
+"timeout (in seconds) for connection to a remote host (made in a child "
+"process)"
+msgstr "SSL használata a a kapcsolathoz"
 
 #, fuzzy
 msgid ""
@@ -6170,6 +6176,10 @@ msgstr ""
 msgid "%s%s: not enough memory"
 msgstr "Nincs elég memória az új sorhoz\n"
 
+#, fuzzy, c-format
+msgid "%s%s: timeout"
+msgstr "%s hiányzó argumentum a(z) \"%s\" opciónak\n"
+
 #, c-format
 msgid "gnutls: connected using %d-bit Diffie-Hellman shared secret exchange"
 msgstr ""
@@ -7347,6 +7357,11 @@ msgstr ""
 
 msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"%s%s: warning, invalid pointer (\"%s\") for function \"%s\" (script: %s)"
+msgstr "%s rossz argumentum a \"%s\" parancsnak\n"
 
 #, c-format
 msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"
