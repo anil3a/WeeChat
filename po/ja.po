@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.3.8-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2012-02-29 14:32+0100\n"
-"PO-Revision-Date: 2012-03-18 12:32+0900\n"
+"PO-Revision-Date: 2012-03-26 22:07+0900\n"
 "Last-Translator: \"AYANOKOUZI, Ryuunosuke\" <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -2977,11 +2977,10 @@ msgid ""
 msgstr ""
 "履歴をリストアップする際にデフォルトで表示するコマンドの最大数 (0 = 制限無し)"
 
-#, fuzzy
 msgid ""
 "timeout (in seconds) for connection to a remote host (made in a child "
 "process)"
-msgstr "gnutls ハンドシェイクのタイムアウト (秒単位)"
+msgstr "リモートホストへの接続タイムアウト時間 (秒単位) (子プロセスが行う)"
 
 msgid ""
 "file containing the certificate authorities (\"%h\" will be replaced by "
@@ -4492,9 +4491,8 @@ msgstr "サーバに関する情報を入手"
 msgid "invite a nick on a channel"
 msgstr "チャンネルにニックネームを招待"
 
-#, fuzzy
 msgid "<nick> [<nick>...] [<channel>]"
-msgstr "<nick> [<nick>...]"
+msgstr "<nick> [<nick>...] [<channel>]"
 
 msgid ""
 "   nick: nick to invite\n"
@@ -6660,9 +6658,9 @@ msgstr ""
 msgid "%s%s: not enough memory"
 msgstr "%s%s: メモリが足りません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: timeout"
-msgstr "%s%s: \"%s\" のタイムアウト %s"
+msgstr "%s%s: タイムアウト"
 
 #, c-format
 msgid "gnutls: connected using %d-bit Diffie-Hellman shared secret exchange"
@@ -7877,10 +7875,10 @@ msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "スクリプト名 (ワイルドカードとして \"*\" で始めるか終われる) (オプション)"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s%s: warning, invalid pointer (\"%s\") for function \"%s\" (script: %s)"
-msgstr "%s%s: 関数 \"%s\" の不正な引数 (スクリプト: %s)"
+msgstr "%1$s%2$s: 警告、関数 \"%4$s\" の不正な引ポインタ (\"%3$s\") (スクリプト: %5$s)"
 
 #, c-format
 msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"
