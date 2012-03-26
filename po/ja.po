@@ -4492,8 +4492,9 @@ msgstr "サーバに関する情報を入手"
 msgid "invite a nick on a channel"
 msgstr "チャンネルにニックネームを招待"
 
-msgid "<nick> <channel>"
-msgstr "<nick> <channel>"
+#, fuzzy
+msgid "<nick> [<nick>...] [<channel>]"
+msgstr "<nick> [<nick>...]"
 
 msgid ""
 "   nick: nick to invite\n"
@@ -8344,6 +8345,9 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "<nick> <channel>"
+#~ msgstr "<nick> <channel>"
 
 #~ msgid "mechanism for SASL authentication"
 #~ msgstr "SASL 認証メカニズム"
