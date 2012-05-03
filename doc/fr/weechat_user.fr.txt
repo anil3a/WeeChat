@@ -113,9 +113,8 @@ compiler WeeChat.
 nom du paquet peut être différente. +
 ^(2)^ WeeChat peut compiler avec libncurses5-dev, mais ce n'est *PAS* recommandé
 (vous aurez des bugs d'affichage avec les caractères larges). +
-^(3)^ WeeChat peut compiler avec Python 3.x, mais la version de Python
-recommandée est 2.7 (tous les scripts tournent bien avec la version 2.x, mais
-pas avec la version 3.x).
+^(3)^ La version recommandée de Python est 2.7 (tous les scripts tournent bien
+avec la version 2.7, mais pas avec les versions ≤ 2.6 ou ≥ 3.0).
 
 [[compile_with_cmake]]
 Compilation avec cmake
@@ -2096,12 +2095,13 @@ Empaqueteurs::
 Traductions::
     Jiri Golembiovsky (GolemJ), soltys, Nils Görs (nils_2), rettub,
     Frank Zacharias, Pavel Shevchuk, Elián Hanisch (m4v), Voroskoi,
-    Marco Paolone, Ivan Sichmann Freitas, Lázaro A., Ryuunosuke Ayanokouzi
+    Marco Paolone, Ivan Sichmann Freitas, Lázaro A., Ryuunosuke Ayanokouzi,
+    Quico Noizeux
 
 Patchs::
     Dmitry Kobylin, Rudolf Polzer, Jim Ramsay, Pistos, Gwenn, Dominik Honnef,
     JD Horelick, Stefano Pigozzi, Gu1ll4um3r0m41n, Kyle Fuller,
-    Quentin Glidic (SardemFF7)
+    Quentin Glidic (SardemFF7), Simon Kuhnle, Mateusz Poszwa
 
 
 [[support]]
