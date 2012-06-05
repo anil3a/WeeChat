@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-06-03 09:00+0200\n"
+"POT-Creation-Date: 2012-06-04 18:20+0200\n"
 "PO-Revision-Date: 2012-06-03 09:49+0200\n"
 "Last-Translator: Marco Paolone <marcopaolone@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -148,10 +148,6 @@ msgstr "  %s (plugin: %s)"
 
 msgid "No bar item defined"
 msgstr "Nessun elemento barra definito"
-
-#, c-format
-msgid "%sError: name can not start with \"#\""
-msgstr "%sErrore: il nome non può iniziare con \"#\""
 
 #, c-format
 msgid "%sNot enough memory"
@@ -3573,13 +3569,6 @@ msgstr[1] "normali"
 msgid "Debug disabled for cursor mode"
 msgstr "Debug disabilitato per la modalità cursore"
 
-#, c-format
-msgid "Debug enabled for mouse (%s)"
-msgstr "Debug abilitato per il mouse (%s)"
-
-msgid "Debug disabled for mouse"
-msgstr "Debug disabilitato per il mouse"
-
 msgid "Error: not enough memory to add a buffer to hotlist"
 msgstr "Errore: memoria non sufficiente per aggiungere un buffer alla hotlist"
 
@@ -3608,6 +3597,13 @@ msgstr "Esecuzione comando: \"%s\""
 
 msgid "Not enough memory for new line"
 msgstr "Memoria non sufficiente per una nuova riga"
+
+#, c-format
+msgid "Debug enabled for mouse (%s)"
+msgstr "Debug abilitato per il mouse (%s)"
+
+msgid "Debug disabled for mouse"
+msgstr "Debug disabilitato per il mouse"
 
 #, c-format
 msgid "%s%s: error, circular reference when calling alias \"%s\""
@@ -4274,10 +4270,6 @@ msgstr "Nessun server trovato con \"%s\""
 #, c-format
 msgid "%s%s: server \"%s\" already exists, can't create it!"
 msgstr "%s%s: il server \"%s\" esiste già, impossibile crearlo!"
-
-#, c-format
-msgid "%s%s: name can not start with \"#\""
-msgstr "%s%s: il nome non può iniziare con \"#\""
 
 #, c-format
 msgid "%s%s: unable to create server"
@@ -8607,6 +8599,12 @@ msgstr "Tipo"
 
 msgid "Constants"
 msgstr "Costanti"
+
+#~ msgid "%sError: name can not start with \"#\""
+#~ msgstr "%sErrore: il nome non può iniziare con \"#\""
+
+#~ msgid "%s%s: name can not start with \"#\""
+#~ msgstr "%s%s: il nome non può iniziare con \"#\""
 
 #~ msgid "display '+' if prefix is truncated"
 #~ msgstr "mostra '+' se il prefisso è troncato"

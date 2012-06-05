@@ -149,10 +149,6 @@ msgid "No bar item defined"
 msgstr "バーアイテムが定義されていません"
 
 #, c-format
-msgid "%sError: name can not start with \"#\""
-msgstr "%sエラー: \"#\" で始まる名前は使えません"
-
-#, c-format
 msgid "%sNot enough memory"
 msgstr "%sメモリ不足"
 
@@ -3479,13 +3475,6 @@ msgstr[0] "通常"
 msgid "Debug disabled for cursor mode"
 msgstr "カーソルモードのデバッグを無効化"
 
-#, c-format
-msgid "Debug enabled for mouse (%s)"
-msgstr "マウス (%s) のデバッグを有効化"
-
-msgid "Debug disabled for mouse"
-msgstr "マウスのデバッグを無効化"
-
 msgid "Error: not enough memory to add a buffer to hotlist"
 msgstr "エラー: バッファをホットリストに追加するメモリが足りません"
 
@@ -3514,6 +3503,13 @@ msgstr "コマンド実行中: \"%s\""
 
 msgid "Not enough memory for new line"
 msgstr "新しい行に使うメモリが足りません"
+
+#, c-format
+msgid "Debug enabled for mouse (%s)"
+msgstr "マウス (%s) のデバッグを有効化"
+
+msgid "Debug disabled for mouse"
+msgstr "マウスのデバッグを無効化"
 
 #, c-format
 msgid "%s%s: error, circular reference when calling alias \"%s\""
@@ -4165,10 +4161,6 @@ msgstr "\"%s\" にマッチするサーバが見つかりません"
 #, c-format
 msgid "%s%s: server \"%s\" already exists, can't create it!"
 msgstr "%s%s: サーバ \"%s\" は既に存在しており、作成できません"
-
-#, c-format
-msgid "%s%s: name can not start with \"#\""
-msgstr "%s%s: \"#\" から始まる名前は使えません"
 
 #, c-format
 msgid "%s%s: unable to create server"
@@ -8401,6 +8393,12 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "%sError: name can not start with \"#\""
+#~ msgstr "%sエラー: \"#\" で始まる名前は使えません"
+
+#~ msgid "%s%s: name can not start with \"#\""
+#~ msgstr "%s%s: \"#\" から始まる名前は使えません"
 
 #~ msgid "string inserted after nick completion"
 #~ msgstr "ニックネーム補完の後に追加される文字列"

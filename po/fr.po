@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-06-03 09:00+0200\n"
+"POT-Creation-Date: 2012-06-04 18:20+0200\n"
 "PO-Revision-Date: 2012-06-03 09:49+0200\n"
 "Last-Translator: Sebastien Helleu <flashcode@flashtux.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -150,10 +150,6 @@ msgstr "  %s (extension: %s)"
 
 msgid "No bar item defined"
 msgstr "Pas d'objet de barre défini"
-
-#, c-format
-msgid "%sError: name can not start with \"#\""
-msgstr "%sErreur: le nom ne peut pas commencer par \"#\""
 
 #, c-format
 msgid "%sNot enough memory"
@@ -3616,13 +3612,6 @@ msgstr[1] "normaux"
 msgid "Debug disabled for cursor mode"
 msgstr "Debug désactivé pour le mode curseur"
 
-#, c-format
-msgid "Debug enabled for mouse (%s)"
-msgstr "Debug activé pour la souris (%s)"
-
-msgid "Debug disabled for mouse"
-msgstr "Debug désactivé pour la souris"
-
 msgid "Error: not enough memory to add a buffer to hotlist"
 msgstr "Erreur: impossible d'ajouter le tampon à la liste des tampons actifs"
 
@@ -3651,6 +3640,13 @@ msgstr "Lancement de la commande: \"%s\""
 
 msgid "Not enough memory for new line"
 msgstr "Pas assez de mémoire pour une nouvelle ligne"
+
+#, c-format
+msgid "Debug enabled for mouse (%s)"
+msgstr "Debug activé pour la souris (%s)"
+
+msgid "Debug disabled for mouse"
+msgstr "Debug désactivé pour la souris"
 
 #, c-format
 msgid "%s%s: error, circular reference when calling alias \"%s\""
@@ -4321,10 +4317,6 @@ msgstr "Pas de serveur trouvé avec \"%s\""
 #, c-format
 msgid "%s%s: server \"%s\" already exists, can't create it!"
 msgstr "%s%s: le serveur \"%s\" existe déjà, impossible de le créer !"
-
-#, c-format
-msgid "%s%s: name can not start with \"#\""
-msgstr "%s%s: le nom ne peut pas commencer par \"#\""
 
 #, c-format
 msgid "%s%s: unable to create server"
@@ -8688,6 +8680,12 @@ msgstr "Type"
 
 msgid "Constants"
 msgstr "Constantes"
+
+#~ msgid "%sError: name can not start with \"#\""
+#~ msgstr "%sErreur: le nom ne peut pas commencer par \"#\""
+
+#~ msgid "%s%s: name can not start with \"#\""
+#~ msgstr "%s%s: le nom ne peut pas commencer par \"#\""
 
 #~ msgid "string inserted after nick completion"
 #~ msgstr "chaîne affichée après la complétion des pseudos"

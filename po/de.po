@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-06-03 09:00+0200\n"
+"POT-Creation-Date: 2012-06-04 18:20+0200\n"
 "PO-Revision-Date: 2012-06-03 09:49+0200\n"
 "Last-Translator: Nils Görs <weechatter@arcor.de>\n"
 "Language-Team: German <weechatter@arcor.de>\n"
@@ -161,10 +161,6 @@ msgstr "  %s (Erweiterung: %s)"
 
 msgid "No bar item defined"
 msgstr "Es wurde kein Bar-Item festgelegt"
-
-#, c-format
-msgid "%sError: name can not start with \"#\""
-msgstr "%sFehler: Name darf nicht mit \"#\"beginnen"
 
 #, c-format
 msgid "%sNot enough memory"
@@ -3728,13 +3724,6 @@ msgstr[1] "normale"
 msgid "Debug disabled for cursor mode"
 msgstr "Debug für Cursor Modus deaktiviert"
 
-#, c-format
-msgid "Debug enabled for mouse (%s)"
-msgstr "Debug-Modus (%s) für Maus aktiviert"
-
-msgid "Debug disabled for mouse"
-msgstr "Debug für Maus deaktiviert"
-
 msgid "Error: not enough memory to add a buffer to hotlist"
 msgstr ""
 "Fehler: nicht genügend Speicher um den Buffer der Hotlist hinzu zu fügen"
@@ -3764,6 +3753,13 @@ msgstr "führe Befehl \"%s\" aus"
 
 msgid "Not enough memory for new line"
 msgstr "Nicht genügend Speicher für eine neue Zeile"
+
+#, c-format
+msgid "Debug enabled for mouse (%s)"
+msgstr "Debug-Modus (%s) für Maus aktiviert"
+
+msgid "Debug disabled for mouse"
+msgstr "Debug für Maus deaktiviert"
 
 #, c-format
 msgid "%s%s: error, circular reference when calling alias \"%s\""
@@ -4449,10 +4445,6 @@ msgid "%s%s: server \"%s\" already exists, can't create it!"
 msgstr ""
 "%s%s: Der Server \"%s\" existiert bereits und kann daher nicht angelegt "
 "werden!"
-
-#, c-format
-msgid "%s%s: name can not start with \"#\""
-msgstr "%s%s: Name darf nicht mit \"#\" beginnen"
 
 #, c-format
 msgid "%s%s: unable to create server"
@@ -8902,6 +8894,12 @@ msgstr "Type"
 
 msgid "Constants"
 msgstr "Konstanten"
+
+#~ msgid "%sError: name can not start with \"#\""
+#~ msgstr "%sFehler: Name darf nicht mit \"#\"beginnen"
+
+#~ msgid "%s%s: name can not start with \"#\""
+#~ msgstr "%s%s: Name darf nicht mit \"#\" beginnen"
 
 #~ msgid "string inserted after nick completion"
 #~ msgstr "Nach Nick-Vervollständigung anzufügende Zeichenfolge"

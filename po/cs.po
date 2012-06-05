@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-06-03 09:00+0200\n"
+"POT-Creation-Date: 2012-06-04 18:20+0200\n"
 "PO-Revision-Date: 2012-06-03 09:49+0200\n"
 "Last-Translator: Jiri Golembiovsky <golemj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -147,10 +147,6 @@ msgstr "  %s (plugin: %s)"
 
 msgid "No bar item defined"
 msgstr "Žádné položky pole nejsou definovány"
-
-#, c-format
-msgid "%sError: name can not start with \"#\""
-msgstr "%sChyba: jméno nemůže začínat na \"#\""
 
 #, c-format
 msgid "%sNot enough memory"
@@ -3397,14 +3393,6 @@ msgstr[2] "normálních"
 msgid "Debug disabled for cursor mode"
 msgstr "Ladění vypnuto pro \"%s\""
 
-#, fuzzy, c-format
-msgid "Debug enabled for mouse (%s)"
-msgstr "Ladění vypnuto pro \"%s\""
-
-#, fuzzy
-msgid "Debug disabled for mouse"
-msgstr "Ladění vypnuto pro \"%s\""
-
 msgid "Error: not enough memory to add a buffer to hotlist"
 msgstr "Chyba: nedostatek paměti pro přidáni bufferu do hotlistu"
 
@@ -3434,6 +3422,14 @@ msgstr "výchozí příkaz:"
 
 msgid "Not enough memory for new line"
 msgstr "Nedostatek paměti pro nový řádek"
+
+#, fuzzy, c-format
+msgid "Debug enabled for mouse (%s)"
+msgstr "Ladění vypnuto pro \"%s\""
+
+#, fuzzy
+msgid "Debug disabled for mouse"
+msgstr "Ladění vypnuto pro \"%s\""
 
 #, c-format
 msgid "%s%s: error, circular reference when calling alias \"%s\""
@@ -4082,10 +4078,6 @@ msgstr "Žádný server s \"%s\" nenalezen"
 #, c-format
 msgid "%s%s: server \"%s\" already exists, can't create it!"
 msgstr "%s%s: server \"%s\" již existuje, nemohu jej vytvořít!"
-
-#, c-format
-msgid "%s%s: name can not start with \"#\""
-msgstr "%s%s: jméno nemůže začínat na \"#\""
 
 #, c-format
 msgid "%s%s: unable to create server"
@@ -8350,6 +8342,12 @@ msgstr ""
 
 msgid "Constants"
 msgstr ""
+
+#~ msgid "%sError: name can not start with \"#\""
+#~ msgstr "%sChyba: jméno nemůže začínat na \"#\""
+
+#~ msgid "%s%s: name can not start with \"#\""
+#~ msgstr "%s%s: jméno nemůže začínat na \"#\""
 
 #~ msgid "string inserted after nick completion"
 #~ msgstr "řetězec vložený za přezdívku po doplnění"
