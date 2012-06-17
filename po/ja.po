@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-06-06 03:03+0900\n"
-"PO-Revision-Date: 2012-05-20 23:24+0900\n"
+"POT-Creation-Date: 2012-06-16 03:03+0900\n"
+"PO-Revision-Date: 2012-06-18 01:55+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -2384,11 +2384,8 @@ msgstr ""
 "アクティブでないメッセージに異なる色を使用 (ウィンドウにフォーカスが無いか、"
 "行が未選択のマージバッファからの場合)"
 
-#, fuzzy
 msgid "use a different color for offline nicks (not in nicklist any more)"
-msgstr ""
-"アクティブでないウィンドウでは行に異なる色を使用 (ウィンドウにフォーカスが無"
-"い場合)"
+msgstr "オフライン状態のニックネームに異なる色を使用 (ニックネームリストにも表示しない)"
 
 msgid ""
 "automatically reset table of color pairs when number of available pairs is "
@@ -2724,24 +2721,16 @@ msgstr ""
 msgid "alert user when text sought is not found in buffer"
 msgstr "バッファ内に検索テキストが見つからなかった場合はユーザに警告"
 
-#, fuzzy
 msgid ""
 "char used to draw horizontal separators around bars and windows (empty value "
 "will draw a real line with ncurses, but may cause bugs with URL selection "
 "under some terminals), wide chars are NOT allowed here"
-msgstr ""
-"バー周囲の水平セパレータの描画に使われる文字 (空の場合は ncurses の実行が描画"
-"されるが、いくつかのターミナルでは URL 選択の際にバグを生ずる可能性がある)、"
-"ワイドキャラクタは使えない"
+msgstr "バーとウィンドウ周囲の水平セパレータの描画に使われる文字 (空の場合は ncurses の実行が描画されるが、いくつかのターミナルでは URL 選択の際にバグを生ずる可能性がある)、ワイドキャラクタは使えない"
 
-#, fuzzy
 msgid ""
 "char used to draw vertical separators around bars and windows (empty value "
 "will draw a real line with ncurses), wide chars are NOT allowed here"
-msgstr ""
-"バー周囲の垂直セパレータの描画に使われる文字 (空の場合は ncurses の実行が描画"
-"されるが、いくつかのターミナルでは URL 選択の際にバグを生ずる可能性がある)、"
-"ワイドキャラクタは使えない"
+msgstr "バーとウィンドウ周囲の垂直セパレータの描画に使われる文字 (空の場合は ncurses の実行が描画されるが、いくつかのターミナルでは URL 選択の際にバグを生ずる可能性がある)、ワイドキャラクタは使えない"
 
 msgid "set title for window (terminal for Curses GUI) with name and version"
 msgstr ""
@@ -2751,10 +2740,10 @@ msgid "time format for dates converted to strings and displayed in messages"
 msgstr "文字列へ変換されるかメッセージ中に表示される日付の時間フォーマット"
 
 msgid "display an horizontal separator between windows"
-msgstr ""
+msgstr "ウィンドウ間に水平セパレータを表示"
 
 msgid "display a vertical separator between windows"
-msgstr ""
+msgstr "ウィンドウ間に垂直セパレータを表示"
 
 msgid "background color for window separators (when split)"
 msgstr "ウィンドウセパレータの背景色 (分割時)"
@@ -2845,17 +2834,14 @@ msgstr ""
 msgid "text color for local nick in chat window"
 msgstr "チャットウィンドウ内のローカルニックネームのテキスト色"
 
-#, fuzzy
 msgid "text color for offline nick (not in nicklist any more)"
-msgstr "オフラインのニックネームのテキスト色"
+msgstr "オフラインのニックネームのテキスト色 (ニックネームリストにも表示されない)"
 
-#, fuzzy
 msgid "text color for offline nick with highlight"
-msgstr "オフラインのニックネームのテキスト色"
+msgstr "ハイライトされたオフラインのニックネームのテキスト色"
 
-#, fuzzy
 msgid "background color for offline nick with highlight"
-msgstr "ハイライトされたプレフィックスの背景色"
+msgstr "ハイライトされたオフラインのニックネームの背景色"
 
 msgid "text color for other nick in private buffer"
 msgstr "プライベートバッファ内の他のニックネームのテキスト色"
@@ -7746,9 +7732,9 @@ msgstr "rmodifier ポインタ (オプション)"
 msgid "rmodifier name (can start or end with \"*\" as joker) (optional)"
 msgstr "rmodifier 名 (ジョーカーとして \"*\" で始めるか終われる) (オプション)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: script \"%s\" already registered (register ignored)"
-msgstr "%s%s: サーバ \"%s\" は既に存在しており、作成できません"
+msgstr "%s%s: サーバ \"%s\" は既に登録済みです (登録しませんでした)"
 
 #, c-format
 msgid ""
