@@ -835,9 +835,9 @@ tasto. Ad esempio il tasto @k(A-)@k(x) per disabilitare il mouse per 10 secondi:
 ----------------------------------------
 
 Quando il mouse è abilitato in WeeChat, è possibile usare il modificatore
-"shift" per selezionare o cliccare nel terminale, come se il mouse fosse
-disabilitato (in alcuni terminali come iTerm, bisogna usare "alt" invece di
-"shift").
+@k(-S-) per selezionare o cliccare nel terminale, come se il mouse fosse
+disabilitato (in alcuni terminali come iTerm, bisogna usare @k(-A-) invece di
+@k(-S-)).
 
 [NOTE]
 Per qualunque problema con il mouse, consultare 'FAQ di WeeChat'.
@@ -1741,7 +1741,7 @@ automaticamente da WeeChat quando si risponde alle CTCP
 | $osinfo      | informazioni sull'OS                | Linux 2.6.31 / i686
 | $site        | sito di WeeChat                     | http://www.weechat.org
 | $download    | sito di WeeChat, pagina di download | http://www.weechat.org/download
-| $time        | data/ora correnti                   | Sun Sep 13 15:48:31 2009
+| $time        | data/ora correnti                   | Sun, 13 Sep 2009 15:48:31 +0200
 | $username    | nome utente sul server IRC          | nick
 | $realname    | nome reale sul server IRC           | Mio nome
 |=======================================
@@ -2262,7 +2262,7 @@ Traduzioni::
 Patch::
     Dmitry Kobylin, Rudolf Polzer, Jim Ramsay, Pistos, Gwenn, Dominik Honnef,
     JD Horelick, Stefano Pigozzi, Gu1ll4um3r0m41n, Kyle Fuller,
-    Quentin Glidic (SardemFF7), Simon Kuhnle, Mateusz Poszwa
+    Quentin Glidic (SardemFF7), Simon Kuhnle, Mateusz Poszwa, Peter Boström
 
 
 [[support]]

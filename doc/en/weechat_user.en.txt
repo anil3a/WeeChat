@@ -809,9 +809,9 @@ key @k(A-)@k(x) to disable mouse for 10 seconds:
 /key bind meta-x /mouse toggle 10
 ----------------------------------------
 
-When mouse is enabled in WeeChat, you can use "shift" modifier to select or
+When mouse is enabled in WeeChat, you can use @k(-S-) modifier to select or
 click in terminal, as if the mouse was disabled (on some terminals like iTerm,
-you have to use "alt" instead of "shift").
+you have to use @k(-A-) instead of @k(-S-)).
 
 [NOTE]
 For any problem with mouse, please look at 'WeeChat FAQ'.
@@ -1693,7 +1693,7 @@ when replying to CTCP:
 | $osinfo      | info about OS               | Linux 2.6.31 / i686
 | $site        | WeeChat site                | http://www.weechat.org
 | $download    | WeeChat site, download page | http://www.weechat.org/download
-| $time        | current date/time           | Sun Sep 13 15:48:31 2009
+| $time        | current date/time           | Sun, 13 Sep 2009 15:48:31 +0200
 | $username    | user name on IRC server     | nick
 | $realname    | real name on IRC server     | My name
 |========================================
@@ -2202,7 +2202,7 @@ Translations::
 Patches::
     Dmitry Kobylin, Rudolf Polzer, Jim Ramsay, Pistos, Gwenn, Dominik Honnef,
     JD Horelick, Stefano Pigozzi, Gu1ll4um3r0m41n, Kyle Fuller,
-    Quentin Glidic (SardemFF7), Simon Kuhnle, Mateusz Poszwa
+    Quentin Glidic (SardemFF7), Simon Kuhnle, Mateusz Poszwa, Peter Boström
 
 
 [[support]]
