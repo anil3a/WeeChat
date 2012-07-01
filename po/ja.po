@@ -20,13 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2012-06-16 03:03+0900\n"
 "PO-Revision-Date: 2012-06-18 01:55+0900\n"
-=======
-"POT-Creation-Date: 2012-06-30 14:13+0200\n"
-"PO-Revision-Date: 2012-06-03 09:49+0200\n"
->>>>>>> 73fbae6a621a0c4d0d0b86270ca58bdc157b63ed
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
