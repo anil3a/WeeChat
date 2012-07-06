@@ -2,10 +2,9 @@
 Sébastien Helleu <flashcode@flashtux.org>
 
 
-// TRANSLATION MISSING
 [NOTE]
-This document is written for WeeChat versions ≥ 0.3.0 but should preferrably be
-used with latest stable version of WeeChat.
+この文書は WeeChat バージョン 0.3.0 以上向けに書かれたものですが、
+最新安定版の WeeChat に対しても利用できます。
 
 
 [[general]]
@@ -695,10 +694,9 @@ OpenBSD では、プラグインファイル名の末尾が ".so.0.0" です (Li
 * 使わないプラグインのロードを禁止する、例えば: aspell、fifo、
   logger、perl、python、ruby、lua、tcl、xfer (DCC で使用)
 * 本当に必要なスクリプトだけをロード
-// TRANSLATION MISSING
-* reduce value of option 'weechat.history.max_buffer_lines_number' or set value
-  of option 'weechat.history.max_buffer_lines_minutes'
-* reduce value of option 'weechat.history.max_commands'
+* 'weechat.history.max_buffer_lines_number' オプションの値を減らすか、
+  'weechat.history.max_buffer_lines_minutes' オプションに値を設定してください。
+* 'weechat.history.max_commands' オプションの値を減らしてください。
 
 
 [[development]]
