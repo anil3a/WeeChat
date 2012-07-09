@@ -2584,6 +2584,9 @@ msgstr ""
 "バッファを閉じた場合は一つ前に訪れていたバッファに移動 (無効にされた場合は、"
 "バッファ番号の一つ少ないものに移動)"
 
+msgid "jump back to initial buffer after reaching end of hotlist"
+msgstr ""
+
 msgid "enable mouse support"
 msgstr "マウスサポートの有効化"
 
@@ -5748,12 +5751,10 @@ msgstr ""
 msgid "display server away message in away bar item"
 msgstr "サーバの離席メッセージを離席バーアイテムに表示"
 
-msgid "display channel modes in \"buffer_name\" bar item"
-msgstr "\"buffer_name\" バーアイテムにチャンネルモードを表示"
-
+#, fuzzy
 msgid ""
-"hide channel key if modes are displayed in \"buffer_name\" bar item (this "
-"will hide all channel modes arguments if mode +k is set on channel)"
+"hide channel key in channel modes (this will hide all channel modes "
+"arguments if mode +k is set on channel)"
 msgstr ""
 "\"buffer_name\" バーアイテムにモードが表示されていれば、チャンネルキーを隠す "
 "(チャンネルにモード +k が設定されていた場合、全てのチャンネルモード引数を隠"
@@ -8467,6 +8468,9 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "display channel modes in \"buffer_name\" bar item"
+#~ msgstr "\"buffer_name\" バーアイテムにチャンネルモードを表示"
 
 #~ msgid "%sError: name can not start with \"#\""
 #~ msgstr "%sエラー: \"#\" で始まる名前は使えません"
