@@ -5726,8 +5726,10 @@ msgstr ""
 msgid "smart completion for nicks (completes first with last speakers)"
 msgstr "ニックネームのスマート補完 (最新の会話から優先して補完)"
 
-msgid "display message when (un)marking as away"
-msgstr "離席(着席)状態の場合はメッセージを表示"
+msgid ""
+"display message when (un)marking as away (off: do not display/send anything, "
+"local: display locally, channel: send action to channels)"
+msgstr ""
 
 msgid "display CTCP message even if it is blocked"
 msgstr "ブロックした場合でも CTCP メッセージを表示"
@@ -8476,6 +8478,9 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "display message when (un)marking as away"
+#~ msgstr "離席(着席)状態の場合はメッセージを表示"
 
 #, fuzzy
 #~ msgid "%s%s: sending data to client error %d: %d %s"
