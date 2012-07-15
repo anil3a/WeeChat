@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-07-07 13:35+0200\n"
+"POT-Creation-Date: 2012-07-14 23:00+0200\n"
 "PO-Revision-Date: 2012-06-03 09:49+0200\n"
 "Last-Translator: Elián Hanisch <lambdae2@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -45,23 +45,26 @@ msgstr ""
 msgid "Usage: %s [option...] [plugin:option...]\n"
 msgstr "Uso: %s [opción...] [plugin:opción...]\n"
 
+#, fuzzy
 msgid ""
-"  -a, --no-connect  disable auto-connect to servers at startup\n"
-"  -c, --colors      display default colors in terminal\n"
-"  -d, --dir <path>  set WeeChat home directory (default: ~/.weechat)\n"
-"  -h, --help        this help\n"
-"  -k, --keys        display WeeChat default keys\n"
-"  -l, --license     display WeeChat license\n"
-"  -p, --no-plugin   don't load any plugin at startup\n"
-"  -s, --no-script   don't load any script at startup\n"
-"  -v, --version     display WeeChat version\n"
-"  plugin:option     option for plugin\n"
-"                    for example, irc plugin can connect\n"
-"                    to server with url like:\n"
-"                    irc[6][s]://[nickname[:password]@]irc.example.org[:port]"
+"  -a, --no-connect   disable auto-connect to servers at startup\n"
+"  -c, --colors       display default colors in terminal\n"
+"  -d, --dir <path>   set WeeChat home directory (default: ~/.weechat)\n"
+"  -h, --help         this help\n"
+"  -k, --keys         display WeeChat default keys\n"
+"  -l, --license      display WeeChat license\n"
+"  -p, --no-plugin    don't load any plugin at startup\n"
+"  -r, --run-command  run command(s) after startup\n"
+"                     (many commands can be separated by semicolons)\n"
+"  -s, --no-script    don't load any script at startup\n"
+"  -v, --version      display WeeChat version\n"
+"  plugin:option      option for plugin\n"
+"                     for example, irc plugin can connect\n"
+"                     to server with url like:\n"
+"                     irc[6][s]://[nickname[:password]@]irc.example.org[:port]"
 "[/#channel1][,#channel2[...]]\n"
-"                    (look at plugins documentation for more information\n"
-"                    about possible options)\n"
+"                     (look at plugins documentation for more information\n"
+"                     about possible options)\n"
 msgstr ""
 "  -a, --no-connect  desactivar la autoconexión de los servidores al inicio\n"
 "  -c, --colors      muestra los colores predeterminados en la terminal\n"
@@ -3950,6 +3953,13 @@ msgid "%s%s: not enough memory to create new speller"
 msgstr "%s%s: no hay suficiente memoria para crear el nuevo deletreador"
 
 #, c-format
+msgid ""
+"%s%s: UTF-8 is not allowed in charset options (it is internal and default "
+"charset: default encode is UTF-8 and decode of UTF-8 is OK even if you "
+"specify another charset to decode)"
+msgstr ""
+
+#, c-format
 msgid "%s%s: error creating charset \"%s\" => \"%s\""
 msgstr "%s%s: error al crear el set de caracteres \"%s\" => \"%s\""
 
@@ -6845,8 +6855,8 @@ msgstr ""
 "%s%s: enviando datos al servidor: buffer vacío (por favor reporta el "
 "problema a los desarrolladores)"
 
-#, c-format
-msgid "%s%s: sending data to server: %d %s"
+#, fuzzy, c-format
+msgid "%s%s: sending data to server: error %d %s"
 msgstr "%s%s: enviando datos al servidor: %d %s"
 
 msgid "(message dropped)"
@@ -7639,6 +7649,14 @@ msgstr "falló la autenticación"
 msgid "disconnected"
 msgstr "desconectado"
 
+#, fuzzy, c-format
+msgid "%s%s: reading data on socket for client %d: error %d %s"
+msgstr "%s%s: leyendo datos del socket: error %d %s"
+
+#, fuzzy, c-format
+msgid "%s%s: sending data to client %d: error %d %s"
+msgstr "%s%s: error al enviar datos al cliente %d (%s)"
+
 #, c-format
 msgid "%s: new client from %s%s%s on port %d (id: %d, relaying: %s%s%s)"
 msgstr ""
@@ -7877,14 +7895,6 @@ msgstr "%s%s: no hay memoria suficiente para escuchar en un nuevo puerto"
 #, c-format
 msgid "%s%s: not enough memory for parsing message"
 msgstr "%s%s: memoria insuficiente para analizar el mensaje"
-
-#, c-format
-msgid "%s%s: error sending data to client: %s"
-msgstr "%s%s: error al enviar datos al cliente: %s"
-
-#, c-format
-msgid "%s%s: error sending data to client %d (%s)"
-msgstr "%s%s: error al enviar datos al cliente %d (%s)"
 
 #, c-format
 msgid "%s%s: failed to execute command \"%s\" for client %d"
@@ -8705,6 +8715,13 @@ msgstr "Tipo"
 
 msgid "Constants"
 msgstr "Constantes"
+
+#, fuzzy
+#~ msgid "%s%s: sending data to client error %d: %d %s"
+#~ msgstr "%s%s: error al enviar datos al cliente %d (%s)"
+
+#~ msgid "%s%s: error sending data to client: %s"
+#~ msgstr "%s%s: error al enviar datos al cliente: %s"
 
 #~ msgid "display channel modes in \"buffer_name\" bar item"
 #~ msgstr "mostrar los modos del canal en el elemento de barra \"buffer_name\""
