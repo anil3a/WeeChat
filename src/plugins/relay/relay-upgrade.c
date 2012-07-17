@@ -181,8 +181,7 @@ relay_upgrade_read_cb (void *data,
                     new_client->status = weechat_infolist_integer (infolist, "status");
                     new_client->protocol = weechat_infolist_integer (infolist, "protocol");
                     str = weechat_infolist_string (infolist, "protocol_args");
-                    if (str)
-                        new_client->protocol_args = strdup (str);
+                    new_client->protocol_args = (str) ? strdup (str) : NULL;
                     new_client->listen_start_time = weechat_infolist_time (infolist, "listen_start_time");
                     new_client->start_time = weechat_infolist_time (infolist, "start_time");
                     new_client->end_time = weechat_infolist_time (infolist, "end_time");
@@ -214,6 +213,9 @@ relay_upgrade_read_cb (void *data,
                         case RELAY_NUM_PROTOCOLS:
                             break;
                     }
+
+                    new_client->outqueue = NULL;
+                    new_client->last_outqueue = NULL;
 
                     new_client->prev_client = NULL;
                     new_client->next_client = relay_clients;
