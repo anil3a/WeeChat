@@ -1369,7 +1369,7 @@ irc_config_server_new_option (struct t_config_file *config_file,
             new_option = weechat_config_new_option (
                 config_file, section,
                 option_name, "string",
-                N_("ssl certificate file used to automatically identify your "
+                N_("SSL certificate file used to automatically identify your "
                    "nick (\"%h\" will be replaced by WeeChat home, "
                    "\"~/.weechat\" by default)"),
                 NULL, 0, 0,
@@ -1410,7 +1410,7 @@ irc_config_server_new_option (struct t_config_file *config_file,
             new_option = weechat_config_new_option (
                 config_file, section,
                 option_name, "boolean",
-                N_("check that the ssl connection is fully trusted"),
+                N_("check that the SSL connection is fully trusted"),
                 NULL, 0, 0,
                 default_value, value,
                 null_value_allowed,
@@ -2096,7 +2096,9 @@ irc_config_init ()
     irc_config_look_nick_completion_smart = weechat_config_new_option (
         irc_config_file, ptr_section,
         "nick_completion_smart", "integer",
-        N_("smart completion for nicks (completes first with last speakers)"),
+        N_("smart completion for nicks (completes first with last speakers): "
+           "speakers = all speakers (including highlights), "
+           "speakers_highlights = only speakers with highlight"),
         "off|speakers|speakers_highlights", 0, 0, "speakers", NULL, 0, NULL, NULL,
         NULL, NULL, NULL, NULL);
     irc_config_look_display_away = weechat_config_new_option (
