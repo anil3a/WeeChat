@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-07-27 15:20+0900\n"
-"PO-Revision-Date: 2012-07-28 20:20+0900\n"
+"POT-Creation-Date: 2012-07-29 13:21+0900\n"
+"PO-Revision-Date: 2012-07-29 14:24+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -5487,7 +5487,9 @@ msgstr "サーバとの通信に SSL を利用"
 msgid ""
 "SSL certificate file used to automatically identify your nick (\"%h\" will "
 "be replaced by WeeChat home, \"~/.weechat\" by default)"
-msgstr "自動的にニックネームの身元確認を行うために使われる SSL 証明書ファイル (\"%h\" は WeeChat ホームで置換、デフォルトは \"~/.weechat\")"
+msgstr ""
+"自動的にニックネームの身元確認を行うために使われる SSL 証明書ファイル (\"%h"
+"\" は WeeChat ホームで置換、デフォルトは \"~/.weechat\")"
 
 msgid ""
 "string with priorities for gnutls (for syntax, see documentation of function "
@@ -5731,7 +5733,10 @@ msgid ""
 "smart completion for nicks (completes first with last speakers): speakers = "
 "all speakers (including highlights), speakers_highlights = only speakers "
 "with highlight"
-msgstr "ニックネームのスマート補完 (発言日時の新しいものから順にニックネームを補完): speakers = すべてのニックネーム (ハイライトされたニックネームを含む)、speakers_highlights = ハイライトされたニックネームのみ"
+msgstr ""
+"ニックネームのスマート補完 (発言日時の新しいものから順にニックネームを補完): "
+"speakers = すべてのニックネーム (ハイライトされたニックネームを含む)、"
+"speakers_highlights = ハイライトされたニックネームのみ"
 
 msgid ""
 "display message when (un)marking as away (off: do not display/send anything, "
@@ -7438,7 +7443,9 @@ msgstr "中継するクライアントのリスト"
 msgid ""
 "%s%s: disconnecting from client %s%s%s because upgrade can't work for "
 "clients connected via SSL"
-msgstr "%s%s: SSL 接続中のクライアントに対しては upgrade が利かないため、クライアント %s%s%s との接続を切断中"
+msgstr ""
+"%s%s: SSL 接続中のクライアントに対しては upgrade が利かないため、クライアン"
+"ト %s%s%s との接続を切断中"
 
 msgid "client"
 msgid_plural "clients"
@@ -7457,18 +7464,28 @@ msgid "disconnected"
 msgstr "切断されました"
 
 #, c-format
-msgid "%s%s: reading data on socket for client %d: error %d %s"
-msgstr "%s%s: クライアント %d のソケットからデータを読み取り中: エラー %d %s"
+msgid "%s%s: TLS handshake failed for client %s%s%s: error %d %s"
+msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクが失敗: エラー %d %s"
 
 #, c-format
-msgid "%s%s: sending data to client %d: error %d %s"
-msgstr "%s%s: クライアント %d へデータを送信中: エラー %d %s"
+msgid "%s%s: TLS handshake timeout for client %s%s%s"
+msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクがタイムアウト"
+
+#, c-format
+msgid "%s%s: reading data on socket for client %s%s%s: error %d %s"
+msgstr "%s%s: クライアント %s%s%s のソケットからデータを読み取り中: エラー %d %s"
+
+#, c-format
+msgid "%s%s: sending data to client %s%s%s: error %d %s"
+msgstr "%s%s: クライアント %s%s%s へデータを送信中: エラー %d %s"
 
 #, c-format
 msgid ""
 "%s%s: warning: no SSL certificate/key found (option relay.network."
 "ssl_cert_key)"
-msgstr "%s%s: 警告: SSL 証明書/鍵が見つかりません (オプション relay.network.ssl_cert_key)"
+msgstr ""
+"%s%s: 警告: SSL 証明書/鍵が見つかりません (オプション relay.network."
+"ssl_cert_key)"
 
 #, c-format
 msgid "%s: new client on port %d: %s%s%s"
@@ -7496,7 +7513,8 @@ msgstr "リレーする接続済みクライアント:"
 msgid ""
 "  %s%s%s (%s%s%s), started on: %s, last activity: %s, bytes: %lu recv, %lu "
 "sent"
-msgstr "  %s%s%s (%s%s%s)、開始日時: %s、最新の活動: %s、バイト数: %lu 受信、%lu 送信"
+msgstr ""
+"  %s%s%s (%s%s%s)、開始日時: %s、最新の活動: %s、バイト数: %lu 受信、%lu 送信"
 
 #, c-format
 msgid "  %s%s%s (%s%s%s), started on: %s"
@@ -7536,7 +7554,9 @@ msgstr "リレー管理"
 msgid ""
 "list|listfull|listrelay || add <protocol.name> <port> || del <protocol.name> "
 "|| raw || sslcertkey"
-msgstr "list|listfull|listrelay || add <protocol.name> <port> || del <protocol.name> || raw || sslcertkey"
+msgstr ""
+"list|listfull|listrelay || add <protocol.name> <port> || del <protocol.name> "
+"|| raw || sslcertkey"
 
 msgid ""
 "         list: list relay clients (only active relays)\n"
@@ -7573,10 +7593,12 @@ msgstr ""
 "protocol.name: リレーするプロトコルと名前:\n"
 "                 - プロトコル \"irc\": 名前は共有するサーバ\n"
 "                 - プロトコル \"weechat\" (名前は使われていない)\n"
-"               注意: SSL を有効化するには \"ssl.\" を protocol の最初に付ける\n"
+"               注意: SSL を有効化するには \"ssl.\" を protocol の最初に付け"
+"る\n"
 "         port: リレーに使うポート番号\n"
 "          raw: 生 Relay データバッファを開く\n"
-"   sslcertkey: オプション relay.network.ssl_cert_key のパスを使って SSL 証明書/鍵を設定\n"
+"   sslcertkey: オプション relay.network.ssl_cert_key のパスを使って SSL 証明"
+"書/鍵を設定\n"
 "\n"
 "引数無しの場合、リレークライアントのリストを含むバッファを開く\n"
 "\n"
@@ -7605,7 +7627,9 @@ msgstr "%s%s: エラー: ポート \"%d\" は既に使われています"
 
 #, c-format
 msgid "%s%s: cannot use SSL because WeeChat was not built with GnuTLS support"
-msgstr "%s%s: WeeChat は GnuTLS をサポートしてビルドされていないため、SSL は使えません"
+msgstr ""
+"%s%s: WeeChat は GnuTLS をサポートしてビルドされていないため、SSL は使えませ"
+"ん"
 
 #, c-format
 msgid "%s%s: error: unknown protocol \"%s\""
@@ -7724,7 +7748,8 @@ msgstr "%s%s: ポート %d (%s%s%s) での \"bind\" にエラー"
 
 #, c-format
 msgid "%s: listening on port %d (relay: %s%s%s,%s max %d clients)"
-msgstr "%s: ポート %d をリッスンしています (リレー: %s%s%s、%s 最大 %d クライアント)"
+msgstr ""
+"%s: ポート %d をリッスンしています (リレー: %s%s%s、%s 最大 %d クライアント)"
 
 #, c-format
 msgid "%s%s: not enough memory for listening on new port"
@@ -7736,13 +7761,16 @@ msgstr "%s%s: メッセージ解析用のメモリが足りません"
 
 #, c-format
 msgid "%s%s: failed to execute command \"%s\" for client %s%s%s"
-msgstr "%1$s%2$s: クライアント %4$s%5$s%6$s に対するコマンド \"%3$s\" の実行に失敗"
+msgstr ""
+"%1$s%2$s: クライアント %4$s%5$s%6$s に対するコマンド \"%3$s\" の実行に失敗"
 
 #, c-format
 msgid ""
 "%s%s: too few arguments received from client %s%s%s for command \"%s"
 "\" (received: %d arguments, expected: at least %d)"
-msgstr "%s%s: クライアント %s%s%s から受け付けたコマンド \"%s\" に対する引数が足りません (受信: %d 個の引数、必要数: 少なくとも %d 個)"
+msgstr ""
+"%s%s: クライアント %s%s%s から受け付けたコマンド \"%s\" に対する引数が足りま"
+"せん (受信: %d 個の引数、必要数: 少なくとも %d 個)"
 
 #, c-format
 msgid "%s%s: error compiling regular expression \"%s\""
