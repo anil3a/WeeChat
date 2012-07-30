@@ -1,12 +1,13 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.3.9-dev, 2012-07-27
+v0.3.9-dev, 2012-07-29
 
 
 Version 0.3.9 (under dev!)
 --------------------------
 
+* core: add option "swap" for command /buffer (task #11373)
 * core: fix names of cache variables in configure.in (bug #36971)
 * core: scroll to bottom of window after reaching first or last highlight with
   keys alt+"p" / alt+"n"
@@ -14,6 +15,7 @@ Version 0.3.9 (under dev!)
 * core: add support of arrays in hdata variables
 * core: add command line option "-r" (or "--run-command") to run command(s)
   after startup of WeeChat
+* core: fix refresh of bar items when switching window
 * core: fix refresh of bar items "buffer_filter" and "scroll" in root bars
   (bug #36816)
 * core: add function "hook_set" in plugin API, add "subplugin" in hooks (set by
@@ -62,6 +64,10 @@ Version 0.3.9 (under dev!)
 * relay: fix freeze when writing on relay socket (use non-blocking sockets in
   relay for irc and weechat protocols) (bug #36655)
 * ruby: detect ruby version 1.9.3 in cmake and autotools
+* scripts: fix deletion of configuration files when script is unloaded
+  (bug #36977)
+* scripts: fix function unhook_all: delete only callbacks of hooks and add
+  missing call to unhook
 * scripts: ignore call to "register" (with a warning) if script is already
   registered
 
