@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-07-30 16:49+0200\n"
+"POT-Creation-Date: 2012-08-02 08:54+0200\n"
 "PO-Revision-Date: 2012-07-30 15:38+0200\n"
 "Last-Translator: Marco Paolone <marcopaolone@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -2333,6 +2333,14 @@ msgid "display WeeChat version at startup"
 msgstr "mostra la versione di WeeChat all'avvio"
 
 msgid ""
+"set resource limits for WeeChat process, format is: \"res1:limit1,res2:"
+"limit2\"; resource name is the end of constant (RLIMIT_XXX) in lower case "
+"(see man setrlimit for values); limit -1 means \"unlimited\"; example: set "
+"unlimited size for core file and max 1GB of virtual memory: \"core:-1,"
+"as:1000000000\""
+msgstr ""
+
+msgid ""
 "alignment for end of lines (all lines after the first): they are starting "
 "under this data (time, buffer, prefix, suffix, message (default))"
 msgstr ""
@@ -3412,6 +3420,23 @@ msgstr ""
 "cambiato dall'ultima versione)"
 
 #, c-format
+msgid "%sError: invalid limit for resource \"%s\": %s (must be >= -1)"
+msgstr ""
+
+#, c-format
+msgid "Limit for resource \"%s\" has been set to %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sError: unable to set resource limit \"%s\" to %s: error %d %s"
+msgstr "%sErrore: impossibile impostare l'opzione \"%s\" per il proxy \"%s\""
+
+#, c-format
+msgid ""
+"%sError: unknown resource limit \"%s\" (see /help weechat.startup.sys_rlimit)"
+msgstr ""
+
+#, c-format
 msgid ""
 "Warning: the %d color pairs are used, do \"/color reset\" to remove unused "
 "pairs"
@@ -3646,6 +3671,10 @@ msgstr "Debug abilitato per il mouse (%s)"
 msgid "Debug disabled for mouse"
 msgstr "Debug disabilitato per il mouse"
 
+#, fuzzy
+msgid "Alias commands"
+msgstr "comandi di weechat"
+
 #, c-format
 msgid "%s%s: error, circular reference when calling alias \"%s\""
 msgstr "%s%s: errore, riferimento circolare alla chiamata dell'alias \"%s\""
@@ -3781,6 +3810,9 @@ msgid "alias name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "nome alias (può iniziare o terminare con \"*\" come carattere jolly) "
 "(opzionale)"
+
+msgid "Spell checker for input (with Aspell)"
+msgstr ""
 
 #, c-format
 msgid "%s: \"%s\" removed"
@@ -3952,6 +3984,10 @@ msgstr ""
 msgid "%s%s: not enough memory to create new speller"
 msgstr "%s%s: memoria non sufficiente per creare un nuovo correttore"
 
+#, fuzzy
+msgid "Charset conversions"
+msgstr "versione di WeeChat"
+
 #, c-format
 msgid ""
 "%s%s: UTF-8 is not allowed in charset options (it is internal and default "
@@ -4006,6 +4042,10 @@ msgstr ""
 "       encode: modifica il set di caratteri per la codifica\n"
 "set_caratteri: nuovo set di caratteri per il buffer corrente\n"
 "        reset: resetta il set di caratteri per il buffer corrente"
+
+#, fuzzy
+msgid "Demo plugin"
+msgstr "plugin"
 
 msgid "demo message without prefix"
 msgstr "messaggio dimostrativo senza prefisso"
@@ -4092,6 +4132,10 @@ msgstr ""
 "\n"
 "Senza argomento, il comando visualizza l'elenco delle liste info disponibili"
 
+#, fuzzy
+msgid "FIFO pipe for remote control"
+msgstr "%s%s: impossibile creare la pipe per il controllo remoto (%s)"
+
 #, c-format
 msgid "%s: removing old fifo pipe \"%s\""
 msgstr "%s: rimozione della pipe fifo %s precedente"
@@ -4136,6 +4180,9 @@ msgstr "assente"
 
 msgid "Lag"
 msgstr "Ritardo"
+
+msgid "IRC (Internet Relay Chat) protocol"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -7109,6 +7156,10 @@ msgstr "%s%s: disconnesso dal server"
 msgid "%s: disconnected from server"
 msgstr "%s: disconnesso dal server"
 
+#, fuzzy
+msgid "Log buffers to files"
+msgstr "file di configurazione"
+
 #, c-format
 msgid ""
 "%s%s: unable to find filename mask for buffer \"%s\", logging is disabled "
@@ -7644,6 +7695,9 @@ msgstr "%s%-26s avviato il: %s, terminato il: %s"
 msgid "List of clients for relay"
 msgstr "Elenco dei client per il relay"
 
+msgid "Relay WeeChat data to remote application (irc/weechat protocols)"
+msgstr ""
+
 #, c-format
 msgid ""
 "%s%s: disconnecting from client %s%s%s because upgrade can't work for "
@@ -7983,6 +8037,10 @@ msgstr ""
 "%s%s: argomenti non sufficienti ricevuti dal client %s%s%s per il comando "
 "\"%s\" (ricevuti: %d argomenti, attesi: %d almeno)"
 
+#, fuzzy
+msgid "String modifier with regular expressions"
+msgstr "sostituisce le stringhe del modificatore con le espressioni regolari"
+
 #, c-format
 msgid "%s%s: error compiling regular expression \"%s\""
 msgstr "%s%s: errore nella compilazione dell'espressione regolare \"%s\""
@@ -8114,6 +8172,9 @@ msgstr ""
 msgid "%s: registered script \"%s\", version %s (%s)"
 msgstr "%s: script \"%s\" registrato, versione %s (%s)"
 
+msgid "Support of scheme scripts (with Guile)"
+msgstr ""
+
 #, c-format
 msgid "%s: stdout/stderr: %s%s"
 msgstr "%s: stdout/stderr: %s%s"
@@ -8150,6 +8211,10 @@ msgstr "%s%s: script \"%s\" non caricato"
 msgid "%s%s: unknown option for command \"%s\""
 msgstr "%s%s: opzione sconosciuta per il comando \"%s\""
 
+#, fuzzy
+msgid "Support of lua scripts"
+msgstr "elenco degli script"
+
 #, c-format
 msgid "%s%s: unable to run function \"%s\""
 msgstr "%s%s: impossibile eseguire la funzione \"%s\""
@@ -8173,6 +8238,10 @@ msgstr "%s%s: impossibile caricare il file \"%s\""
 #, c-format
 msgid "%s%s: unable to execute file \"%s\""
 msgstr "%s%s: impossibile eseguire il file \"%s\""
+
+#, fuzzy
+msgid "Support of perl scripts"
+msgstr "elenco degli script"
 
 #, c-format
 msgid "%s%s: function \"%s\" must return one valid value (%d)"
@@ -8206,6 +8275,10 @@ msgstr "%s%s: errore sconosciuto durante la lettura del file \"%s\""
 msgid "%s%s: unable to initialize %s"
 msgstr "%s%s: impossibile inizializzare %s"
 
+#, fuzzy
+msgid "Support of python scripts"
+msgstr "elenco degli script"
+
 #, c-format
 msgid "%s%s: unable to initialize WeeChat module"
 msgstr "%s%s: impossibile inizializzare il modulo WeeChat"
@@ -8232,6 +8305,10 @@ msgstr "%s%s: impossibile ricevere lo stato attuale dell'interprete"
 #, c-format
 msgid "%s%s: unable to free interpreter"
 msgstr "%s%s: impossibile liberare l'interprete"
+
+#, fuzzy
+msgid "Support of ruby scripts"
+msgstr "elenco degli script"
 
 #, c-format
 msgid "%s%s: stdout/stderr: %s%s"
@@ -8379,6 +8456,10 @@ msgstr ""
 msgid "%s%s: wrong arguments for function \"%s\" (script: %s)"
 msgstr "%s%s: argomenti errati per la funzione \"%s\" (script: %s)"
 
+#, fuzzy
+msgid "Support of tcl scripts"
+msgstr "elenco degli script"
+
 #, c-format
 msgid "%s%s: unable to run function \"%s\": %s"
 msgstr "%s%s: impossibile eseguire la funzione \"%s\": %s"
@@ -8405,6 +8486,10 @@ msgstr "Tempo rimasto"
 
 msgid "Xfer list"
 msgstr "Lista xfer"
+
+#, fuzzy
+msgid "DCC file transfer and direct chat"
+msgstr "avvia una DCC (trasferimento file o chat diretta)"
 
 msgid "waiting"
 msgstr "in attesa"
@@ -8787,6 +8872,10 @@ msgstr "Tipo"
 
 msgid "Constants"
 msgstr "Costanti"
+
+#, fuzzy
+#~ msgid "Regex modifier"
+#~ msgstr "Rmodifier predefiniti:"
 
 #~ msgid "smart completion for nicks (completes first with last speakers)"
 #~ msgstr ""
