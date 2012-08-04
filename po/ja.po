@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-08-01 13:21+0900\n"
-"PO-Revision-Date: 2012-08-02 17:14+0900\n"
+"POT-Creation-Date: 2012-08-04 13:21+0900\n"
+"PO-Revision-Date: 2012-08-05 07:14+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -2307,7 +2307,11 @@ msgid ""
 "(see man setrlimit for values); limit -1 means \"unlimited\"; example: set "
 "unlimited size for core file and max 1GB of virtual memory: \"core:-1,"
 "as:1000000000\""
-msgstr "WeeChat プロセスのリソースを制限する、フォーマット: \"res1:limit1,res2:limit2\"; リソース名は定数 (RLIMIT_XXX) の最後の語を小文字で (値は man setrlimit を参照) 記述; 値の -1 は \"無制限\" の意; 例: core ファイルのサイズ制限を無制限に仮想メモリを 1GB に制限: \"core:-1,as:1000000000\""
+msgstr ""
+"WeeChat プロセスのリソースを制限する、フォーマット: \"res1:limit1,res2:"
+"limit2\"; リソース名は定数 (RLIMIT_XXX) の最後の語を小文字で (値は man "
+"setrlimit を参照) 記述; 値の -1 は \"無制限\" の意; 例: core ファイルのサイズ"
+"制限を無制限に仮想メモリを 1GB に制限: \"core:-1,as:1000000000\""
 
 msgid ""
 "alignment for end of lines (all lines after the first): they are starting "
@@ -3341,7 +3345,9 @@ msgstr ""
 
 #, c-format
 msgid "%sError: invalid limit for resource \"%s\": %s (must be >= -1)"
-msgstr "%sエラー: リソース \"%s\" に対する無効な制限値です: %s (>= -1 以上の値を設定してください)"
+msgstr ""
+"%sエラー: リソース \"%s\" に対する無効な制限値です: %s (>= -1 以上の値を設定"
+"してください)"
 
 #, c-format
 msgid "Limit for resource \"%s\" has been set to %s"
@@ -3354,7 +3360,9 @@ msgstr "%sエラー: リソース \"%s\" を %s に制限できません: エラ
 #, c-format
 msgid ""
 "%sError: unknown resource limit \"%s\" (see /help weechat.startup.sys_rlimit)"
-msgstr "%sエラー: リソース \"%s\" は定義されていません。(/help weechat.startup.sys_rlimit を参照)"
+msgstr ""
+"%sエラー: リソース \"%s\" は定義されていません。(/help weechat.startup."
+"sys_rlimit を参照)"
 
 #, c-format
 msgid ""
@@ -4061,9 +4069,9 @@ msgstr "%s%s: エラー、パイプを通して不正なテキストが渡され
 msgid "%s%s: error, buffer not found for pipe data"
 msgstr "%s%s: エラー、パイプデータで指定されたバッファが見つかりません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: error reading pipe (%d %s), closing it"
-msgstr "%s%s: パイプ読み取り中にエラー、パイプを閉じています"
+msgstr "%s%s: パイプ読み取り中にエラー (%d %s)、パイプを閉じています"
 
 #, c-format
 msgid "%s%s: error opening file, closing it"
@@ -7502,6 +7510,9 @@ msgstr "%s%-26s 開始日時: %s、終了日時: %s"
 
 msgid "List of clients for relay"
 msgstr "中継するクライアントのリスト"
+
+msgid "Relay WeeChat data to remote application (irc/weechat protocols)"
+msgstr "WeeChat データをリモートアプリケーションにリレー (irc/weechat プロトコル)"
 
 #, c-format
 msgid ""
