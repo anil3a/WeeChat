@@ -4061,8 +4061,8 @@ msgstr "%s%s: エラー、パイプを通して不正なテキストが渡され
 msgid "%s%s: error, buffer not found for pipe data"
 msgstr "%s%s: エラー、パイプデータで指定されたバッファが見つかりません"
 
-#, c-format
-msgid "%s%s: error reading pipe, closing it"
+#, fuzzy, c-format
+msgid "%s%s: error reading pipe (%d %s), closing it"
 msgstr "%s%s: パイプ読み取り中にエラー、パイプを閉じています"
 
 #, c-format
