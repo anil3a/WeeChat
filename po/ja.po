@@ -8324,6 +8324,10 @@ msgid "%s: unknown language for script \"%s\""
 msgstr "%s: スクリプト \"%s\" のアンロード中"
 
 #, fuzzy, c-format
+msgid "%s: script \"%s\" is not loaded"
+msgstr "%s%s: スクリプト \"%s\" はロードされていません"
+
+#, fuzzy, c-format
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "%s: スクリプト \"%s\" のアンロード中"
 
@@ -8344,12 +8348,8 @@ msgid "%s: script \"%s\" not found"
 msgstr "%s%s: スクリプト \"%s\" が見つかりません"
 
 #, fuzzy, c-format
-msgid "%s: script \"%s\" not held any more"
+msgid "%s: script \"%s\" is not held any more"
 msgstr "%s%s: スクリプト \"%s\" はロードされていません"
-
-#, fuzzy, c-format
-msgid "%s: script \"%s\" held"
-msgstr "%s: スクリプト \"%s\" がアンロードされました"
 
 #, fuzzy, c-format
 msgid "%s: script \"%s\" is already installed and up-to-date"
@@ -8445,8 +8445,8 @@ msgid "WeeChat scripts manager"
 msgstr "WeeChat サイト"
 
 msgid ""
-"list || show <script> || load|unload <script> [<script>...] || install|"
-"remove|hold <script> [<script>...] || upgrade || update"
+"list || show <script> || load|unload|reload <script> [<script>...] || "
+"install|remove|hold <script> [<script>...] || upgrade || update"
 msgstr ""
 
 msgid ""
@@ -8454,6 +8454,7 @@ msgid ""
 "    show: show detailed info about a script\n"
 "    load: load script(s)\n"
 "  unload: unload script(s)\n"
+"  reload: reload script(s)\n"
 " install: install/upgrade script(s)\n"
 "  remove: remove script(s)\n"
 "    hold: hold/unhold script(s) (a script held will not be upgraded any more "
@@ -8488,7 +8489,14 @@ msgid ""
 "  s:       reset sort (use default sort)\n"
 "  word(s)  filter scripts: search word(s) in scripts (description, "
 "tags, ...)\n"
-"  *        remove filter"
+"  *        remove filter\n"
+"\n"
+"Examples:\n"
+"  /script install iset.pl buffers.pl\n"
+"  /script remove iset.pl\n"
+"  /script hold urlserver.py\n"
+"  /script reload urlserver\n"
+"  /script upgrade"
 msgstr ""
 
 #, fuzzy
@@ -9080,3 +9088,7 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#, fuzzy
+#~ msgid "%s: script \"%s\" held"
+#~ msgstr "%s: スクリプト \"%s\" がアンロードされました"
