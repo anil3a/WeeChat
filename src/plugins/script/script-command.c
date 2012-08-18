@@ -102,6 +102,16 @@ script_command_script (void *data, struct t_gui_buffer *buffer, int argc,
         return WEECHAT_RC_OK;
     }
 
+    if (weechat_strcasecmp (argv[1], "search") == 0)
+    {
+        if (repo_scripts)
+            script_repo_filter_scripts ((argc > 2) ? argv_eol[2] : NULL);
+        else
+            script_repo_set_filter ((argc > 2) ? argv_eol[2] : NULL);
+        script_action_schedule ("buffer", 1, 0);
+        return WEECHAT_RC_OK;
+    }
+
     if (weechat_strcasecmp (argv[1], "list") == 0)
     {
         script_action_schedule ("list", 1, 0);
@@ -214,11 +224,13 @@ script_command_init ()
 {
     weechat_hook_command ("script",
                           N_("WeeChat scripts manager"),
-                          N_("list || show <script>"
+                          N_("list || search <text> || show <script>"
                              " || load|unload|reload <script> [<script>...]"
                              " || install|remove|hold <script> [<script>...]"
                              " || upgrade || update"),
                           N_("    list: list loaded scripts (all languages)\n"
+                             "  search: search scripts by tags or text and "
+                             "display result on scripts buffer\n"
                              "    show: show detailed info about a script\n"
                              "    load: load script(s)\n"
                              "  unload: unload script(s)\n"
@@ -244,27 +256,31 @@ script_command_init ()
                              "  | installed\n"
                              "  popular script\n\n"
                              "Keys on script buffer:\n"
-                             "  alt+i    install script\n"
-                             "  alt+r    remove script\n"
-                             "  alt+l    load script\n"
-                             "  alt+u    unload script\n"
-                             "  alt+h    (un)hold script\n\n"
+                             "  alt+i  install script\n"
+                             "  alt+r  remove script\n"
+                             "  alt+l  load script\n"
+                             "  alt+L  reload script\n"
+                             "  alt+u  unload script\n"
+                             "  alt+h  (un)hold script\n\n"
                              "Input allowed on script buffer:\n"
-                             "  q        close buffer\n"
-                             "  r        refresh buffer\n"
-                             "  s:x,y    sort buffer using keys x and y (see /help "
+                             "  i/r/l/L/u/h  action on script (same as keys above)\n"
+                             "  q            close buffer\n"
+                             "  $            refresh buffer\n"
+                             "  s:x,y        sort buffer using keys x and y (see /help "
                              "script.look.sort)\n"
-                             "  s:       reset sort (use default sort)\n"
-                             "  word(s)  filter scripts: search word(s) in "
+                             "  s:           reset sort (use default sort)\n"
+                             "  word(s)      filter scripts: search word(s) in "
                              "scripts (description, tags, ...)\n"
-                             "  *        remove filter\n\n"
+                             "  *            remove filter\n\n"
                              "Examples:\n"
+                             "  /script search url\n"
                              "  /script install iset.pl buffers.pl\n"
                              "  /script remove iset.pl\n"
                              "  /script hold urlserver.py\n"
                              "  /script reload urlserver\n"
                              "  /script upgrade"),
                           "list"
+                          " || search %(script_tags)"
                           " || show %(script_scripts)"
                           " || load %(script_files)|%*"
                           " || unload %(python_script)|%(perl_script)|"
