@@ -218,13 +218,11 @@ Debianのようにいくつかのディストリビューションでは、プ�
 見つかったプラグインは自動的に読み込まれます(プラグイン／スクリプトの読み込み
 有効／無効はWeeChatのドキュメントを参照してください)。
 
-// TRANSLATION MISSING
-Many external scripts (from contributors) are available for WeeChat:
+WeeChat では多くの外部スクリプト (貢献者の作った) が利用可能です:
 http://www.weechat.org/scripts
 
-// TRANSLATION MISSING
-You can manage scripts in WeeChat with command `/script` (see `/help script`
-for more info).
+WeeChat ではコマンド `/script` を使うことで、スクリプトの管理ができます
+(より詳しい情報を見るには `/help script` を参照してください)。
 
 
 [[more_doc]]
