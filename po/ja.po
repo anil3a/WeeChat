@@ -2630,12 +2630,6 @@ msgstr ""
 "マウスイベントを横取りするための遅延 (ミリ秒): WeeChat はイベント処理前にこの"
 "遅延時間だけ待つ"
 
-msgid "display nick mode ((half)op/voice) before each nick"
-msgstr "それぞれのニックネームの前にニックモード ((half)op/voice) を表示"
-
-msgid "display space if nick mode is not (half)op/voice"
-msgstr "ニックモードが (half)op/voice でなければ空白を表示"
-
 msgid ""
 "enable terminal \"bracketed paste mode\" (not supported in all terminals/"
 "multiplexers): in this mode, pasted text is bracketed with control sequences "
@@ -5774,6 +5768,18 @@ msgstr "チャットウィンドウ内でニックネーム前に表示するテ
 
 msgid "text to display after nick in chat window"
 msgstr "チャットウィンドウ内でニックネーム後に表示するテキスト"
+
+msgid ""
+"display nick mode (op, voice, ...) before nick (none = never, prefix = in "
+"prefix only (default), action = in action messages only, both = prefix + "
+"action messages)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"display a space if nick mode is enabled but nick has no mode (not op, "
+"voice, ...)"
+msgstr "ニックモードが (half)op/voice でなければ空白を表示"
 
 msgid ""
 "force color for some nicks: hash computed with nickname to find color will "
@@ -9100,7 +9106,3 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
-
-#, fuzzy
-#~ msgid "%s: script \"%s\" held"
-#~ msgstr "%s: スクリプト \"%s\" がアンロードされました"
