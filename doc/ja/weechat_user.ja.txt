@@ -2089,8 +2089,7 @@ WeeChat は 6 種類のスクリプトプラグインを備えています: Pyth
 'WeeChat スクリプト製作ガイド' を参照してください。
 
 [[script_options]]
-スクリプトオプション (script.conf)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+==== スクリプトオプション (script.conf) ====
 
 include::autogen/user/script_options.txt[]
 
