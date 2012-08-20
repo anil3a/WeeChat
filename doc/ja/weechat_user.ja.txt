@@ -749,6 +749,8 @@ irc サーバ "freenode" に含まれる全てのバッファに対して設定�
 | ◾◽◽     | 右           | チャット             | 次のバッファに移動 | /window ${_window_number};/buffer +1
 | ◾◽◽     | 左 (長く)    | チャット             | 最初のバッファに移動 | /window ${_window_number};/buffer 1
 | ◾◽◽     | 右 (長く)    | チャット             | 最後のバッファに移動 | /window ${_window_number};/input jump_last_buffer
+| ◾◽◽     | -            | チャット (スクリプトバッファ) | スクリプトバッファで行選択 | /script go ${_chat_line_y}
+| ◽◽◾     | -            | チャット (スクリプトバッファ) | スクリプトのインストール / 削除 | /script go ${_chat_line_y};/script installremove ${script_name_with_extension}
 | ⇑       | -            | チャット             | バッファ履歴を上方向にスクロール | /window scroll_up -window ${_window_number}
 | ⇓       | -            | チャット             | バッファ履歴を下方向にスクロール | /window scroll_down -window ${_window_number}
 | ⇑       | -            | チャット (スクリプトバッファ) | スクリプトバッファを 5 行上方向にスクロール | /script up 5
