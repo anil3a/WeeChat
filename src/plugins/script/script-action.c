@@ -37,7 +37,7 @@
 char *script_actions = NULL;
 
 
-void script_action_install ();
+void script_action_install (int quiet);
 
 
 /*
@@ -92,6 +92,65 @@ script_action_list ()
 }
 
 /*
+ * script_action_list_input: list loaded scripts (all languages) in input
+ *                           (send it to buffer if send_to_buffer == 1)
+ */
+
+void
+script_action_list_input (int send_to_buffer)
+{
+    int i, length;
+    char hdata_name[128], *buf, str_pos[16];
+    struct t_hdata *hdata;
+    void *ptr_script;
+
+    buf = malloc (16384);
+    if (!buf)
+        return;
+
+    buf[0] = '\0';
+    length = 0;
+
+    for (i = 0; script_language[i]; i++)
+    {
+        snprintf (hdata_name, sizeof (hdata_name),
+                  "%s_script", script_language[i]);
+        hdata = weechat_hdata_get (hdata_name);
+        ptr_script = weechat_hdata_get_list (hdata, "scripts");
+        while (ptr_script)
+        {
+            if (buf[0])
+                strcat (buf, ", ");
+            strcat (buf, weechat_hdata_string (hdata, ptr_script, "name"));
+            strcat (buf, ".");
+            strcat (buf, script_extension[i]);
+            strcat (buf, " ");
+            strcat (buf, weechat_hdata_string (hdata, ptr_script, "version"));
+            length = strlen (buf);
+            if (length > 16384 - 64)
+            {
+                strcat (buf, "...");
+                length += 3;
+                break;
+            }
+            ptr_script = weechat_hdata_move (hdata, ptr_script, 1);
+        }
+    }
+
+    if (buf[0])
+    {
+        if (send_to_buffer)
+            weechat_command (weechat_current_buffer (), buf);
+        else
+        {
+            weechat_buffer_set (weechat_current_buffer (), "input", buf);
+            snprintf (str_pos, sizeof (str_pos), "%d", length);
+            weechat_buffer_set (weechat_current_buffer (), "input_pos", str_pos);
+        }
+    }
+}
+
+/*
  * script_action_load: load a script
  */
 
@@ -118,8 +177,9 @@ script_action_load (const char *name, int quiet)
 
     /* execute command (for example: "/perl load iset.pl") */
     snprintf (str_command, sizeof (str_command),
-              "/%s load %s",
+              "/%s load %s%s",
               script_language[language],
+              (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
               name);
     weechat_command (NULL, str_command);
 }
@@ -183,8 +243,9 @@ script_action_unload (const char *name, int quiet)
                 if (ptr_registered_name)
                 {
                     snprintf (str_command, sizeof (str_command),
-                              "/%s unload %s",
+                              "/%s unload %s%s",
                               script_language[language],
+                              (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
                               ptr_registered_name);
                     weechat_command (NULL, str_command);
                 }
@@ -209,8 +270,9 @@ script_action_unload (const char *name, int quiet)
                 if (strcmp (ptr_registered_name, name) == 0)
                 {
                     snprintf (str_command, sizeof (str_command),
-                              "/%s unload %s",
+                              "/%s unload %s%s",
                               script_language[i],
+                              (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
                               name);
                     weechat_command (NULL, str_command);
                     return;
@@ -287,8 +349,9 @@ script_action_reload (const char *name, int quiet)
                 if (ptr_registered_name)
                 {
                     snprintf (str_command, sizeof (str_command),
-                              "/%s reload %s",
+                              "/%s reload %s%s",
                               script_language[language],
+                              (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
                               ptr_registered_name);
                     weechat_command (NULL, str_command);
                 }
@@ -313,8 +376,9 @@ script_action_reload (const char *name, int quiet)
                 if (strcmp (ptr_registered_name, name) == 0)
                 {
                     snprintf (str_command, sizeof (str_command),
-                              "/%s reload %s",
+                              "/%s reload %s%s",
                               script_language[i],
+                              (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
                               name);
                     weechat_command (NULL, str_command);
                     return;
@@ -340,10 +404,9 @@ int
 script_action_installnext_timer_cb (void *data, int remaining_calls)
 {
     /* make C compiler happy */
-    (void) data;
     (void) remaining_calls;
 
-    script_action_install ();
+    script_action_install ((data) ? 1 : 0);
 
     return WEECHAT_RC_OK;
 }
@@ -357,11 +420,11 @@ script_action_install_process_cb (void *data, const char *command,
                                   int return_code, const char *out,
                                   const char *err)
 {
-    char *pos, *filename, str_signal[256];
+    char *pos, *filename, *filename2, str_signal[256];
+    int quiet, length;
     struct t_repo_script *ptr_script;
 
-    /* make C compiler happy */
-    (void) data;
+    quiet = (data) ? 1 : 0;
 
     if (return_code >= 0)
     {
@@ -386,18 +449,29 @@ script_action_install_process_cb (void *data, const char *command,
                 filename = script_config_get_script_download_filename (ptr_script);
                 if (filename)
                 {
-                    snprintf (str_signal, sizeof (str_signal),
-                              "%s_script_install",
-                              script_language[ptr_script->language]);
-                    weechat_hook_signal_send (str_signal,
-                                              WEECHAT_HOOK_SIGNAL_STRING,
-                                              filename);
+                    length = 3 + strlen (filename) + 1;
+                    filename2 = malloc (length);
+                    if (filename2)
+                    {
+                        snprintf (filename2, length,
+                                  "%s%s",
+                                  (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
+                                  filename);
+                        snprintf (str_signal, sizeof (str_signal),
+                                  "%s_script_install",
+                                  script_language[ptr_script->language]);
+                        weechat_hook_signal_send (str_signal,
+                                                  WEECHAT_HOOK_SIGNAL_STRING,
+                                                  filename2);
+                        free (filename2);
+                    }
                     free (filename);
                 }
 
                 /* schedule install of next script */
                 weechat_hook_timer (10, 0, 1,
-                                    &script_action_installnext_timer_cb, NULL);
+                                    &script_action_installnext_timer_cb,
+                                    (quiet) ? (void *)1 : (void *)0);
             }
         }
     }
@@ -410,7 +484,7 @@ script_action_install_process_cb (void *data, const char *command,
  */
 
 void
-script_action_install ()
+script_action_install (int quiet)
 {
     struct t_repo_script *ptr_script, *ptr_script_to_install;
     char *filename, *url;
@@ -446,17 +520,20 @@ script_action_install ()
                 url = malloc (length);
                 if (url)
                 {
-                    weechat_printf (NULL,
-                                    _("%s: downloading script \"%s\"..."),
-                                    SCRIPT_PLUGIN_NAME,
-                                    ptr_script_to_install->name_with_extension);
+                    if (!weechat_config_boolean (script_config_look_quiet_actions))
+                    {
+                        weechat_printf (NULL,
+                                        _("%s: downloading script \"%s\"..."),
+                                        SCRIPT_PLUGIN_NAME,
+                                        ptr_script_to_install->name_with_extension);
+                    }
 
                     snprintf (url, length, "url:%s",
                               ptr_script_to_install->url);
                     weechat_hashtable_set (options, "file_out", filename);
                     weechat_hook_process_hashtable (url, options, 30000,
                                                     &script_action_install_process_cb,
-                                                    NULL);
+                                                    (quiet) ? (void *)1 : (void *)0);
                     free (url);
                 }
                 weechat_hashtable_free (options);
@@ -474,7 +551,8 @@ void
 script_action_remove (const char *name, int quiet)
 {
     struct t_repo_script *ptr_script;
-    char str_signal[256];
+    char str_signal[256], *filename;
+    int length;
 
     ptr_script = script_repo_search_by_name_ext (name);
     if (ptr_script)
@@ -499,12 +577,22 @@ script_action_remove (const char *name, int quiet)
         }
         else
         {
-            snprintf (str_signal, sizeof (str_signal),
-                      "%s_script_remove",
-                      script_language[ptr_script->language]);
-            weechat_hook_signal_send (str_signal,
-                                      WEECHAT_HOOK_SIGNAL_STRING,
-                                      ptr_script->name_with_extension);
+            length = 3 + strlen (ptr_script->name_with_extension) + 1;
+            filename = malloc (length);
+            if (filename)
+            {
+                snprintf (filename, length,
+                          "%s%s",
+                          (quiet && weechat_config_boolean (script_config_look_quiet_actions)) ? "-q " : "",
+                          ptr_script->name_with_extension);
+                snprintf (str_signal, sizeof (str_signal),
+                          "%s_script_remove",
+                          script_language[ptr_script->language]);
+                weechat_hook_signal_send (str_signal,
+                                          WEECHAT_HOOK_SIGNAL_STRING,
+                                          filename);
+                free (filename);
+            }
         }
     }
     else
@@ -658,7 +746,17 @@ script_action_run ()
                 }
                 else if (weechat_strcasecmp (argv[0], "list") == 0)
                 {
-                    script_action_list ();
+                    if (argc > 1)
+                    {
+                        if (weechat_strcasecmp (argv[1], "-i") == 0)
+                            script_action_list_input (0);
+                        else if (weechat_strcasecmp (argv[1], "-o") == 0)
+                            script_action_list_input (1);
+                        else
+                            script_action_list ();
+                    }
+                    else
+                        script_action_list ();
                 }
                 else if (weechat_strcasecmp (argv[0], "load") == 0)
                 {
@@ -717,7 +815,7 @@ script_action_run ()
                         }
                     }
                     if (script_found)
-                        script_action_install ();
+                        script_action_install (quiet);
                 }
                 else if (weechat_strcasecmp (argv[0], "remove") == 0)
                 {
@@ -758,7 +856,7 @@ script_action_run ()
                         }
                     }
                     if (script_found)
-                        script_action_install ();
+                        script_action_install (quiet);
                 }
                 else if (weechat_strcasecmp (argv[0], "hold") == 0)
                 {
@@ -798,7 +896,7 @@ script_action_run ()
                         }
                     }
                     if (script_found)
-                        script_action_install ();
+                        script_action_install (quiet);
                     else
                     {
                         weechat_printf (NULL,
