@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-08-24 07:05+0900\n"
-"PO-Revision-Date: 2012-08-24 07:29+0900\n"
+"POT-Creation-Date: 2012-08-24 07:31+0900\n"
+"PO-Revision-Date: 2012-08-24 07:44+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -6650,11 +6650,10 @@ msgstr ""
 "%s%s: 全ての設定されたニックネームは既に利用されているか、無効です、サーバと"
 "の接続を閉じています"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: nickname \"%s\" is invalid, trying nickname \"%s\""
 msgstr ""
-"%s%s: ニックネームは \"%s\" 無効です、ニックネーム #%d (\"%s\") を試行してい"
-"ます"
+"%s%s: ニックネーム \"%s\" は無効です、ニックネーム \"%s\" を試行しています"
 
 #, c-format
 msgid ""
@@ -6664,16 +6663,16 @@ msgstr ""
 "%s%s: 全ての設定されたニックネームは既に利用されています、サーバとの接続を閉"
 "じています"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s: nickname \"%s\" is already in use, trying nickname \"%s\""
 msgstr ""
-"%s: ニックネーム \"%s\" は既に使われています、ニックネーム #%d (\"%s\") を試"
-"行しています"
+"%s: ニックネーム \"%s\" は既に使われています、ニックネーム \"%s\" を試行して"
+"います"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: nickname \"%s\" is unavailable, trying nickname \"%s\""
 msgstr ""
-"%s%s: ニックネーム \"%s\" は無効です、ニックネーム #%d (\"%s\") を試行してい"
+"%s%s: ニックネーム \"%s\" は利用できません、ニックネーム \"%s\" を試行してい"
 "ます"
 
 #, c-format
@@ -6771,9 +6770,9 @@ msgstr "%s%s: ソケットからデータを読み取り中: エラー %d %s"
 msgid "(connection closed by peer)"
 msgstr "(ピアが接続を閉じました)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: disconnecting from server..."
-msgstr "%s: サーバとの接続を切断中..."
+msgstr "%s%s: サーバとの接続を切断中..."
 
 #, c-format
 msgid "%s%s: connection timeout (message 001 not received)"
@@ -6783,25 +6782,25 @@ msgstr "%s%s: 接続タイムアウト (メッセージ 001 が受信されま�
 msgid "%s%s: sasl authentication timeout"
 msgstr "%s%s: sasl 認証タイムアウト"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: lag is high, disconnecting from server..."
-msgstr "%s: ラグが長いです、サーバとの接続を切断中..."
+msgstr "%s%s: ラグが長いです、サーバとの接続を切断中..."
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: reconnecting to server in %d %s, %d %s"
-msgstr "%s: サーバに再接続中 %d %s、%d %s"
+msgstr "%s%s: サーバに再接続中 %d %s、%d %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: reconnecting to server in %d %s"
-msgstr "%s: サーバに再接続中 %d %s"
+msgstr "%s%s: サーバに再接続中 %d %s"
 
 #, c-format
 msgid "%s: switching address to %s/%d"
 msgstr "%s: アドレスの変更中 %s/%d"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: connected to %s/%d (%s)"
-msgstr "%s: %s/%d (%s) に接続完了"
+msgstr "%s%s: %s/%d (%s) に接続完了"
 
 #, c-format
 msgid "%s%s: proxy address \"%s\" not found"
@@ -6954,9 +6953,9 @@ msgstr ""
 "%s%s: WeeChat は GnuTLS をサポートしてビルドされていないため、SSL で接続でき"
 "ません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: connecting to server %s/%d%s%s via %s proxy %s/%d%s..."
-msgstr "%s: サーバ %s/%d%s%s に %s プロキシ %s/%d%s で接続中..."
+msgstr "%s%s: サーバ %s/%d%s%s に %s プロキシ %s/%d%s で接続中..."
 
 #, c-format
 msgid "Connecting to server %s/%d%s%s via %s proxy %s/%d%s..."
@@ -6978,9 +6977,9 @@ msgstr "%s%s: ソケットオプション \"SO_REUSEADDR\" の設定に失敗"
 msgid "%s%s: cannot set socket option \"SO_KEEPALIVE\""
 msgstr "%s%s: ソケットオプション \"SO_KEEPALIVE\" の設定に失敗"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: reconnecting to server..."
-msgstr "%s: サーバに再接続中..."
+msgstr "%s%s: サーバに再接続中..."
 
 #, c-format
 msgid "%s%s: disconnected from server"
