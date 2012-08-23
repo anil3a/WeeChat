@@ -1,12 +1,15 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.3.9-dev, 2012-08-17
+v0.3.9-dev, 2012-08-22
 
 
 Version 0.3.9 (under dev!)
 --------------------------
 
+* core: display spaces at the end of messages in chat area (bug #37024)
+* core: fix infinite loop in display when chat area has width of 1 with
+  a bar displayed on the right (nicklist by default) (bug #37089)
 * core: fix display of "bar more down" char when text is truncated by size_max
   in bars with vertical filling (bug #37054)
 * core: fix color of long lines (displayed on more than one line on screen)
@@ -55,6 +58,10 @@ Version 0.3.9 (under dev!)
 * fifo: ignore read failing with error EAGAIN (bug #37019)
 * guile: fix crash when unloading a script without pointer to interpreter
 * guile: fix path of guile include dirs in cmake build (patch #7790)
+* irc: add network prefix in irc (dis)connection messages
+* irc: generate alternate nicks dynamically when all nicks are already in use
+  (task #12209)
+* irc: fix split of received IRC message: keep spaces at the end of message
 * irc: move options from core to irc plugin: weechat.look.nickmode to
   irc.look.nick_mode (new type: integer with values: none/prefix/action/both)
   and weechat.look.nickmode_empty to irc.look.nick_mode_empty

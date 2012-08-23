@@ -486,6 +486,100 @@ irc_server_get_nick_index (struct t_irc_server *server)
 }
 
 /*
+ * irc_server_get_alternate_nick: get an alternate nick when the nick is
+ *                                already used on server
+ *                                We first try all declared nicks, then we
+ *                                build nicks by adding "_", until length of 9.
+ *                                If all nicks are still used, build 99
+ *                                alternate nicks by using number at the end.
+ *                                Example: nicks = "abcde,fghi,jkl"
+ *                                Nicks tried: abcde
+ *                                             fghi
+ *                                             jkl
+ *                                             abcde_
+ *                                             abcde__
+ *                                             abcde___
+ *                                             abcde____
+ *                                             abcde___1
+ *                                             abcde___2
+ *                                             ...
+ *                                             abcde__99
+ *                                Return NULL if no more alternate nick is
+ *                                available
+ */
+
+const char *
+irc_server_get_alternate_nick (struct t_irc_server *server)
+{
+    static char nick[64];
+    char str_number[64];
+    int nick_index, length_nick, length_number;
+
+    nick[0] = '\0';
+
+    /* we are still trying nicks from option "nicks" */
+    if (server->nick_alternate_number < 0)
+    {
+        nick_index = irc_server_get_nick_index (server);
+        if (nick_index < 0)
+            nick_index = 0;
+        else
+        {
+            nick_index = (nick_index + 1) % server->nicks_count;
+            /* stop loop if first nick tried was not in the list of nicks */
+            if ((nick_index == 0) && (server->nick_first_tried < 0))
+                server->nick_first_tried = 0;
+        }
+
+        if (nick_index != server->nick_first_tried)
+        {
+            snprintf (nick, sizeof (nick),
+                      "%s", server->nicks_array[nick_index]);
+            return nick;
+        }
+
+        /*
+         * we have tried all nicks in list, then use main nick
+         * and we will add "_" and then number if needed
+         */
+        server->nick_alternate_number = 0;
+        snprintf (nick, sizeof (nick), "%s", server->nicks_array[0]);
+    }
+    else
+        snprintf (nick, sizeof (nick), "%s", server->nick);
+
+    /* if length is < 9, just add a "_" */
+    if (strlen (nick) < 9)
+    {
+        strcat (nick, "_");
+        return nick;
+    }
+
+    server->nick_alternate_number++;
+
+    /* number is max 99 */
+    if (server->nick_alternate_number > 99)
+        return NULL;
+
+    /* be sure the nick has 9 chars max */
+    nick[9] = '\0';
+
+    /* generate number */
+    snprintf (str_number, sizeof (str_number),
+              "%d", server->nick_alternate_number);
+
+    /* copy number in nick */
+    length_nick = strlen (nick);
+    length_number = strlen (str_number);
+    if (length_number > length_nick)
+        return NULL;
+    memcpy (nick + length_nick - length_number, str_number, length_number);
+
+    /* return alternate nick */
+    return nick;
+}
+
+/*
  * irc_server_get_isupport_value: return value of an item in "isupport" (copy
  *                                of IRC message 005)
  *                                if feature is found but has no value, empty
@@ -782,6 +876,7 @@ irc_server_alloc (const char *name)
     new_server->nicks_count = 0;
     new_server->nicks_array = NULL;
     new_server->nick_first_tried = 0;
+    new_server->nick_alternate_number = -1;
     new_server->nick = NULL;
     new_server->nick_modes = NULL;
     new_server->isupport = NULL;
@@ -2406,7 +2501,8 @@ irc_server_recv_cb (void *data, int fd)
                                 (num_read == 0) ? _("(connection closed by peer)") :
                                 gnutls_strerror (num_read));
                 weechat_printf (server->buffer,
-                                _("%s: disconnecting from server..."),
+                                _("%s%s: disconnecting from server..."),
+                                weechat_prefix ("network"),
                                 IRC_PLUGIN_NAME);
                 irc_server_disconnect (server, !server->is_connected, 1);
             }
@@ -2424,7 +2520,8 @@ irc_server_recv_cb (void *data, int fd)
                                 (num_read == 0) ? _("(connection closed by peer)") :
                                 strerror (errno));
                 weechat_printf (server->buffer,
-                                _("%s: disconnecting from server..."),
+                                _("%s%s: disconnecting from server..."),
+                                weechat_prefix ("network"),
                                 IRC_PLUGIN_NAME);
                 irc_server_disconnect (server, !server->is_connected, 1);
             }
@@ -2612,8 +2709,9 @@ irc_server_timer_cb (void *data, int remaining_calls)
                         && (ptr_server->lag / 1000 > weechat_config_integer (irc_config_network_lag_disconnect) * 60))
                     {
                         weechat_printf (ptr_server->buffer,
-                                        _("%s: lag is high, disconnecting "
+                                        _("%s%s: lag is high, disconnecting "
                                           "from server..."),
+                                        weechat_prefix ("network"),
                                         IRC_PLUGIN_NAME);
                         irc_server_disconnect (ptr_server, 0, 1);
                     }
@@ -2752,7 +2850,8 @@ irc_server_reconnect_schedule (struct t_irc_server *server)
         if ((minutes > 0) && (seconds > 0))
         {
             weechat_printf (server->buffer,
-                            _("%s: reconnecting to server in %d %s, %d %s"),
+                            _("%s%s: reconnecting to server in %d %s, %d %s"),
+                            weechat_prefix ("network"),
                             IRC_PLUGIN_NAME,
                             minutes,
                             NG_("minute", "minutes", minutes),
@@ -2762,7 +2861,8 @@ irc_server_reconnect_schedule (struct t_irc_server *server)
         else if (minutes > 0)
         {
             weechat_printf (server->buffer,
-                            _("%s: reconnecting to server in %d %s"),
+                            _("%s%s: reconnecting to server in %d %s"),
+                            weechat_prefix ("network"),
                             IRC_PLUGIN_NAME,
                             minutes,
                             NG_("minute", "minutes", minutes));
@@ -2770,7 +2870,8 @@ irc_server_reconnect_schedule (struct t_irc_server *server)
         else
         {
             weechat_printf (server->buffer,
-                            _("%s: reconnecting to server in %d %s"),
+                            _("%s%s: reconnecting to server in %d %s"),
+                            weechat_prefix ("network"),
                             IRC_PLUGIN_NAME,
                             seconds,
                             NG_("second", "seconds", seconds));
@@ -2810,6 +2911,8 @@ irc_server_login (struct t_irc_server *server)
     }
     else
         server->nick_first_tried = irc_server_get_nick_index (server);
+
+    server->nick_alternate_number = -1;
 
     if (irc_server_sasl_enabled (server) || (capabilities && capabilities[0]))
     {
@@ -2893,7 +2996,8 @@ irc_server_connect_cb (void *data, int status, int gnutls_rc,
                 free (server->current_ip);
             server->current_ip = (ip_address) ? strdup (ip_address) : NULL;
             weechat_printf (server->buffer,
-                            _("%s: connected to %s/%d (%s)"),
+                            _("%s%s: connected to %s/%d (%s)"),
+                            weechat_prefix ("network"),
                             IRC_PLUGIN_NAME,
                             server->current_address,
                             server->current_port,
@@ -3574,8 +3678,9 @@ irc_server_connect (struct t_irc_server *server)
     if (proxy_type)
     {
         weechat_printf (server->buffer,
-                        _("%s: connecting to server %s/%d%s%s via %s "
+                        _("%s%s: connecting to server %s/%d%s%s via %s "
                           "proxy %s/%d%s..."),
+                        weechat_prefix ("network"),
                         IRC_PLUGIN_NAME,
                         server->current_address,
                         server->current_port,
@@ -3603,7 +3708,8 @@ irc_server_connect (struct t_irc_server *server)
     else
     {
         weechat_printf (server->buffer,
-                        _("%s: connecting to server %s/%d%s%s..."),
+                        _("%s%s: connecting to server %s/%d%s%s..."),
+                        weechat_prefix ("network"),
                         IRC_PLUGIN_NAME,
                         server->current_address,
                         server->current_port,
@@ -3718,7 +3824,8 @@ void
 irc_server_reconnect (struct t_irc_server *server)
 {
     weechat_printf (server->buffer,
-                    _("%s: reconnecting to server..."),
+                    _("%s%s: reconnecting to server..."),
+                    weechat_prefix ("network"),
                     IRC_PLUGIN_NAME);
 
     server->reconnect_start = 0;
@@ -3781,7 +3888,7 @@ irc_server_disconnect (struct t_irc_server *server, int switch_address,
             }
             weechat_printf (ptr_channel->buffer,
                             _("%s%s: disconnected from server"),
-                            "",
+                            weechat_prefix ("network"),
                             IRC_PLUGIN_NAME);
         }
     }
@@ -3791,7 +3898,8 @@ irc_server_disconnect (struct t_irc_server *server, int switch_address,
     if (server->buffer)
     {
         weechat_printf (server->buffer,
-                        _("%s: disconnected from server"),
+                        _("%s%s: disconnected from server"),
+                        weechat_prefix ("network"),
                         IRC_PLUGIN_NAME);
     }
 
@@ -4290,6 +4398,7 @@ irc_server_hdata_server_cb (void *data, const char *hdata_name)
         WEECHAT_HDATA_VAR(struct t_irc_server, nicks_count, INTEGER, NULL, NULL);
         WEECHAT_HDATA_VAR(struct t_irc_server, nicks_array, STRING, "nicks_count", NULL);
         WEECHAT_HDATA_VAR(struct t_irc_server, nick_first_tried, INTEGER, NULL, NULL);
+        WEECHAT_HDATA_VAR(struct t_irc_server, nick_alternate_number, INTEGER, NULL, NULL);
         WEECHAT_HDATA_VAR(struct t_irc_server, nick, STRING, NULL, NULL);
         WEECHAT_HDATA_VAR(struct t_irc_server, nick_modes, STRING, NULL, NULL);
         WEECHAT_HDATA_VAR(struct t_irc_server, isupport, STRING, NULL, NULL);
@@ -4800,6 +4909,7 @@ irc_server_print_log ()
         weechat_log_printf ("  nicks_count. . . . . : %d",    ptr_server->nicks_count);
         weechat_log_printf ("  nicks_array. . . . . : 0x%lx", ptr_server->nicks_array);
         weechat_log_printf ("  nick_first_tried . . : %d",    ptr_server->nick_first_tried);
+        weechat_log_printf ("  nick_alternate_number: %d",    ptr_server->nick_alternate_number);
         weechat_log_printf ("  nick . . . . . . . . : '%s'",  ptr_server->nick);
         weechat_log_printf ("  nick_modes . . . . . : '%s'",  ptr_server->nick_modes);
         weechat_log_printf ("  isupport . . . . . . : '%s'",  ptr_server->isupport);
