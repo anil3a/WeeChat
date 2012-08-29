@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-08-25 19:27+0200\n"
+"POT-Creation-Date: 2012-08-28 16:36+0200\n"
 "PO-Revision-Date: 2012-08-20 15:20+0200\n"
 "Last-Translator: Marco Paolone <marcopaolone@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -8492,6 +8492,17 @@ msgstr "%s%s: script \"%s\" non trovato"
 msgid "%s: script \"%s\" is not held any more"
 msgstr "%s%s: script \"%s\" non caricato"
 
+#, fuzzy
+msgid "Error: file not found"
+msgstr "%sErrore: buffer non trovato"
+
+msgid "Source code:"
+msgstr ""
+
+#, fuzzy
+msgid "Downloading script..."
+msgstr "%s: scaricamento dello script \"%s\""
+
 #, fuzzy, c-format
 msgid "%s: script \"%s\" is already installed and up-to-date"
 msgstr "%s%s: script \"%s\" già registrato (funzione register ignorata)"
@@ -8505,6 +8516,10 @@ msgstr ""
 
 msgid "Version"
 msgstr ""
+
+#, fuzzy
+msgid "Version loaded"
+msgstr "Plugin caricati:"
 
 msgid "Author"
 msgstr ""
@@ -8544,29 +8559,6 @@ msgstr "esce da WeeChat"
 #, fuzzy
 msgid "Max WeeChat"
 msgstr "esce da WeeChat"
-
-msgid "popular"
-msgstr ""
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "installed"
-msgstr ""
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "autoloaded"
-msgstr ""
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "held"
-msgstr ""
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "running"
-msgstr ""
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "obsolete"
-msgstr ""
 
 msgid "alt+d=back to list"
 msgstr ""
@@ -8677,6 +8669,11 @@ msgid ""
 "%e=extension, %l=language, %L=license, %n=name with extension, %N=name, "
 "%r=requirements, %s=status, %t=tags, %u=date updated, %v=version, %V=version "
 "loaded, %w=min_weechat, %W=max_weechat)"
+msgstr ""
+
+msgid ""
+"display source code of script on buffer with detail on a script (script is "
+"downloaded in a temporary file when detail on script is displayed)"
 msgstr ""
 
 msgid ""
@@ -8829,6 +8826,30 @@ msgstr ""
 #, fuzzy
 msgid "scripts from repository"
 msgstr "elenco degli script"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "popular"
+msgstr ""
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "installed"
+msgstr ""
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "autoloaded"
+msgstr ""
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "held"
+msgstr ""
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "running"
+msgstr ""
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "obsolete"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%s%s: error reading list of scripts"

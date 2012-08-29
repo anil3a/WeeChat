@@ -8306,6 +8306,10 @@ msgstr "スクリプト"
 msgid "Version"
 msgstr "バージョン"
 
+#, fuzzy
+msgid "Version loaded"
+msgstr "ロード済みプラグイン:"
+
 msgid "Author"
 msgstr "作者"
 
@@ -8546,6 +8550,11 @@ msgstr ""
 "き換えられます: %a=作者、%d=説明、%D=追加日、%e=拡張子、%l=言語、%L=ライセン"
 "ス、%n=拡張子を含む名前、%N=名前、%r=依存、%s=状態、%t=タグ、%u=アップデート"
 "日、%v=バージョン、%V=ロード済みバージョン、%w=min_weechat、%W=max_weechat)"
+
+msgid ""
+"display source code of script on buffer with detail on a script (script is "
+"downloaded in a temporary file when detail on script is displayed)"
+msgstr ""
 
 msgid ""
 "quiet actions on script buffer: do not display messages on core buffer when "
