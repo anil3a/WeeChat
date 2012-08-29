@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-08-28 17:05+0900\n"
-"PO-Revision-Date: 2012-08-28 17:13+0900\n"
+"POT-Creation-Date: 2012-08-29 17:32+0900\n"
+"PO-Revision-Date: 2012-08-29 17:40+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -8292,6 +8292,15 @@ msgstr "%s: スクリプト \"%s\" が見つかりません"
 msgid "%s: script \"%s\" is not held any more"
 msgstr "%s: スクリプト \"%s\" のホールド状態が解除されました"
 
+msgid "Error: file not found"
+msgstr "エラー: ファイルが見つかりません"
+
+msgid "Source code:"
+msgstr "ソースコード:"
+
+msgid "Downloading script..."
+msgstr "スクリプトのダウンロード中..."
+
 #, c-format
 msgid "%s: script \"%s\" is already installed and up-to-date"
 msgstr "%s: スクリプト \"%s\" の最新版がインストール済みです"
@@ -8306,9 +8315,8 @@ msgstr "スクリプト"
 msgid "Version"
 msgstr "バージョン"
 
-#, fuzzy
 msgid "Version loaded"
-msgstr "ロード済みプラグイン:"
+msgstr "ロード済みバージョン"
 
 msgid "Author"
 msgstr "作者"
@@ -8345,29 +8353,6 @@ msgstr "WeeChat を最小化"
 
 msgid "Max WeeChat"
 msgstr "WeeChat を最大化"
-
-msgid "popular"
-msgstr "人気"
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "installed"
-msgstr "インストール済み"
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "autoloaded"
-msgstr "自動ロード有効化"
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "held"
-msgstr "ホールド状態"
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "running"
-msgstr "起動済み"
-
-#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
-msgid "obsolete"
-msgstr "アップデートが必要"
 
 msgid "alt+d=back to list"
 msgstr "alt+d=リストに戻る"
@@ -8555,6 +8540,8 @@ msgid ""
 "display source code of script on buffer with detail on a script (script is "
 "downloaded in a temporary file when detail on script is displayed)"
 msgstr ""
+"スクリプトの詳細と併せてバッファにスクリプトのソースコードを表示 (スクリプト"
+"の詳細が表示された場合、スクリプトは一時的にダウンロードされます)"
 
 msgid ""
 "quiet actions on script buffer: do not display messages on core buffer when "
@@ -8698,6 +8685,30 @@ msgstr ""
 
 msgid "scripts from repository"
 msgstr "リポジトリからのスクリプト"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "popular"
+msgstr "人気"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "installed"
+msgstr "インストール済み"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "autoloaded"
+msgstr "自動ロード有効化"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "held"
+msgstr "ホールド状態"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "running"
+msgstr "起動済み"
+
+#. TRANSLATORS: translation must be one short word without spaces (replace spaces by underscores if needed)
+msgid "obsolete"
+msgstr "アップデートが必要"
 
 #, c-format
 msgid "%s%s: error reading list of scripts"
