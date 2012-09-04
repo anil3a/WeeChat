@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-09-04 21:17+0900\n"
+"POT-Creation-Date: 2012-09-04 21:22+0900\n"
 "PO-Revision-Date: 2012-08-31 16:54+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
@@ -8273,6 +8273,10 @@ msgstr "ロード済みスクリプト:"
 msgid "%s: unknown language for script \"%s\""
 msgstr "%s: スクリプト \"%s\" は利用できない言語で書かれています"
 
+#, fuzzy, c-format
+msgid "%s: plugin \"%s\" is not loaded"
+msgstr "%s: スクリプト \"%s\" はロードされていません"
+
 #, c-format
 msgid "%s: script \"%s\" is not loaded"
 msgstr "%s: スクリプト \"%s\" はロードされていません"
@@ -8281,9 +8285,19 @@ msgstr "%s: スクリプト \"%s\" はロードされていません"
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "%s%s: スクリプト \"%s\" のダウンロード中にエラーが発生: %s"
 
+#, fuzzy, c-format
+msgid ""
+"%s: script \"%s\" can not be installed because plugin \"%s\" is not loaded"
+msgstr ""
+"%sエラー: 関数 \"%s\" がプラグイン \"%s\" の中に見つかりません、ロード失敗"
+
 #, c-format
 msgid "%s: downloading script \"%s\"..."
 msgstr "%s: スクリプト \"%s\" のダウンロード中"
+
+#, c-format
+msgid "%s: script \"%s\" not found"
+msgstr "%s: スクリプト \"%s\" が見つかりません"
 
 #, c-format
 msgid "%s: script \"%s\" is not installed"
@@ -8293,9 +8307,11 @@ msgstr "%s: スクリプト \"%s\" はインストールされていません"
 msgid "%s: script \"%s\" is held"
 msgstr "%s: スクリプト \"%s\" はホールド状態です"
 
-#, c-format
-msgid "%s: script \"%s\" not found"
-msgstr "%s: スクリプト \"%s\" が見つかりません"
+#, fuzzy, c-format
+msgid ""
+"%s: script \"%s\" can not be removed because plugin \"%s\" is not loaded"
+msgstr ""
+"%sエラー: 関数 \"%s\" がプラグイン \"%s\" の中に見つかりません、ロード失敗"
 
 #, c-format
 msgid "%s: script \"%s\" is not held any more"
