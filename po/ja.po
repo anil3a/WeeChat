@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2012-09-04 21:22+0900\n"
-"PO-Revision-Date: 2012-08-31 16:54+0900\n"
+"PO-Revision-Date: 2012-09-05 01:33+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -6590,9 +6590,9 @@ msgstr "%s%s[%s%s%s] %s%s%s は %s%s %s(%s%s%s)%s によって %s に招待さ�
 msgid "%s%s[%s%s%s] %s%s%s invited by %s%s %s(%s%s%s)"
 msgstr "%s%s[%s%s%s] %s%s%s は %s%s %s(%s%s%s) によって招待されました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s[%s%s%s] %s%s%s invited"
-msgstr "%s%s[%s%s%s] %s%s%s は %s%s %s(%s%s%s) によって招待されました"
+msgstr "%s%s[%s%s%s] %s%s%s が招待されました"
 
 #. TRANSLATORS: "%s" after "on" is a date
 #, c-format
@@ -6669,11 +6669,11 @@ msgstr ""
 "%s%s: 全ての設定されたニックネームは既に利用されています、サーバとの接続を閉"
 "じています"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: nickname \"%s\" is already in use, trying nickname \"%s\""
 msgstr ""
-"%s: ニックネーム \"%s\" は既に使われています、ニックネーム \"%s\" を試行して"
-"います"
+"%s%s: ニックネーム \"%s\" は既に使われています、ニックネーム \"%s\" を試行し"
+"ています"
 
 #, c-format
 msgid "%s%s: nickname \"%s\" is unavailable, trying nickname \"%s\""
@@ -6800,9 +6800,9 @@ msgstr "%s%s: サーバに再接続中 %d %s、%d %s"
 msgid "%s%s: reconnecting to server in %d %s"
 msgstr "%s%s: サーバに再接続中 %d %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: switching address to %s/%d"
-msgstr "%s: アドレスの変更中 %s/%d"
+msgstr "%s%s: アドレスを %s/%d に変更中"
 
 #, c-format
 msgid "%s%s: connected to %s/%d (%s)"
@@ -6873,9 +6873,9 @@ msgstr "%s%s: メモリが足りません"
 msgid "%s%s: timeout"
 msgstr "%s%s: タイムアウト"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sgnutls: connected using %d-bit Diffie-Hellman shared secret exchange"
-msgstr "gnutls: %d-ビット Diffie-Hellman 共有鍵交換を使って接続中"
+msgstr "%sgnutls: %d-bit Diffie-Hellman 共有鍵交換を使って接続しました"
 
 #, c-format
 msgid "%sgnutls: error while checking peer's certificate"
@@ -6885,9 +6885,9 @@ msgstr "%sgnutls: ピア証明書の確認中にエラー"
 msgid "%sgnutls: peer's certificate is NOT trusted"
 msgstr "%sgnutls: ピア証明書は信頼できません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sgnutls: peer's certificate is trusted"
-msgstr "gnutls: ピア証明書は信頼できます"
+msgstr "%sgnutls: ピア証明書は信頼できます"
 
 #, c-format
 msgid "%sgnutls: peer's certificate issuer is unknown"
@@ -6897,14 +6897,14 @@ msgstr "%sgnutls: ピア証明書に未知の問題"
 msgid "%sgnutls: the certificate has been revoked"
 msgstr "%sgnutls: 証明書は破棄されました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sgnutls: receiving %d certificate"
 msgid_plural "%sgnutls: receiving %d certificates"
-msgstr[0] "gnutls: %d 個の証明書を受け取りました"
+msgstr[0] "%sgnutls: %d 個の証明書を受け取りました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s - certificate[%d] info:"
-msgstr " - 証明書[%d] 情報:"
+msgstr "%s - 証明書[%d] 情報:"
 
 #, c-format
 msgid "%sgnutls: certificate has expired"
@@ -6918,23 +6918,23 @@ msgstr "%sgnutls: 証明書はまだ使えません"
 msgid "%sgnutls: the hostname in the certificate does NOT match \"%s\""
 msgstr "%sgnutls: 証明書内のホストネームは \"%s\" とマッチしません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sgnutls: sending one certificate"
-msgstr "gnutls: 一通の証明書の送信中"
+msgstr "%sgnutls: 一通の証明書の送信中"
 
 #, c-format
 msgid "%sgnutls: invalid certificate \"%s\", error: %s"
 msgstr "%sgnutls: 無効な証明書 \"%s\"、エラー: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s - client certificate info (%s):"
-msgstr " - クライアント証明書情報 (%s):"
+msgstr "%s - クライアント証明書情報 (%s):"
 
 #, c-format
 msgid "%sgnutls: unable to read certifcate \"%s\""
 msgstr "%sgnutls: 証明書 \"%s\" が読めません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: unknown address for server \"%s\", cannot connect"
 msgstr "%s%s: サーバ \"%s\" のアドレスが不明、接続できません"
 
@@ -8273,9 +8273,9 @@ msgstr "ロード済みスクリプト:"
 msgid "%s: unknown language for script \"%s\""
 msgstr "%s: スクリプト \"%s\" は利用できない言語で書かれています"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s: plugin \"%s\" is not loaded"
-msgstr "%s: スクリプト \"%s\" はロードされていません"
+msgstr "%s: プラグイン \"%s\" はロードされていません"
 
 #, c-format
 msgid "%s: script \"%s\" is not loaded"
@@ -8285,11 +8285,12 @@ msgstr "%s: スクリプト \"%s\" はロードされていません"
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "%s%s: スクリプト \"%s\" のダウンロード中にエラーが発生: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: script \"%s\" can not be installed because plugin \"%s\" is not loaded"
 msgstr ""
-"%sエラー: 関数 \"%s\" がプラグイン \"%s\" の中に見つかりません、ロード失敗"
+"%s: プラグイン \"%s\" がロードされていないため、スクリプト \"%s\" をインス"
+"トールできませんでした"
 
 #, c-format
 msgid "%s: downloading script \"%s\"..."
@@ -8307,11 +8308,12 @@ msgstr "%s: スクリプト \"%s\" はインストールされていません"
 msgid "%s: script \"%s\" is held"
 msgstr "%s: スクリプト \"%s\" はホールド状態です"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: script \"%s\" can not be removed because plugin \"%s\" is not loaded"
 msgstr ""
-"%sエラー: 関数 \"%s\" がプラグイン \"%s\" の中に見つかりません、ロード失敗"
+"%s: プラグイン \"%s\" がロードされていないため、スクリプト \"%s\" を削除でき"
+"ませんでした"
 
 #, c-format
 msgid "%s: script \"%s\" is not held any more"
