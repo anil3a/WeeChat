@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.3.9-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-09-03 10:12+0200\n"
+"POT-Creation-Date: 2012-09-04 13:19+0200\n"
 "PO-Revision-Date: 2012-08-20 15:20+0200\n"
 "Last-Translator: Sergio Durigan Junior <sergiosdj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -6202,6 +6202,10 @@ msgstr "%s%s[%s%s%s] %s%s%s convidado por %s%s %s(%s%s%s)%s em %s"
 msgid "%s%s[%s%s%s] %s%s%s invited by %s%s %s(%s%s%s)"
 msgstr "%s%s[%s%s%s] %s%s%s convidado por %s%s %s(%s%s%s)"
 
+#, fuzzy, c-format
+msgid "%s%s[%s%s%s] %s%s%s invited"
+msgstr "%s%s[%s%s%s] %s%s%s convidado por %s%s %s(%s%s%s)"
+
 #. TRANSLATORS: "%s" after "on" is a date
 #, c-format
 msgid "%s%s[%s%s%s]%s exception %s%s%s by %s%s %s(%s%s%s)%s on %s"
@@ -7835,6 +7839,10 @@ msgid "%s: unknown language for script \"%s\""
 msgstr "%s: descarregando script \"%s\""
 
 #, fuzzy, c-format
+msgid "%s: plugin \"%s\" is not loaded"
+msgstr "%s%s: script \"%s\" não carregado"
+
+#, fuzzy, c-format
 msgid "%s: script \"%s\" is not loaded"
 msgstr "%s%s: script \"%s\" não carregado"
 
@@ -7843,8 +7851,18 @@ msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "%s: descarregando script \"%s\""
 
 #, fuzzy, c-format
+msgid ""
+"%s: script \"%s\" can not be installed because plugin \"%s\" is not loaded"
+msgstr ""
+"%sErro: função \"%s\" não encontrada no plugin \"%s\", falhou ao carregar"
+
+#, fuzzy, c-format
 msgid "%s: downloading script \"%s\"..."
 msgstr "%s: descarregando script \"%s\""
+
+#, fuzzy, c-format
+msgid "%s: script \"%s\" not found"
+msgstr "%s%s: script \"%s\" não encontrado"
 
 #, fuzzy, c-format
 msgid "%s: script \"%s\" is not installed"
@@ -7855,8 +7873,10 @@ msgid "%s: script \"%s\" is held"
 msgstr "%s: script \"%s\" descarregado"
 
 #, fuzzy, c-format
-msgid "%s: script \"%s\" not found"
-msgstr "%s%s: script \"%s\" não encontrado"
+msgid ""
+"%s: script \"%s\" can not be removed because plugin \"%s\" is not loaded"
+msgstr ""
+"%sErro: função \"%s\" não encontrada no plugin \"%s\", falhou ao carregar"
 
 #, fuzzy, c-format
 msgid "%s: script \"%s\" is not held any more"
