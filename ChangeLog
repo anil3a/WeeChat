@@ -1,12 +1,14 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.3.9-rc1, 2012-09-16
+v0.3.9-rc1, 2012-09-17
 
 
 Version 0.3.9 (under dev!)
 --------------------------
 
+* core: move the set of cmake policy CMP0003 in directory src (so it applies to
+  all plugins) (bug #37311)
 * core: add signals for plugins loaded/unloaded
 * core: add default key alt+"x" (zoom on merged buffer) (task #11029)
 * core: fix display bug when end of a line is displayed on top of chat (last
@@ -52,7 +54,7 @@ Version 0.3.9 (under dev!)
 * core: reallow names beginning with "#" for bars, proxies and filters
 * core: escape special chars (`#[\`) in configuration files for name of options
   (bug #36584)
-* doc: add japanese user's guide (patch #7827)
+* doc: add japanese user's guide (patch #7827) and scripting guide
 * api: allow update for some variables of hdata, add new functions hdata_update
   and hdata_set
 * api: add info "locale" for info_get (locale used to translate messages)
@@ -91,6 +93,7 @@ Version 0.3.9 (under dev!)
 * irc: fix freeze when reading on socket with SSL enabled (use non-blocking
   sockets) (bug #35097)
 * irc: reallow names beginning with "#" for servers
+* logger: add tags in backlog lines displayed when opening buffer
 * logger: add messages "Day changed to" in backlog (task #12187)
 * lua: support of lua 5.2
 * lua: fix crash when unloading a script without pointer to interpreter
