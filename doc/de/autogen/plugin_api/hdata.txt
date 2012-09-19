@@ -1,6 +1,6 @@
 [width="100%",cols="^1,^2,5,5,5,5",options="header"]
 |========================================
-| Erweiterung | Name | Beschreibung | Variablen | Update allowed | Listen
+| Erweiterung | Name | Beschreibung | Variablen | Update erlaubt | Listen
 
 | guile | guile_script | Liste der Skripten |
   'filename' (string) +
@@ -189,6 +189,7 @@
   'notify_list' (pointer, hdata: "irc_notify") +
   'last_notify' (pointer, hdata: "irc_notify") +
   'manual_joins' (hashtable) +
+  'channel_join_key' (hashtable) +
   'buffer' (pointer, hdata: "buffer") +
   'buffer_as_string' (string) +
   'channels' (pointer, hdata: "irc_channel") +
@@ -271,7 +272,7 @@
   'last_script' +
   'scripts'
 
-| script | script_script | scripts from repository |
+| script | script_script | Skripten aus dem Repositorium |
   'name' (string) +
   'name_with_extension' (string) +
   'language' (integer) +

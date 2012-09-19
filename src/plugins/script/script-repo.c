@@ -21,7 +21,13 @@
  * script-repo.c: download and read repository file (plugins.xml.gz)
  */
 
+/*
+ * this define is needed for strptime()
+ * but is not used for OpenBSD, it causes bug with gcrypt (see bug #37373)
+ */
+#if !defined(__OpenBSD__)
 #define _XOPEN_SOURCE 700
+#endif
 
 #include <limits.h>
 #include <stdlib.h>
@@ -1027,6 +1033,13 @@ script_repo_file_is_uptodate ()
 
     /* file does not exist? => NOT up-to-date */
     if (stat (filename, &st) == -1)
+    {
+        free (filename);
+        return 0;
+    }
+
+    /* file is empty? => NOT up-to-date */
+    if (st.st_size == 0)
     {
         free (filename);
         return 0;
