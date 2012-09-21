@@ -745,32 +745,32 @@ irc サーバ "freenode" に含まれる全てのバッファに対して設定�
 [width="100%",cols="^.^3,^.^3,^.^3,.^10,.^8l",options="header"]
 |========================================
 | ボタン^(1)^ | ジェスチャー| エリア| 説明 | コマンド
-| ◾◽◽     | -            | チャット             | ウィンドウに移動 | /window ${_window_number}
-| ◾◽◽     | 左           | チャット             | 前のバッファに移動 | /window ${_window_number};/buffer +1
-| ◾◽◽     | 右           | チャット             | 次のバッファに移動 | /window ${_window_number};/buffer +1
-| ◾◽◽     | 左 (長く)    | チャット             | 最初のバッファに移動 | /window ${_window_number};/buffer 1
-| ◾◽◽     | 右 (長く)    | チャット             | 最後のバッファに移動 | /window ${_window_number};/input jump_last_buffer
+| ◾◽◽     | -            | チャット                      | ウィンドウに移動 | /window ${_window_number}
+| ◾◽◽     | 左           | チャット                      | 前のバッファに移動 | /window ${_window_number};/buffer +1
+| ◾◽◽     | 右           | チャット                      | 次のバッファに移動 | /window ${_window_number};/buffer +1
+| ◾◽◽     | 左 (長く)    | チャット                      | 最初のバッファに移動 | /window ${_window_number};/buffer 1
+| ◾◽◽     | 右 (長く)    | チャット                      | 最後のバッファに移動 | /window ${_window_number};/input jump_last_buffer
 | ◾◽◽     | -            | チャット (スクリプトバッファ) | スクリプトバッファで行選択 | /script go ${_chat_line_y}
 | ◽◽◾     | -            | チャット (スクリプトバッファ) | スクリプトのインストール / 削除 | /script go ${_chat_line_y};/script installremove ${script_name_with_extension}
-| ⇑       | -            | チャット             | バッファ履歴を上方向にスクロール | /window scroll_up -window ${_window_number}
-| ⇓       | -            | チャット             | バッファ履歴を下方向にスクロール | /window scroll_down -window ${_window_number}
+| ⇑       | -            | チャット                      | バッファ履歴を上方向にスクロール | /window scroll_up -window ${_window_number}
+| ⇓       | -            | チャット                      | バッファ履歴を下方向にスクロール | /window scroll_down -window ${_window_number}
 | ⇑       | -            | チャット (スクリプトバッファ) | スクリプトバッファを 5 行上方向にスクロール | /script up 5
 | ⇓       | -            | チャット (スクリプトバッファ) | スクリプトバッファで 5 行下方向にスクロール | /script down 5
-| @k(C-)⇑ | -            | チャット             | 水平左方向にスクロール | /window scroll_horiz -window ${_window_number} -10%
-| @k(C-)⇓ | -            | チャット             | 水平右方向にスクロール | /window scroll_horiz -window ${_window_number} +10%
-| ◾◽◽     | 上           | ニックネームリスト   | ニックネームリストを 1 ページ分上方向にスクロール | /bar scroll nicklist ${_window_number} -100%
-| ◾◽◽     | 下           | ニックネームリスト   | ニックネームリストを 1 ページ分下方向にスクロール | /bar scroll nicklist ${_window_number} +100%
-| ◾◽◽     | 上 (長く)    | ニックネームリスト   | ニックネームリストの最初に移動 | /bar scroll nicklist ${_window_number} b
-| ◾◽◽     | 下 (長く)    | ニックネームリスト   | ニックネームリストの最後に移動 | /bar scroll nicklist ${_window_number} e
-| ◾◽◽     | -            | ニックネームリスト   | ニックネームに対するクエリを開く | /window ${_window_number};/query ${nick}
-| ◽◽◾     | -            | ニックネームリスト   | ニックネームに対する whois を行う | /window ${_window_number};/whois ${nick}
-| ◾◽◽     | 左           | ニックネームリスト   | ニックネームをキックする | /window ${_window_number};/kick ${nick}
-| ◾◽◽     | 左 (長く)    | ニックネームリスト   | ニックネームをキックとバンする | /window ${_window_number};/kickban ${nick}
-| ◽◽◾     | 左           | ニックネームリスト   | ニックネームをバンする | /window ${_window_number};/ban ${nick}
-| ◽◽◾     | -            | 入力                 | マウスイベントを奪ってコマンドラインにコードを入力 | /input grab_mouse_area
-| ⇑       | -            | 任意のバー           | バーを -20% スクロール | /bar scroll ${_bar_name} ${_window_number} -20%
-| ⇓       | -            | 任意のバー           | バーを +20% スクロール | /bar scroll ${_bar_name} ${_window_number} +20%
-| ◽◾◽     | -            | 任意の場所           | この場所でカーソルモードを開始 | /cursor go ${_x},${_y}
+| @k(C-)⇑ | -            | チャット                      | 水平左方向にスクロール | /window scroll_horiz -window ${_window_number} -10%
+| @k(C-)⇓ | -            | チャット                      | 水平右方向にスクロール | /window scroll_horiz -window ${_window_number} +10%
+| ◾◽◽     | 上           | ニックネームリスト            | ニックネームリストを 1 ページ分上方向にスクロール | /bar scroll nicklist ${_window_number} -100%
+| ◾◽◽     | 下           | ニックネームリスト            | ニックネームリストを 1 ページ分下方向にスクロール | /bar scroll nicklist ${_window_number} +100%
+| ◾◽◽     | 上 (長く)    | ニックネームリスト            | ニックネームリストの最初に移動 | /bar scroll nicklist ${_window_number} b
+| ◾◽◽     | 下 (長く)    | ニックネームリスト            | ニックネームリストの最後に移動 | /bar scroll nicklist ${_window_number} e
+| ◾◽◽     | -            | ニックネームリスト            | ニックネームに対するクエリを開く | /window ${_window_number};/query ${nick}
+| ◽◽◾     | -            | ニックネームリスト            | ニックネームに対する whois を行う | /window ${_window_number};/whois ${nick}
+| ◾◽◽     | 左           | ニックネームリスト            | ニックネームをキックする | /window ${_window_number};/kick ${nick}
+| ◾◽◽     | 左 (長く)    | ニックネームリスト            | ニックネームをキックとバンする | /window ${_window_number};/kickban ${nick}
+| ◽◽◾     | 左           | ニックネームリスト            | ニックネームをバンする | /window ${_window_number};/ban ${nick}
+| ◽◽◾     | -            | 入力                          | マウスイベントを奪ってコマンドラインにコードを入力 | /input grab_mouse_area
+| ⇑       | -            | 任意のバー                    | バーを -20% スクロール | /bar scroll ${_bar_name} ${_window_number} -20%
+| ⇓       | -            | 任意のバー                    | バーを +20% スクロール | /bar scroll ${_bar_name} ${_window_number} +20%
+| ◽◾◽     | -            | 任意の場所                    | この場所でカーソルモードを開始 | /cursor go ${_x},${_y}
 |========================================
 
 [NOTE]
