@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.0-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-10-04 13:21+0900\n"
-"PO-Revision-Date: 2012-09-20 18:10+0900\n"
+"POT-Creation-Date: 2012-10-06 20:13+0900\n"
+"PO-Revision-Date: 2012-10-06 20:37+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -7619,9 +7619,9 @@ msgstr "リレーするクライアントはありません"
 msgid "Listening on ports:"
 msgstr "リッスンポート:"
 
-#, fuzzy, c-format
+#, c-format
 msgid "  port %s%d%s, relay: %s%s%s%s%s%s, started on: %s"
-msgstr "  ポート %s%d%s、リレー: %s%s%s%s%s、開始日時: %s"
+msgstr "  ポート %s%d%s、リレー: %s%s%s%s%s%s、開始日時: %s"
 
 msgid "No server for relay"
 msgstr "リレーするサーバがありません"
