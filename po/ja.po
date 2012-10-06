@@ -7619,8 +7619,8 @@ msgstr "リレーするクライアントはありません"
 msgid "Listening on ports:"
 msgstr "リッスンポート:"
 
-#, c-format
-msgid "  port %s%d%s, relay: %s%s%s%s%s, started on: %s"
+#, fuzzy, c-format
+msgid "  port %s%d%s, relay: %s%s%s%s%s%s, started on: %s"
 msgstr "  ポート %s%d%s、リレー: %s%s%s%s%s、開始日時: %s"
 
 msgid "No server for relay"
