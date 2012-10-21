@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.0-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-10-18 20:40+0200\n"
+"POT-Creation-Date: 2012-10-20 17:54+0200\n"
 "PO-Revision-Date: 2012-09-29 11:43+0200\n"
 "Last-Translator: Aleksey V Zapparov AKA ixti <ixti@member.fsf.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -4959,16 +4959,17 @@ msgid "query information about user(s)"
 msgstr "запросить информацию и пользователе(-ях)"
 
 #, fuzzy
-msgid "[<server>] <nick>[,<nick>...]"
+msgid "[<server>] [<nick>[,<nick>...]]"
 msgstr "[сервер] ник[, ник]"
 
-#, fuzzy
 msgid ""
 "server: server name\n"
-"  nick: nick (may be a mask)"
+"  nick: nick (may be a mask)\n"
+"\n"
+"Without argument, this command will do a whois on:\n"
+"- your own nick if buffer is a server/channel\n"
+"- remote nick if buffer is a private."
 msgstr ""
-"сервер: название сервера\n"
-"   ник: ник (может быть маской)"
 
 #, fuzzy
 msgid "ask for information about a nick which no longer exists"
@@ -5601,10 +5602,6 @@ msgstr ""
 "интервал между проверками на отсутствие (в минутах, 0 = не проверять никогда)"
 
 #, fuzzy
-msgid "send unknown commands to server"
-msgstr "отсылать неизвестные команды IRC серверу"
-
-#, fuzzy
 msgid ""
 "interval between two checks for notify with IRC command \"ison\" (in minutes)"
 msgstr ""
@@ -5616,6 +5613,15 @@ msgid ""
 "minutes)"
 msgstr ""
 "интервал между проверками на отсутствие (в минутах, 0 = не проверять никогда)"
+
+#, fuzzy
+msgid "send unknown commands to server"
+msgstr "отсылать неизвестные команды IRC серверу"
+
+msgid ""
+"double the nick in /whois command (if only one nick is given), to get idle "
+"time in answer; for example: \"/whois nick\" will send \"whois nick nick\""
+msgstr ""
 
 #, fuzzy, c-format
 msgid "%sCTCP requested by %s%s%s: %s%s%s%s%s%s"
@@ -8625,6 +8631,14 @@ msgstr ""
 
 msgid "Constants"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "server: server name\n"
+#~ "  nick: nick (may be a mask)"
+#~ msgstr ""
+#~ "сервер: название сервера\n"
+#~ "   ник: ник (может быть маской)"
 
 #~ msgid "use IPv6 protocol for server communication"
 #~ msgstr "использовать IPv6 при связи с сервером"

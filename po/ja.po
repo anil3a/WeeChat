@@ -5463,15 +5463,18 @@ msgstr ""
 msgid "query information about user(s)"
 msgstr "ユーザに関する情報を要求"
 
-msgid "[<server>] <nick>[,<nick>...]"
+#, fuzzy
+msgid "[<server>] [<nick>[,<nick>...]]"
 msgstr "[<server>] <nick>[,<nick>...]"
 
 msgid ""
 "server: server name\n"
-"  nick: nick (may be a mask)"
+"  nick: nick (may be a mask)\n"
+"\n"
+"Without argument, this command will do a whois on:\n"
+"- your own nick if buffer is a server/channel\n"
+"- remote nick if buffer is a private."
 msgstr ""
-"server: サーバ名\n"
-"  nick: ニックネーム (マスクが使えるかも)"
 
 msgid "ask for information about a nick which no longer exists"
 msgstr "既に存在しないニックネームに関する情報を要求"
@@ -6163,9 +6166,6 @@ msgstr ""
 "遅延時間が増加する場合、遅延アイテムの 2 回のリフレッシュの間のインターバル "
 "(秒単位)"
 
-msgid "send unknown commands to server"
-msgstr "未定義のコマンドをサーバに送信"
-
 msgid ""
 "interval between two checks for notify with IRC command \"ison\" (in minutes)"
 msgstr ""
@@ -6176,6 +6176,14 @@ msgid ""
 "minutes)"
 msgstr ""
 "IRC コマンド \"whois\" による通知の 2 回のチェックの間のインターバル (分単位)"
+
+msgid "send unknown commands to server"
+msgstr "未定義のコマンドをサーバに送信"
+
+msgid ""
+"double the nick in /whois command (if only one nick is given), to get idle "
+"time in answer; for example: \"/whois nick\" will send \"whois nick nick\""
+msgstr ""
 
 #, c-format
 msgid "%sCTCP requested by %s%s%s: %s%s%s%s%s%s"
@@ -9275,6 +9283,13 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid ""
+#~ "server: server name\n"
+#~ "  nick: nick (may be a mask)"
+#~ msgstr ""
+#~ "server: サーバ名\n"
+#~ "  nick: ニックネーム (マスクが使えるかも)"
 
 #~ msgid "use IPv6 protocol for server communication"
 #~ msgstr "サーバとの通信に IPv6 を利用"
