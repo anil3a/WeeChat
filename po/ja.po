@@ -5256,6 +5256,22 @@ msgstr ""
 "  nick: プライベート会話を行うニックネーム\n"
 "  text: 送信テキスト"
 
+#, fuzzy
+msgid "quiet nicks or hosts"
+msgstr "ニックネームかホストの禁止設定を解除"
+
+#, fuzzy
+msgid ""
+"channel: channel for quiet\n"
+"   nick: user or host to quiet\n"
+"\n"
+"Without argument, this command display quiet list for current channel."
+msgstr ""
+"channel: バン対象チャンネル\n"
+"   nick: バンするユーザ名かホスト名\n"
+"\n"
+"引数無しの場合は、現在のチャンネルのバンリストを表示。"
+
 msgid "send raw data to server without parsing"
 msgstr "パースせずにサーバ宛に生データを送信"
 
@@ -6276,6 +6292,12 @@ msgid "color for new channel topic (when topic is changed)"
 msgstr "新しいチャンネルトピックの色 (トピックが変更されたとき)"
 
 msgid ""
+"get an alternate nick when the nick is already used on server: add some \"_"
+"\" until the nick has a length of 9, and then replace last char (or the two "
+"last chars) by a number from 1 to 99, until we find a nick not used on server"
+msgstr ""
+
+msgid ""
 "growing factor for autoreconnect delay to server (1 = always same delay, 2 = "
 "delay*2 for each retry, ..)"
 msgstr ""
@@ -6886,6 +6908,15 @@ msgid "%s%s: nickname \"%s\" is unavailable, trying nickname \"%s\""
 msgstr ""
 "%s%s: ニックネーム \"%s\" は利用できません、ニックネーム \"%s\" を試行してい"
 "ます"
+
+#. TRANSLATORS: "%s" after "on" is a date
+#, fuzzy, c-format
+msgid "%s%s[%s%s%s] %s%s%s quieted by %s%s %s(%s%s%s)%s on %s"
+msgstr "%s%s[%s%s%s] %s%s%s は %s%s %s(%s%s%s)%s によって %s に招待されました"
+
+#, fuzzy, c-format
+msgid "%s%s[%s%s%s] %s%s%s quieted by %s%s %s(%s%s%s)"
+msgstr "%s%s[%s%s%s] %s%s%s は %s%s %s(%s%s%s) によって招待されました"
 
 #, c-format
 msgid "%s%s: command \"%s\" not found:"

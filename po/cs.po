@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.0-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-11-02 15:35+0100\n"
+"POT-Creation-Date: 2012-11-02 18:08+0100\n"
 "PO-Revision-Date: 2012-09-29 11:42+0200\n"
 "Last-Translator: Jiri Golembiovsky <golemj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -5085,6 +5085,20 @@ msgstr ""
 "přezdívka: přezdívka pro soukromé spojení\n"
 "     text: text, který poslat"
 
+#, fuzzy
+msgid "quiet nicks or hosts"
+msgstr "zruší zakázání pro přezdívku nebo hosta"
+
+#, fuzzy
+msgid ""
+"channel: channel for quiet\n"
+"   nick: user or host to quiet\n"
+"\n"
+"Without argument, this command display quiet list for current channel."
+msgstr ""
+"    kanál: kanál pro zrušení zakázání\n"
+"přezdívka: uživatel nebo host, kterému zrušit zakázání"
+
 msgid "send raw data to server without parsing"
 msgstr "poslat čistá data na server bez pársování"
 
@@ -6075,6 +6089,12 @@ msgid "color for new channel topic (when topic is changed)"
 msgstr "barva pro nové téma rozhovoru kanálu (když se téma změní)"
 
 msgid ""
+"get an alternate nick when the nick is already used on server: add some \"_"
+"\" until the nick has a length of 9, and then replace last char (or the two "
+"last chars) by a number from 1 to 99, until we find a nick not used on server"
+msgstr ""
+
+msgid ""
 "growing factor for autoreconnect delay to server (1 = always same delay, 2 = "
 "delay*2 for each retry, ..)"
 msgstr ""
@@ -6704,6 +6724,15 @@ msgstr ""
 msgid "%s%s: nickname \"%s\" is unavailable, trying nickname \"%s\""
 msgstr ""
 "%s%s: přezdívka \"%s\" je nedostupná, zkouším přezdívku číslo %d (\"%s\")"
+
+#. TRANSLATORS: "%s" after "on" is a date
+#, fuzzy, c-format
+msgid "%s%s[%s%s%s] %s%s%s quieted by %s%s %s(%s%s%s)%s on %s"
+msgstr "%s%s[%s%s%s] %s%s%s pozván uživatelem %s%s %s(%s%s%s)%s v %s"
+
+#, fuzzy, c-format
+msgid "%s%s[%s%s%s] %s%s%s quieted by %s%s %s(%s%s%s)"
+msgstr "%s%s[%s%s%s] %s%s%s pozván uživatelem %s%s %s(%s%s%s)"
 
 #, c-format
 msgid "%s%s: command \"%s\" not found:"
