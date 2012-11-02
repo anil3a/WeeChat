@@ -1450,8 +1450,8 @@ COMMAND_CALLBACK(debug)
 
 COMMAND_CALLBACK(eval)
 {
-    int print_only;
-    char *result, *ptr_args;
+    int print_only, i;
+    char *result, *ptr_args, **commands;
 
     /* make C compiler happy */
     (void) buffer;
@@ -1496,7 +1496,17 @@ COMMAND_CALLBACK(eval)
         else
         {
             if (result)
-                input_data (buffer, result);
+            {
+                commands = string_split_command (result, ';');
+                if (commands)
+                {
+                    for (i = 0; commands[i]; i++)
+                    {
+                        input_data (buffer, commands[i]);
+                    }
+                    string_free_split_command (commands);
+                }
+            }
             else
             {
                 gui_chat_printf (NULL,
@@ -5786,7 +5796,8 @@ command_init ()
                      "Some variables are replaced in expression, using the "
                      "format ${variable}, variable can be, by order of prioity :\n"
                      "  1. the name of an option (file.section.option)\n"
-                     "  2. a hdata name/variable (the value is automatically "
+                     "  2. the name of a local variable in buffer\n"
+                     "  3. a hdata name/variable (the value is automatically "
                      "converted to string), by default \"window\" and \"buffer\" "
                      "point to current window/buffer.\n"
                      "Format for hdata can be one of following:\n"
