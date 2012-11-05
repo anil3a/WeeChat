@@ -4048,6 +4048,12 @@ msgstr ""
 "にだけチェックされる)"
 
 msgid ""
+"number of suggestions to display in bar item \"aspell_suggest\" for each "
+"dictionary set in buffer (-1 = disable suggestions, 0 = display all possible "
+"suggestions in all languages)"
+msgstr ""
+
+msgid ""
 "minimum length for a word to be spell checked (use 0 to check all words)"
 msgstr "スペルチェックを行う単語長の最小値 (0 の場合は全ての単語をチェック)"
 

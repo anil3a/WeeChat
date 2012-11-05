@@ -20,7 +20,7 @@
  */
 
 /*
- * weechat-aspell.c: aspell plugin for WeeChat: use color to show mispelled
+ * weechat-aspell.c: aspell plugin for WeeChat: use color to show misspelled
  *                   words in input line
  */
 
@@ -49,6 +49,7 @@ int aspell_enabled = 0;
 struct t_gui_buffer *aspell_buffer_spellers = NULL;
 
 char *aspell_last_modifier_string = NULL; /* last str. received by modifier */
+int aspell_last_buffer_input_pos = -1;    /* last cursor position           */
 char *aspell_last_modifier_result = NULL; /* last str. built by modifier    */
 
 /*
@@ -302,21 +303,28 @@ weechat_aspell_spellers_already_ok (const char *dict_list)
     if (!dict_list || !weechat_aspell_spellers)
         return 0;
 
-    rc = 0;
+    rc = 1;
 
     argv = weechat_string_split (dict_list, ",", 0, 0, &argc);
     if (argv)
     {
         ptr_speller = weechat_aspell_spellers;
-        for (i = 0; (i < argc) && ptr_speller; i++)
+        for (i = 0; i < argc; i++)
         {
-            if (strcmp (ptr_speller->lang, argv[i]) == 0)
+            if (!ptr_speller)
             {
-                rc = 1;
+                rc = 0;
+                break;
+            }
+            if (strcmp (ptr_speller->lang, argv[i]) != 0)
+            {
+                rc = 0;
                 break;
             }
             ptr_speller = ptr_speller->next_speller;
         }
+        if (ptr_speller && ptr_speller->next_speller)
+            rc = 0;
         weechat_string_free_split (argv);
     }
 
@@ -353,8 +361,8 @@ weechat_aspell_create_spellers (struct t_gui_buffer *buffer)
                 weechat_string_free_split (argv);
             }
         }
+        weechat_bar_item_update ("aspell_dict");
     }
-    weechat_bar_item_update ("aspell_dict");
 }
 
 /*
@@ -377,7 +385,6 @@ weechat_aspell_iso_to_lang (const char *code)
     /* lang code not found */
     return strdup ("Unknown");
 }
-
 
 /*
  * weechat_aspell_iso_to_country: convert an aspell iso country code in its
@@ -411,12 +418,12 @@ weechat_aspell_speller_list_dicts ()
     char buffer[192];
     struct AspellConfig *config;
     AspellDictInfoList *list;
-    AspellDictInfoEnumeration *el;
+    AspellDictInfoEnumeration *elements;
     const AspellDictInfo *dict;
 
     config = new_aspell_config();
     list = get_aspell_dict_info_list (config);
-    el = aspell_dict_info_list_elements (list);
+    elements = aspell_dict_info_list_elements (list);
 
     weechat_printf (NULL, "");
     weechat_printf (NULL,
@@ -424,7 +431,7 @@ weechat_aspell_speller_list_dicts ()
                     _( "%s dictionaries list:"),
                     ASPELL_PLUGIN_NAME);
 
-    while ((dict = aspell_dict_info_enumeration_next (el)))
+    while ((dict = aspell_dict_info_enumeration_next (elements)) != NULL)
     {
         country = NULL;
         pos = strchr (dict->code, '_');
@@ -474,7 +481,7 @@ weechat_aspell_speller_list_dicts ()
             free (country);
     }
 
-    delete_aspell_dict_info_enumeration (el);
+    delete_aspell_dict_info_enumeration (elements);
     delete_aspell_config (config);
 }
 
@@ -610,7 +617,6 @@ weechat_aspell_check_word (struct t_gui_buffer *buffer, const char *word)
 {
     struct t_aspell_speller *ptr_speller;
     int rc;
-
     rc = 0;
 
     /* word too small? then do not check word */
@@ -647,6 +653,74 @@ weechat_aspell_check_word (struct t_gui_buffer *buffer, const char *word)
 }
 
 /*
+ * weechat_aspell_get_suggestions: get suggestions for a word
+ *                                 A string is returned with format:
+ *                                 "suggest1,suggest2,suggest3"
+ *                                 Note: result (if not NULL) must be free()
+ *                                 after use.
+ */
+
+char *
+weechat_aspell_get_suggestions (const char *word)
+{
+    struct t_aspell_speller *ptr_speller;
+    int size, max_suggestions, num_suggestions;
+    char *suggestions, *suggestions2;
+    const char *ptr_word;
+    const AspellWordList *list;
+    AspellStringEnumeration *elements;
+
+    max_suggestions = weechat_config_integer (weechat_aspell_config_check_suggestions);
+    if (max_suggestions < 0)
+        return NULL;
+
+    size = 1;
+    suggestions = malloc (size);
+    if (!suggestions)
+        return NULL;
+
+    suggestions[0] = '\0';
+    for (ptr_speller = weechat_aspell_spellers; ptr_speller;
+         ptr_speller = ptr_speller->next_speller)
+    {
+        list = aspell_speller_suggest (ptr_speller->speller, word, -1);
+        if (list)
+        {
+            elements = aspell_word_list_elements (list);
+            num_suggestions = 0;
+            while ((ptr_word = aspell_string_enumeration_next (elements)) != NULL)
+            {
+                size += strlen (ptr_word) + ((suggestions[0]) ? 1 : 0);
+                suggestions2 = realloc (suggestions, size);
+                if (!suggestions2)
+                {
+                    free (suggestions);
+                    delete_aspell_string_enumeration (elements);
+                    return NULL;
+                }
+                suggestions = suggestions2;
+                if (suggestions[0])
+                    strcat (suggestions, (num_suggestions == 0) ? "/" : ",");
+                strcat (suggestions, ptr_word);
+                num_suggestions++;
+                if ((max_suggestions >= 0) && (num_suggestions == max_suggestions))
+                    break;
+            }
+            delete_aspell_string_enumeration (elements);
+        }
+    }
+
+    /* no suggestions found */
+    if (!suggestions[0])
+    {
+        free (suggestions);
+        return NULL;
+    }
+
+    return suggestions;
+}
+
+/*
  * weechat_aspell_modifier_cb: modifier for input text
  */
 
@@ -657,10 +731,12 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
     long unsigned int value;
     struct t_gui_buffer *buffer;
     char *result, *ptr_string, *pos_space, *ptr_end, save_end;
-    const char *color_normal, *color_error;
+    char *word_for_suggestions, *old_suggestions, *suggestions;
+    const char *color_normal, *color_error, *ptr_suggestions;
     int buffer_has_changed, utf8_char_int, char_size;
     int length, index_result, length_word, word_ok;
     int length_color_normal, length_color_error, rc;
+    int input_pos, current_pos, word_start_pos, word_end_pos;
 
     /* make C compiler happy */
     (void) data;
@@ -669,7 +745,7 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
     if (!aspell_enabled)
         return NULL;
 
-    if (!string || !string[0])
+    if (!string)
         return NULL;
 
     rc = sscanf (modifier_data, "%lx", &value);
@@ -696,12 +772,14 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
 
     /*
      * for performance: return last string built if input string is the
-     * same (for example user just change cursor position, or input text is
-     * refreshed with same content)
+     * same and cursor position is the same (only if suggestions are enabled)
      */
+    input_pos = weechat_buffer_get_integer (buffer, "input_pos");
     if (!buffer_has_changed
         && aspell_last_modifier_string
-        && (strcmp (string, aspell_last_modifier_string) == 0))
+        && (strcmp (string, aspell_last_modifier_string) == 0)
+        && ((weechat_config_integer (weechat_aspell_config_check_suggestions) < 0)
+            || (input_pos == aspell_last_buffer_input_pos)))
     {
         return (aspell_last_modifier_result) ?
             strdup (aspell_last_modifier_result) : NULL;
@@ -719,8 +797,11 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
         aspell_last_modifier_result = NULL;
     }
 
+    word_for_suggestions = NULL;
+
     /* save last modifier string received */
     aspell_last_modifier_string = strdup (string);
+    aspell_last_buffer_input_pos = input_pos;
 
     color_normal = weechat_color ("bar_fg");
     length_color_normal = strlen (color_normal);
@@ -770,6 +851,7 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
             ptr_string = pos_space;
         }
 
+        current_pos = 0;
         while (ptr_string[0])
         {
             /* find start of word */
@@ -782,6 +864,7 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
                 memcpy (result + index_result, ptr_string, char_size);
                 index_result += char_size;
                 ptr_string += char_size;
+                current_pos++;
                 if (!ptr_string[0])
                     break;
                 utf8_char_int = weechat_utf8_char_int (ptr_string);
@@ -789,12 +872,17 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
             if (!ptr_string[0])
                 break;
 
+            word_start_pos = current_pos;
+            word_end_pos = current_pos;
+
+            /* find end of word */
             ptr_end = weechat_utf8_next_char (ptr_string);
             utf8_char_int = weechat_utf8_char_int (ptr_end);
             while (iswalnum (utf8_char_int) || (utf8_char_int == '\'')
                    || (utf8_char_int == '-'))
             {
                 ptr_end = weechat_utf8_next_char (ptr_end);
+                word_end_pos++;
                 if (!ptr_end[0])
                     break;
                 utf8_char_int = weechat_utf8_char_int (ptr_end);
@@ -827,7 +915,20 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
             {
                 if ((save_end != '\0')
                     || (weechat_config_integer (weechat_aspell_config_check_real_time)))
+                {
                     word_ok = weechat_aspell_check_word (buffer, ptr_string);
+                    if (!word_ok && (input_pos >= word_start_pos))
+                    {
+                        /*
+                         * if word is misspelled and that cursor is after
+                         * the beginning of this word, save the word (we will
+                         * look for suggestions after this loop)
+                         */
+                        if (word_for_suggestions)
+                            free (word_for_suggestions);
+                        word_for_suggestions = strdup (ptr_string);
+                    }
+                }
                 else
                     word_ok = 1;
             }
@@ -855,15 +956,55 @@ weechat_aspell_modifier_cb (void *data, const char *modifier,
 
             ptr_end[0] = save_end;
             ptr_string = ptr_end;
+            current_pos = word_end_pos + 1;
         }
-
         result[index_result] = '\0';
     }
+
+    /* save old suggestions in buffer */
+    ptr_suggestions = weechat_buffer_get_string (buffer,
+                                                 "localvar_aspell_suggest");
+    old_suggestions = (ptr_suggestions) ? strdup (ptr_suggestions) : NULL;
+
+    /* if there is a misspelled word, get suggestions and set them in buffer */
+    if (word_for_suggestions)
+    {
+        suggestions = weechat_aspell_get_suggestions (word_for_suggestions);
+        if (suggestions)
+        {
+            weechat_buffer_set (buffer, "localvar_set_aspell_suggest",
+                                suggestions);
+            free (suggestions);
+        }
+        else
+        {
+            weechat_buffer_set (buffer, "localvar_del_aspell_suggest", "");
+        }
+        free (word_for_suggestions);
+    }
+    else
+    {
+        weechat_buffer_set (buffer, "localvar_del_aspell_suggest", "");
+    }
+
+    /* if suggestions have changed, update the bar item */
+    ptr_suggestions = weechat_buffer_get_string (buffer,
+                                                 "localvar_aspell_suggest");
+    if ((old_suggestions && !ptr_suggestions)
+        || (!old_suggestions && ptr_suggestions)
+        || (old_suggestions && ptr_suggestions
+            && (strcmp (old_suggestions, ptr_suggestions) != 0)))
+    {
+        weechat_bar_item_update ("aspell_suggest");
+    }
+    if (old_suggestions)
+        free (old_suggestions);
 
     if (!result)
         return NULL;
 
     aspell_last_modifier_result = strdup (result);
+
     return result;
 }
 
@@ -1046,8 +1187,9 @@ weechat_aspell_buffer_switch_cb (void *data, const char *signal,
     (void) type_data;
     (void) signal_data;
 
-    /* refresh bar item "aspell_dict" (for root bars) */
+    /* refresh bar items (for root bars) */
     weechat_bar_item_update ("aspell_dict");
+    weechat_bar_item_update ("aspell_suggest");
 
     return WEECHAT_RC_OK;
 }
@@ -1066,8 +1208,9 @@ weechat_aspell_window_switch_cb (void *data, const char *signal,
     (void) type_data;
     (void) signal_data;
 
-    /* refresh bar item "aspell_dict" (for root bars) */
+    /* refresh bar items (for root bars) */
     weechat_bar_item_update ("aspell_dict");
+    weechat_bar_item_update ("aspell_suggest");
 
     return WEECHAT_RC_OK;
 }
