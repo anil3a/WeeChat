@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.0-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-11-06 07:05+0900\n"
-"PO-Revision-Date: 2012-11-06 07:12+0900\n"
+"POT-Creation-Date: 2012-11-10 18:40+0900\n"
+"PO-Revision-Date: 2012-11-10 22:18+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -5798,8 +5798,8 @@ msgid ""
 "comma-separated list of client capabilities to enable for server if they are "
 "available (example: \"multi-prefix,extended-join\")"
 msgstr ""
-"サーバで利用可能ならば有効化する、クライアント能力のコンマ区切りリスト (例: "
-"\"multi-prefix,extended-join\")"
+"サーバで利用可能ならば有効化する、クライアントの機能のコンマ区切りリスト "
+"(例: \"multi-prefix,extended-join\")"
 
 msgid ""
 "mechanism for SASL authentication: \"plain\" for plain text password, \"dh-"
@@ -6627,23 +6627,23 @@ msgstr "%s%s: SASL 認証の応答を作成中にエラー、\"%s\" メカニズ
 
 #, c-format
 msgid "%s%s: client capability, server supports: %s"
-msgstr "%s%s: クライアント能力、サーバは以下をサポート: %s"
+msgstr "%s%s: クライアントの機能、サーバは以下をサポート: %s"
 
 #, c-format
 msgid "%s%s: client capability, requesting: %s"
-msgstr "%s%s: クライアント能力、リクエスト中: %s"
+msgstr "%s%s: クライアントの機能、リクエスト中: %s"
 
 #, c-format
 msgid "%s%s: client capability: sasl not supported"
-msgstr "%s%s: クライアント能力: sasl はサポートされていません"
+msgstr "%s%s: クライアントの機能: sasl はサポートされていません"
 
 #, c-format
 msgid "%s%s: client capability, enabled: %s"
-msgstr "%s%s: クライアント能力、有効化: %s"
+msgstr "%s%s: クライアントの機能、有効化: %s"
 
 #, c-format
 msgid "%s%s: client capability, refused: %s"
-msgstr "%s%s: クライアント能力、拒否されました: %s"
+msgstr "%s%s: クライアントの機能、拒否されました: %s"
 
 #, c-format
 msgid "%sYou have been invited to %s%s%s by %s%s%s"
