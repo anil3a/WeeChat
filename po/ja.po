@@ -6480,8 +6480,10 @@ msgid "\"message\": IRC message, \"server\": server name (optional)"
 msgstr "\"message\": IRC メッセージ、\"server\": サーバ名 (オプション)"
 
 #. TRANSLATORS: please do not translate key names (enclosed by quotes)
+#, fuzzy
 msgid ""
-"\"nick\": nick, \"host\": host, \"command\": command, \"channel\": channel, "
+"\"tags\": tags, \"message_without_tags\": message without the tags, \"nick"
+"\": nick, \"host\": host, \"command\": command, \"channel\": channel, "
 "\"arguments\": arguments (includes channel)"
 msgstr ""
 "\"nick\": ニックネーム、\"host\": ホスト名、\"command\": コマンド、\"channel"
