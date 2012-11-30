@@ -683,6 +683,10 @@ msgstr "%s にオプションを保存しました"
 msgid "%sError: failed to save options to %s"
 msgstr "%sエラー: %s へのオプションの保存に失敗しました"
 
+#, fuzzy
+msgid "default: "
+msgstr "デフォルト値"
+
 msgid "(unknown)"
 msgstr "(未定義)"
 
@@ -9112,8 +9116,8 @@ msgstr "失敗"
 msgid "aborted"
 msgstr "中止"
 
-#, c-format
-msgid "%s%s: file %s %s %s: %s"
+#, fuzzy, c-format
+msgid "%s%s: file %s %s %s (%ld.%ld.%ld.%ld): %s"
 msgstr "%s%s: ファイル %s %s %s: %s"
 
 msgid "sent to"
@@ -9128,8 +9132,8 @@ msgstr "OK"
 msgid "FAILED"
 msgstr "失敗"
 
-#, c-format
-msgid "%s: chat closed with %s (%d.%d.%d.%d)"
+#, fuzzy, c-format
+msgid "%s: chat closed with %s (%ld.%ld.%ld.%ld)"
 msgstr "%s: %s (%d.%d.%d.%d) とのチャットを終了"
 
 #, c-format
@@ -9140,24 +9144,24 @@ msgstr "%s%s: アクティブな xfer を中断しています: \"%s\" %s から
 msgid "%s%s: not enough memory for new xfer"
 msgstr "%s%s: 新しい xfer 用のメモリ不足"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"%s: incoming file from %s (%s.%s), ip: %d.%d.%d.%d, name: %s, %llu bytes "
+"%s: incoming file from %s (%ld.%ld.%ld.%ld, %s.%s), name: %s, %llu bytes "
 "(protocol: %s)"
 msgstr ""
 "%s: %s (%s.%s) からファイルを受信、ip: %d.%d.%d.%d, 名前: %s, %llu バイト (プ"
 "ロトコル: %s)"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"%s: sending file to %s (%s.%s): %s (local filename: %s), %llu bytes "
+"%s: offering file to %s (%s.%s), name: %s (local filename: %s), %llu bytes "
 "(protocol: %s)"
 msgstr ""
 "%s: %s (%s.%s) へファイルを送信: %s (ローカルファイル名: %s), %llu バイト (プ"
 "ロトコル: %s)"
 
-#, c-format
-msgid "%s: incoming chat request from %s (%s.%s), ip: %d.%d.%d.%d"
+#, fuzzy, c-format
+msgid "%s: incoming chat request from %s (%ld.%ld.%ld.%ld, %s.%s)"
 msgstr "%s: %s (%s.%s) からチャット要求を受信、ip: %d.%d.%d.%d"
 
 #, c-format
@@ -9226,8 +9230,8 @@ msgstr ""
 msgid "%s%s: error sending data to \"%s\" via xfer chat"
 msgstr "%s%s: xfer チャットで \"%s\" にデータ転送中のエラー"
 
-#, c-format
-msgid "Connected to %s (%d.%d.%d.%d) via xfer chat"
+#, fuzzy, c-format
+msgid "Connected to %s (%ld.%ld.%ld.%ld) via xfer chat"
 msgstr "xfer チャットで %s (%d.%d.%d.%d) に接続"
 
 #, c-format
@@ -9250,10 +9254,10 @@ msgid "%3d. %s, chat with %s (local nick: %s), started on %s, status: %s%s"
 msgstr ""
 "%3d. %s、%s とチャット中 (ローカルニックネーム: %s)、開始日時 %s、状態: %s%s"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"     plugin: %s (id: %s), file: %llu bytes (position: %llu), address: %d.%d."
-"%d.%d (port %d)"
+"     plugin: %s (id: %s), file: %llu bytes (position: %llu), address: %ld."
+"%ld.%ld.%ld (port %d)"
 msgstr ""
 "     プラグイン: %s (id: %s)、ファイル: %llu バイト (位置: %llu)、アドレス: "
 "%d.%d.%d.%d (ポート %d)"
@@ -9428,6 +9432,14 @@ msgstr "%s%s: ローカルファイルに書き込めません"
 #, c-format
 msgid "%s%s: unable to fork"
 msgstr "%s%s: フォークできません"
+
+#, fuzzy, c-format
+msgid ""
+"%s: sending file to %s (%ld.%ld.%ld.%ld, %s.%s), name: %s (local filename: "
+"%s), %llu bytes (protocol: %s)"
+msgstr ""
+"%s: %s (%s.%s) へファイルを送信: %s (ローカルファイル名: %s), %llu バイト (プ"
+"ロトコル: %s)"
 
 #, c-format
 msgid "%s%s: unable to create socket for sending file"

@@ -185,10 +185,11 @@ xfer_dcc_recv_file_child (struct t_xfer *xfer)
     static char buffer[XFER_BLOCKSIZE_MAX];
     uint32_t pos;
     time_t last_sent, new_time;
+    unsigned long long bytes_remaining;
 
     /* first connect to sender (blocking) */
     if (!weechat_network_connect_to (xfer->proxy, xfer->sock,
-                                     xfer->address, xfer->port))
+                                     xfer->remote_address, xfer->port))
     {
         xfer_network_write_pipe (xfer, XFER_STATUS_FAILED,
                                  XFER_ERROR_CONNECT_SENDER);
@@ -202,7 +203,10 @@ xfer_dcc_recv_file_child (struct t_xfer *xfer)
     last_sent = time (NULL);
     while (1)
     {
-        num_read = recv (xfer->sock, buffer, sizeof (buffer), 0);
+        bytes_remaining = xfer->size - xfer->pos;
+        num_read = recv (xfer->sock, buffer,
+                         (bytes_remaining >= sizeof (buffer)) ? sizeof (buffer) : bytes_remaining,
+                         0);
         if (num_read == -1)
         {
             /* socket is temporarily not available (sender is not fast ?!) */
