@@ -2822,20 +2822,21 @@ msgid ""
 "max number of lines for paste without asking user (-1 = disable this feature)"
 msgstr "ユーザへの確認無しにペーストする行数の最大値 (-1 = この機能を無効化)"
 
-msgid "prefix for error messages"
-msgstr "エラーメッセージのプレフィックス"
+msgid "prefix for error messages, colors are allowed with format \"${color}\""
+msgstr ""
 
-msgid "prefix for network messages"
-msgstr "ネットワークメッセージのプレフィックス"
+msgid ""
+"prefix for network messages, colors are allowed with format \"${color}\""
+msgstr ""
 
-msgid "prefix for action messages"
-msgstr "アクションメッセージのプレフィックス"
+msgid "prefix for action messages, colors are allowed with format \"${color}\""
+msgstr ""
 
-msgid "prefix for join messages"
-msgstr "join メッセージのプレフィックス"
+msgid "prefix for join messages, colors are allowed with format \"${color}\""
+msgstr ""
 
-msgid "prefix for quit messages"
-msgstr "quit メッセージのプレフィックス"
+msgid "prefix for quit messages, colors are allowed with format \"${color}\""
+msgstr ""
 
 msgid "prefix alignment (none, left, right (default))"
 msgstr "プレフィックスの調節 (none、left、right (デフォルト))"
@@ -9487,6 +9488,21 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "prefix for error messages"
+#~ msgstr "エラーメッセージのプレフィックス"
+
+#~ msgid "prefix for network messages"
+#~ msgstr "ネットワークメッセージのプレフィックス"
+
+#~ msgid "prefix for action messages"
+#~ msgstr "アクションメッセージのプレフィックス"
+
+#~ msgid "prefix for join messages"
+#~ msgstr "join メッセージのプレフィックス"
+
+#~ msgid "prefix for quit messages"
+#~ msgstr "quit メッセージのプレフィックス"
 
 #~ msgid ""
 #~ "condition(s) for displaying bar (for bars of type \"window\"): \"active\" "
