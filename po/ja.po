@@ -3376,9 +3376,9 @@ msgstr "%sこのバッファに書き込むことは出来ません"
 msgid "%sError with command \"%s\" (try /help %s)"
 msgstr "%sコマンド \"%s\" にエラーがあります (/help %s を参照)"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"%sError: ambigous command \"%s\": it exists in many plugins and not in \"%s"
+"%sError: ambiguous command \"%s\": it exists in many plugins and not in \"%s"
 "\" plugin"
 msgstr ""
 "%sエラー: あいまいなコマンド \"%s\": 多くのプラグインで定義されており、\"%s"
