@@ -1,4 +1,6 @@
 /*
+ * plugin-api.c - extra functions for plugin API
+ *
  * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
@@ -15,10 +17,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with WeeChat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * plugin-api.c: extra functions for plugin API
  */
 
 #ifdef HAVE_CONFIG_H
@@ -45,6 +43,7 @@
 #include "../core/wee-string.h"
 #include "../core/wee-url.h"
 #include "../core/wee-util.h"
+#include "../core/wee-version.h"
 #include "../gui/gui-bar.h"
 #include "../gui/gui-bar-item.h"
 #include "../gui/gui-bar-window.h"
@@ -297,20 +296,24 @@ plugin_api_info_get_internal (void *data, const char *info_name,
 
     if (string_strcasecmp (info_name, "version") == 0)
     {
-        return PACKAGE_VERSION;
+        return version_get_version ();
     }
     else if (string_strcasecmp (info_name, "version_number") == 0)
     {
         if (!version_number[0])
         {
             snprintf (version_number, sizeof (version_number), "%d",
-                      util_version_number (PACKAGE_VERSION));
+                      util_version_number (version_get_version ()));
         }
         return version_number;
     }
+    else if (string_strcasecmp (info_name, "version_git") == 0)
+    {
+        return version_get_git ();
+    }
     else if (string_strcasecmp (info_name, "date") == 0)
     {
-        return __DATE__;
+        return version_get_compilation_date ();
     }
     else if (string_strcasecmp (info_name, "dir_separator") == 0)
     {
@@ -1024,6 +1027,11 @@ plugin_api_init ()
     hook_info (NULL, "version", N_("WeeChat version"), NULL,
                &plugin_api_info_get_internal, NULL);
     hook_info (NULL, "version_number", N_("WeeChat version (as number)"), NULL,
+               &plugin_api_info_get_internal, NULL);
+    hook_info (NULL, "version_git", N_("WeeChat git version (output of "
+                                       "command \"git describe\" for a "
+                                       "development version only, empty for a "
+                                       "stable release)"), NULL,
                &plugin_api_info_get_internal, NULL);
     hook_info (NULL, "date", N_("WeeChat compilation date"), NULL,
                &plugin_api_info_get_internal, NULL);

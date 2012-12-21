@@ -1,4 +1,6 @@
 /*
+ * wee-backtrace.c - backtrace after a segfault
+ *
  * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
@@ -15,10 +17,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with WeeChat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * wee-backtrace.c: display backtrace after a segfault
  */
 
 #ifdef HAVE_CONFIG_H
@@ -44,6 +42,7 @@
 #include "wee-backtrace.h"
 #include "wee-log.h"
 #include "wee-string.h"
+#include "wee-version.h"
 #include "../plugins/plugin.h"
 
 
@@ -159,7 +158,9 @@ weechat_backtrace ()
 
     weechat_backtrace_printf ("======= WeeChat backtrace =======");
     weechat_backtrace_printf ("(written by %s, compiled on %s %s)",
-                              PACKAGE_STRING, __DATE__, __TIME__);
+                              version_get_name_version (),
+                              version_get_compilation_date (),
+                              version_get_compilation_time ());
 
 #ifdef HAVE_BACKTRACE
     trace_size = backtrace (trace, BACKTRACE_MAX);

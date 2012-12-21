@@ -1,12 +1,14 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.4.0-dev, 2012-12-08
+v0.4.0-dev, 2012-12-17
 
 
 Version 0.4.0 (under dev!)
 --------------------------
 
+* core: add git version in build, display it in "weechat-curses --help" and
+  /version
 * core: fix scroll of one page down when weechat.look.scroll_page_percent is
   less than 100 (bug #37875)
 * core: disable paste detection and confirmation if bar item "input_paste" is
@@ -48,6 +50,8 @@ Version 0.4.0 (under dev!)
   aspell.check.suggestions (task #12061)
 * aspell: fix creation of spellers when number of dictionaries is different
   between two buffers
+* irc: return git version in CTCP VERSION and FINGER by default, add "$git"
+  and "$versiongit" in format of CTCP replies
 * irc: read local variable "autorejoin" in buffer to override server option
   "autorejoin" (task #12256)
 * irc: add option "-auto" for command /connect (task #9340)
@@ -74,6 +78,7 @@ Version 0.4.0 (under dev!)
   "ipv4." and/or "ipv6." before protocol name, to force IPv4/IPv6 (task #12270)
 * relay: add missing "ssl." in output of /relay listrelay
 * script: fix compilation on OS X
+* xfer: add missing tags in DCC chat messages: nick_xxx, prefix_nick_ccc, logN
 * xfer: display remote IP address for DCC chat/file (task #12289)
 * xfer: limit bytes received to file size (for DCC file received), fix crash
   when displaying a xfer file with pos greater than size

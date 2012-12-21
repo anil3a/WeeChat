@@ -1,4 +1,6 @@
 /*
+ * wee-command.c - WeeChat core commands
+ *
  * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
  * Copyright (C) 2005-2006 Emmanuel Bouthenot <kolter@openics.org>
  *
@@ -16,10 +18,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with WeeChat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * wee-command.c: WeeChat core commands
  */
 
 #ifdef HAVE_CONFIG_H
@@ -51,6 +49,7 @@
 #include "wee-upgrade.h"
 #include "wee-utf8.h"
 #include "wee-util.h"
+#include "wee-version.h"
 #include "../gui/gui-bar.h"
 #include "../gui/gui-bar-item.h"
 #include "../gui/gui-buffer.h"
@@ -5001,20 +5000,28 @@ COMMAND_CALLBACK(uptime)
 void
 command_version_display (struct t_gui_buffer *buffer,
                          int send_to_buffer_as_input,
-                         int translated_string)
+                         int translated_string,
+                         int display_git_version)
 {
     char string[512];
+    const char *git_version;
+
+    /* get git version */
+    git_version = (display_git_version) ? version_get_git () : NULL;
 
     if (send_to_buffer_as_input)
     {
         if (translated_string)
         {
             snprintf (string, sizeof (string),
-                      "WeeChat %s [%s %s %s]",
-                      PACKAGE_VERSION,
+                      "WeeChat %s%s%s%s [%s %s %s]",
+                      version_get_version (),
+                      (git_version && git_version[0]) ? " (git: " : "",
+                      (git_version && git_version[0]) ? git_version : "",
+                      (git_version && git_version[0]) ? ")" : "",
                       _("compiled on"),
-                      __DATE__,
-                      __TIME__);
+                      version_get_compilation_date (),
+                      version_get_compilation_time ());
             input_data (buffer, string);
             if (weechat_upgrade_count > 0)
             {
@@ -5030,11 +5037,14 @@ command_version_display (struct t_gui_buffer *buffer,
         else
         {
             snprintf (string, sizeof (string),
-                      "WeeChat %s [%s %s %s]",
-                      PACKAGE_VERSION,
+                      "WeeChat %s%s%s%s [%s %s %s]",
+                      version_get_version (),
+                      (git_version && git_version[0]) ? " (git: " : "",
+                      (git_version && git_version[0]) ? git_version : "",
+                      (git_version && git_version[0]) ? ")" : "",
                       "compiled on",
-                      __DATE__,
-                      __TIME__);
+                      version_get_compilation_date (),
+                      version_get_compilation_time ());
             input_data (buffer, string);
             if (weechat_upgrade_count > 0)
             {
@@ -5050,14 +5060,17 @@ command_version_display (struct t_gui_buffer *buffer,
     }
     else
     {
-        gui_chat_printf (NULL, "%sWeeChat %s %s[%s%s %s %s%s]",
+        gui_chat_printf (NULL, "%sWeeChat %s%s%s%s %s[%s%s %s %s%s]",
                          GUI_COLOR(GUI_COLOR_CHAT_BUFFER),
-                         PACKAGE_VERSION,
+                         version_get_version (),
+                         (git_version && git_version[0]) ? " (git: " : "",
+                         (git_version && git_version[0]) ? git_version : "",
+                         (git_version && git_version[0]) ? ")" : "",
                          GUI_COLOR(GUI_COLOR_CHAT_DELIMITERS),
                          GUI_COLOR(GUI_COLOR_CHAT_VALUE),
                          _("compiled on"),
-                         __DATE__,
-                         __TIME__,
+                         version_get_compilation_date (),
+                         version_get_compilation_time (),
                          GUI_COLOR(GUI_COLOR_CHAT_DELIMITERS));
         if (weechat_upgrade_count > 0)
         {
@@ -5098,7 +5111,7 @@ COMMAND_CALLBACK(version)
     }
 
     command_version_display (buffer, send_to_buffer_as_input,
-                             translated_string);
+                             translated_string, 1);
 
     return WEECHAT_RC_OK;
 }

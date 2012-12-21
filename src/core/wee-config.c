@@ -1,4 +1,6 @@
 /*
+ * wee-config.c - WeeChat configuration options (file weechat.conf)
+ *
  * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
  * Copyright (C) 2005-2006 Emmanuel Bouthenot <kolter@openics.org>
  *
@@ -16,10 +18,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with WeeChat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * wee-config.c: WeeChat configuration options (file weechat.conf)
  */
 
 #ifdef HAVE_CONFIG_H
@@ -47,6 +45,7 @@
 #include "wee-list.h"
 #include "wee-proxy.h"
 #include "wee-string.h"
+#include "wee-version.h"
 #include "../gui/gui-bar.h"
 #include "../gui/gui-buffer.h"
 #include "../gui/gui-chat.h"
@@ -306,7 +305,7 @@ config_change_title (void *data, struct t_config_option *option)
     (void) option;
 
     if (CONFIG_BOOLEAN(config_look_set_title))
-        gui_window_set_title (PACKAGE_NAME " " PACKAGE_VERSION);
+        gui_window_set_title (version_get_name_version ());
 }
 
 /*

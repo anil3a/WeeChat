@@ -31,9 +31,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. TRANSLATORS: "%s %s" after "compiled on" is date and time
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"WeeChat %s Copyright %s, compiled on %s %s\n"
+"WeeChat %s%s%s%s Copyright %s, compiled on %s %s\n"
 "Developed by Sebastien Helleu <flashcode@flashtux.org> - %s"
 msgstr ""
 "WeeChat %s 著作権 %s、%s %s にコンパイル\n"
@@ -7460,6 +7460,11 @@ msgstr "WeeChat のバージョン"
 
 msgid "WeeChat version (as number)"
 msgstr "WeeChat のバージョン (数字)"
+
+msgid ""
+"WeeChat git version (output of command \"git describe\" for a development "
+"version only, empty for a stable release)"
+msgstr ""
 
 msgid "WeeChat compilation date"
 msgstr "WeeChat のコンパイル日"

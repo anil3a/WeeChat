@@ -1,6 +1,4 @@
 /*
- * gui-gtk-keyboard.c - keyboard functions for Gtk GUI
- *
  * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
@@ -19,38 +17,14 @@
  * along with WeeChat.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#ifndef __WEECHAT_VERSION_H
+#define __WEECHAT_VERSION_H 1
 
-#include <stdlib.h>
-#include <string.h>
+extern const char *version_get_name ();
+extern const char *version_get_version ();
+extern const char *version_get_name_version ();
+extern const char *version_get_git ();
+extern const char *version_get_compilation_date ();
+extern const char *version_get_compilation_time ();
 
-#include "../../core/weechat.h"
-#include "../../core/wee-utf8.h"
-#include "../../plugins/plugin.h"
-#include "../gui-key.h"
-#include "../gui-buffer.h"
-#include "gui-gtk.h"
-
-
-/*
- * Creates default key bindings.
- */
-
-void
-gui_key_default_bindings (int context)
-{
-    /* TODO: write this function for Gtk */
-    (void) context;
-}
-
-/*
- * Reads keyboard chars.
- */
-
-void
-gui_key_read ()
-{
-    /* TODO: write this function for Gtk */
-}
+#endif /* __WEECHAT_VERSION_H */

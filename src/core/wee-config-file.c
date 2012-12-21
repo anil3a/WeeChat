@@ -1,4 +1,6 @@
 /*
+ * wee-config-file.c - configuration files/sections/options management
+ *
  * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
  * Copyright (C) 2005-2006 Emmanuel Bouthenot <kolter@openics.org>
  *
@@ -16,10 +18,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with WeeChat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * wee-config-file.c: configuration files/sections/options management
  */
 
 #ifdef HAVE_CONFIG_H
@@ -41,6 +39,7 @@
 #include "wee-infolist.h"
 #include "wee-log.h"
 #include "wee-string.h"
+#include "wee-version.h"
 #include "../gui/gui-color.h"
 #include "../gui/gui-chat.h"
 #include "../plugins/plugin.h"
@@ -2044,7 +2043,9 @@ config_file_write_internal (struct t_config_file *config_file,
         goto error;
     if (!string_iconv_fprintf (config_file->file,
                                "# %s -- %s v%s\n#\n",
-                               config_file->filename, PACKAGE_NAME, PACKAGE_VERSION))
+                               config_file->filename,
+                               version_get_name (),
+                               version_get_version ()))
         goto error;
 
     /* write all sections */
