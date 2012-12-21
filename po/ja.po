@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.0-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2012-12-22 01:37+0900\n"
-"PO-Revision-Date: 2012-12-15 18:20+0900\n"
+"POT-Creation-Date: 2012-12-22 01:52+0900\n"
+"PO-Revision-Date: 2012-12-22 02:17+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -31,13 +31,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. TRANSLATORS: "%s %s" after "compiled on" is date and time
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WeeChat %s%s%s%s Copyright %s, compiled on %s %s\n"
 "Developed by Sebastien Helleu <flashcode@flashtux.org> - %s"
 msgstr ""
-"WeeChat %s 著作権 %s、%s %s にコンパイル\n"
-"著作者 Sebastien Helleu <flashcode@flashtux.org> - %s"
+"WeeChat %s%s%s%s 著作権 %s、%s %s にコンパイル\n"
+"開発者 Sebastien Helleu <flashcode@flashtux.org> - %s"
 
 #, c-format
 msgid "Usage: %s [option...] [plugin:option...]\n"
@@ -697,39 +697,36 @@ msgstr ""
 "%sオプション \"%s\" が見つかりません (ヒント: sublist を見るには、\"*\" をオ"
 "プションの最初と最後に付けてください)"
 
-#, fuzzy
 msgid "No option found"
-msgstr "プラグインが見つかりません"
+msgstr "オプションが見つかりません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%d%s option with value changed (matching with \"%s\")"
 msgid_plural "%s%d%s options with value changed (matching with \"%s\")"
-msgstr[0] ""
-"\"%4$s\" にマッチする %1$s%2$d%3$s 個の設定オプションが見つかりました"
+msgstr[0] "%s%d%s 個のオプションで値が変更されました (検索文字列は \"%s\")"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%d%s option (matching with \"%s\")"
 msgid_plural "%s%d%s options (matching with \"%s\")"
-msgstr[0] ""
-"\"%4$s\" にマッチする %1$s%2$d%3$s 個の設定オプションが見つかりました"
+msgstr[0] "%s%d%s 個のオプション (検索文字列は \"%s\")"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%d%s option"
 msgid_plural "%s%d%s options"
-msgstr[0] "%s%d%s 個のオプションが見つかりました"
+msgstr[0] "%s%d%s 個のオプション"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%d%s option with value changed"
 msgid_plural "%s%d%s options with value changed"
-msgstr[0] "%s%d%s 個のオプションが見つかりました"
+msgstr[0] "%s%d%s 個のオプションで値が変更されました。"
 
 #, c-format
 msgid "%sError: failed to set option \"%s\""
 msgstr "%sエラー: オプション \"%s\" の設定に失敗しました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sError: option \"%s\" not found"
-msgstr "%sエラー: プラグイン \"%s\" が見つかりません"
+msgstr "%sエラー: オプション \"%s\" が見つかりません"
 
 msgid "Option changed: "
 msgstr "変更されたオプション: "
@@ -2011,11 +2008,9 @@ msgstr ""
 msgid "set config options"
 msgstr "オプションの設定"
 
-#, fuzzy
 msgid "[<option> [<value>]] || diff [<option> [<option>...]]"
-msgstr "[<option> [<value>]]"
+msgstr "[<option> [<value>]] || diff [<option> [<option>...]]"
 
-#, fuzzy
 msgid ""
 "option: name of an option (can start or end with '*' to list many options)\n"
 " value: new value for option\n"
@@ -2043,12 +2038,13 @@ msgstr ""
 "option: オプションの名前 (多くのオプションをリストアップするには、'*' で始め"
 "るか終わるかしてください)\n"
 " value: オプションに対する新しい値\n"
+"  diff: 変更されたオプションのみを表示\n"
 "\n"
 "新しいオプションは以下の変数型に従います:\n"
 "  boolean: on、off、toggle\n"
 "  integer: 番号、++番号、--番号\n"
-"  string : 任意の文字列 (空文字列は \"\")\n"
-"  color  : 色の名前、++色番号、--色番号\n"
+"   string: 任意の文字列 (空文字列は \"\")\n"
+"    color: 色の名前、++色番号、--色番号\n"
 "\n"
 "どんな型であっても、オプションの値を削除する (未定義値にする) には null が使"
 "えます。これはいくつかの特別なプラグイン変数でのみ有効です。\n"
@@ -2057,7 +2053,11 @@ msgstr ""
 "  ハイライトに関するオプションを表示:\n"
 "    /set *highlight*\n"
 "  highlight に単語を追加:\n"
-"    /set weechat.look.highlight \"word\""
+"    /set weechat.look.highlight \"word\"\n"
+"  変更されたオプションを表示:\n"
+"    /set diff\n"
+"  irc プラグインのオプションの内、変更されたオプションを表示\n"
+"    /set diff irc.*"
 
 msgid "unset/reset config options"
 msgstr "オプションのアンセット/リセット"
@@ -7484,6 +7484,8 @@ msgid ""
 "WeeChat git version (output of command \"git describe\" for a development "
 "version only, empty for a stable release)"
 msgstr ""
+"WeeChat の git バージョン (開発バージョンではコマンド \"git describe\" の出"
+"力。安定版リリースでは空文字が出力されます。)"
 
 msgid "WeeChat compilation date"
 msgstr "WeeChat のコンパイル日"
