@@ -983,7 +983,7 @@ gui_window_draw_separators (struct t_gui_window *window)
     /* create/draw horizontal separator */
     if (CONFIG_BOOLEAN(config_look_window_separator_horizontal)
         && (window->win_y + window->win_height <
-            gui_window_get_height () - gui_bar_root_get_size (NULL, GUI_BAR_POSITION_BOTTOM)))
+            gui_window_get_height () - gui_bar_root_get_size (NULL, GUI_BAR_POSITION_BOTTOM) - 1))
     {
         GUI_WINDOW_OBJECTS(window)->win_separator_horiz = newwin (1,
                                                                   window->win_width,
@@ -1675,8 +1675,7 @@ gui_window_split_horizontal (struct t_gui_window *window, int percentage)
             /* assign same buffer for new window (top window) */
             gui_buffer_add_value_num_displayed (new_window->buffer, 1);
 
-            window->refresh_needed = 1;
-            new_window->refresh_needed = 1;
+            gui_window_ask_refresh (1);
 
             gui_window_switch (new_window);
         }
@@ -1725,8 +1724,7 @@ gui_window_split_vertical (struct t_gui_window *window, int percentage)
             /* assign same buffer for new window (right window) */
             gui_buffer_add_value_num_displayed (new_window->buffer, 1);
 
-            window->refresh_needed = 1;
-            new_window->refresh_needed = 1;
+            gui_window_ask_refresh (1);
 
             gui_window_switch (new_window);
 
