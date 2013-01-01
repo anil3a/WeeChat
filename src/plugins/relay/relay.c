@@ -1,7 +1,7 @@
 /*
  * relay.c - network communication between WeeChat and remote client
  *
- * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -259,6 +259,8 @@ weechat_plugin_end (struct t_weechat_plugin *plugin)
     }
 
     relay_network_end ();
+
+    relay_config_free ();
 
     return WEECHAT_RC_OK;
 }

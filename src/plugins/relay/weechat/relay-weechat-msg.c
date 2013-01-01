@@ -1,7 +1,7 @@
 /*
  * relay-weechat-msg.c - build binary messages for WeeChat protocol
  *
- * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -700,6 +700,7 @@ relay_weechat_msg_add_hdata (struct t_relay_weechat_msg *msg,
                                                   ptr_hdata_head,
                                                   pointer,
                                                   list_keys);
+        free (path_pointers);
     }
     count32 = htonl ((uint32_t)count);
     relay_weechat_msg_set_bytes (msg, pos_count, &count32, 4);

@@ -1,7 +1,7 @@
 /*
  * gui-curses-window.c - window display functions for Curses GUI
  *
- * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -1463,13 +1463,10 @@ gui_window_scroll_bottom (struct t_gui_window *window)
     switch (window->buffer->type)
     {
         case GUI_BUFFER_TYPE_FORMATTED:
-            if (window->scroll->start_line)
-            {
-                window->scroll->start_line = NULL;
-                window->scroll->start_line_pos = 0;
-                window->scroll->reset_allowed = 1;
-                gui_buffer_ask_chat_refresh (window->buffer, 2);
-            }
+            window->scroll->start_line = NULL;
+            window->scroll->start_line_pos = 0;
+            window->scroll->reset_allowed = 1;
+            gui_buffer_ask_chat_refresh (window->buffer, 2);
             break;
         case GUI_BUFFER_TYPE_FREE:
             window->scroll->start_line = NULL;

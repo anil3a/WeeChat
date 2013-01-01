@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+# Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
 # Copyright (C) 2007-2008 Julien Louis <ptitlouis@sysif.net>
 # Copyright (C) 2008-2009 Emmanuel Bouthenot <kolter@openics.org>
 #
@@ -33,7 +33,7 @@ ENDIF(PREFIX)
 
 SET(VERSION_MAJOR "0")
 SET(VERSION_MINOR "4")
-SET(VERSION_PATCH "0-dev")
+SET(VERSION_PATCH "0-rc1")
 SET(VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 SET(LICENSE "GPL3")
 SET(PKG_STRING "${PROJECT_NAME} ${VERSION}")

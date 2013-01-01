@@ -1,7 +1,7 @@
 /*
  * xfer-buffer.c - display xfer list on xfer buffer
  *
- * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -228,6 +228,8 @@ xfer_buffer_refresh (const char *hotlist)
                                   (str_total) ? str_total : "?",
                                   eta,
                                   str_bytes_per_sec);
+                if (progress_bar)
+                    free (progress_bar);
                 if (str_pos)
                     free (str_pos);
                 if (str_total)

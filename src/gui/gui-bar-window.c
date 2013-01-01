@@ -1,7 +1,7 @@
 /*
  * gui-bar-window.c - bar window functions (used by all GUI)
  *
- * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -852,6 +852,7 @@ gui_bar_window_content_get_with_filling (struct t_gui_bar_window *bar_window,
                 {
                     if (content)
                         free (content);
+                    free (split_items);
                     return NULL;
                 }
                 content = content2;

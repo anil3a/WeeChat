@@ -1,7 +1,7 @@
 /*
  * script-repo.c - download and read repository file (plugins.xml.gz)
  *
- * Copyright (C) 2003-2012 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2003-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -762,6 +762,7 @@ script_repo_md5sum_file (const char *filename)
     if ((int)fread (data, 1, st.st_size, file) < st.st_size)
     {
         free (data);
+        fclose (file);
         return NULL;
     }
     fclose (file);
