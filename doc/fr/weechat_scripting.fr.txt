@@ -704,7 +704,7 @@ script_options = {
     "option2" : "valeur2",
     "option3" : "valeur3",
 }
-for option, default_value in script_options.iteritems():
+for option, default_value in script_options.items():
     if not weechat.config_is_set_plugin(option):
         weechat.config_set_plugin(option, default_value)
 ----------------------------------------
@@ -733,7 +733,7 @@ def config_cb(data, option, value):
 # ...
 
 weechat.hook_config("plugins.var.python." + SCRIPT_NAME + ".*", "config_cb", "")
-# pour les autres languages, remplacez "python" par le language ("perl", "ruby", "lua" ou "tcl")
+# pour les autres langages, remplacez "python" par le langage ("perl", "ruby", "lua" ou "tcl")
 ----------------------------------------
 
 [[config_options_weechat]]
