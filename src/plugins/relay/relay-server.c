@@ -25,6 +25,7 @@
 #include <string.h>
 #include <time.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -378,8 +379,15 @@ relay_server_create_socket (struct t_relay_server *server)
     if (server->sock < 0)
     {
         weechat_printf (NULL,
-                        _("%s%s: cannot create socket"),
-                        weechat_prefix ("error"), RELAY_PLUGIN_NAME);
+                        _("%s%s: cannot create socket: error %d %s"),
+                        weechat_prefix ("error"), RELAY_PLUGIN_NAME,
+                        errno, strerror (errno));
+        if (errno == EAFNOSUPPORT)
+        {
+            weechat_printf (NULL,
+                            _("%s%s: try /set relay.network.ipv6 off"),
+                            weechat_prefix ("error"), RELAY_PLUGIN_NAME);
+        }
         return 0;
     }
 
