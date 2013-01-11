@@ -2,7 +2,7 @@
  * weechat-aspell-bar-item.c - bar items for aspell plugin
  *
  * Copyright (C) 2012 Nils Görs <weechatter@arcor.de>
- * Copyright (C) 2013 Sebastien Helleu <flashcode@flashtux.org>
+ * Copyright (C) 2012-2013 Sebastien Helleu <flashcode@flashtux.org>
  *
  * This file is part of WeeChat, the extensible chat client.
  *
@@ -50,7 +50,8 @@ weechat_aspell_bar_item_dict (void *data, struct t_gui_bar_item *item,
     buffer = weechat_window_get_pointer (window, "buffer");
     if (buffer)
     {
-        dict_list = weechat_aspell_get_dict (buffer);
+        dict_list = weechat_buffer_get_string (buffer,
+                                               "localvar_aspell_dict");
         if (dict_list)
             return strdup (dict_list);
     }

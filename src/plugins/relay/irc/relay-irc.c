@@ -361,7 +361,7 @@ relay_irc_tag_relay_client_id (const char *tags)
 }
 
 /*
- * Callback for signal "irc_out".
+ * Callback for signal "irc_outtags".
  *
  * This is called when a message is sent to IRC server (by irc plugin or any
  * other plugin/script).
@@ -398,7 +398,7 @@ relay_irc_signal_irc_outtags_cb (void *data, const char *signal,
 
     if (weechat_relay_plugin->debug >= 2)
     {
-        weechat_printf (NULL, "%s: irc_out: client: %s%s%s, message: %s",
+        weechat_printf (NULL, "%s: irc_outtags: client: %s%s%s, message: %s",
                         RELAY_PLUGIN_NAME,
                         RELAY_COLOR_CHAT_CLIENT,
                         client->desc,
@@ -495,6 +495,12 @@ relay_irc_signal_irc_disc_cb (void *data, const char *signal,
 
     client = (struct t_relay_client *)data;
 
+    if (weechat_relay_plugin->debug >= 2)
+    {
+        weechat_printf (NULL, "%s: irc_disconnected: data: %s",
+                        RELAY_PLUGIN_NAME, (char *)signal_data);
+    }
+
     if (strcmp ((char *)signal_data, client->protocol_args) == 0)
     {
         relay_client_set_status (client, RELAY_STATUS_DISCONNECTED);
@@ -513,21 +519,34 @@ int
 relay_irc_hsignal_irc_redir_cb (void *data, const char *signal,
                                 struct t_hashtable *hashtable)
 {
+    struct t_relay_client *client;
     int rc, client_id, num_messages, i;
     char pattern[128], **messages;
     const char *output;
-    struct t_relay_client *ptr_client;
 
-    /* make C compiler happy */
-    (void) data;
+    client = (struct t_relay_client *)data;
+
+    if (weechat_relay_plugin->debug >= 2)
+    {
+        weechat_printf (NULL, "%s: %s: client: %s%s%s",
+                        RELAY_PLUGIN_NAME,
+                        signal,
+                        RELAY_COLOR_CHAT_CLIENT,
+                        client->desc,
+                        RELAY_COLOR_CHAT);
+    }
 
     rc = sscanf (signal, "irc_redirection_relay_%d_%s",
                  &client_id, pattern);
     if (rc != 2)
         return WEECHAT_RC_OK;
 
-    ptr_client = relay_client_search_by_id (client_id);
-    if (!ptr_client)
+    /* check that client id found in signal exists */
+    if (!relay_client_search_by_id (client_id))
+        return WEECHAT_RC_OK;
+
+    /* ignore redirection if it is for another relay client */
+    if (client->id != client_id)
         return WEECHAT_RC_OK;
 
     output = weechat_hashtable_get (hashtable, "output");
@@ -539,7 +558,7 @@ relay_irc_hsignal_irc_redir_cb (void *data, const char *signal,
     {
         for (i = 0; i < num_messages; i++)
         {
-            relay_irc_sendf (ptr_client, messages[i]);
+            relay_irc_sendf (client, messages[i]);
         }
         weechat_string_free_split (messages);
     }
@@ -1170,7 +1189,7 @@ relay_irc_hook_signals (struct t_relay_client *client)
     RELAY_IRC_DATA(client, hook_hsignal_irc_redir) =
         weechat_hook_hsignal ("irc_redirection_relay_*",
                               &relay_irc_hsignal_irc_redir_cb,
-                              NULL);
+                              client);
 }
 
 /*
@@ -1664,7 +1683,7 @@ relay_irc_recv_one_msg (struct t_relay_client *client, char *data)
                     weechat_hashtable_set (hash_redirect, "pattern", "userhost");
                 }
                 /*
-                 * if redirection has been enabled, send the hsignel for
+                 * if redirection has been enabled, send the hsignal for
                  * redirection of IRC message
                  */
                 if (redirect_msg)
