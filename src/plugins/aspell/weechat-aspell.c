@@ -325,7 +325,7 @@ weechat_aspell_spellers_already_ok (const char *dict_list)
             }
             ptr_speller = ptr_speller->next_speller;
         }
-        if (ptr_speller && ptr_speller->next_speller)
+        if (ptr_speller)
             rc = 0;
         weechat_string_free_split (argv);
     }
@@ -362,10 +362,7 @@ weechat_aspell_create_spellers (struct t_gui_buffer *buffer)
                 }
                 weechat_string_free_split (argv);
             }
-            weechat_buffer_set (buffer, "localvar_set_aspell_dict", dict_list);
         }
-        else
-            weechat_buffer_set (buffer, "localvar_del_aspell_dict", "");
         weechat_bar_item_update ("aspell_dict");
     }
 }
