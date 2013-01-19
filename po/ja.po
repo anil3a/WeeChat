@@ -36,7 +36,7 @@ msgid ""
 "WeeChat %s Copyright %s, compiled on %s %s\n"
 "Developed by Sebastien Helleu <flashcode@flashtux.org> - %s"
 msgstr ""
-"WeeChat %s%s%s%s 著作権 %s、%s %s にコンパイル\n"
+"WeeChat %s 著作権 %s、%s %s にコンパイル\n"
 "開発者 Sebastien Helleu <flashcode@flashtux.org> - %s"
 
 #, c-format
