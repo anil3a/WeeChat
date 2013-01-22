@@ -24,7 +24,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.56)
-AC_INIT(WeeChat, 0.4.0-rc3, flashcode@flashtux.org)
+AC_INIT(WeeChat, 0.4.1-dev, flashcode@flashtux.org)
 AC_CONFIG_SRCDIR([configure.in])
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE
@@ -68,7 +68,7 @@ AC_CHECK_LIB(ncursesw, initscr, LIBNCURSESW_FOUND=1, LIBNCURSESW_FOUND=0)
 
 # Checks for header files
 AC_HEADER_STDC
-AC_CHECK_HEADERS([arpa/inet.h libintl.h limits.h locale.h netdb.h netinet/in.h stdlib.h string.h sys/socket.h sys/time.h sys/types.h unistd.h pwd.h errno.h regex.h wchar.h sys/file.h sys/resource.h])
+AC_CHECK_HEADERS([libintl.h sys/resource.h])
 
 # Checks for typedefs, structures, and compiler characteristics
 AC_HEADER_TIME
@@ -91,7 +91,7 @@ AC_MSG_RESULT($ac_cv_type_socklen_t)
 # Checks for library functions.
 AC_FUNC_SELECT_ARGTYPES
 AC_TYPE_SIGNAL
-AC_CHECK_FUNCS([gethostbyname gethostname getsockname gettimeofday inet_ntoa memset mkdir select setlocale socket strcasecmp strchr strdup strndup strncasecmp strpbrk strrchr strstr regexec mallinfo])
+AC_CHECK_FUNCS([mallinfo])
 
 # Variables in config.h
 
@@ -754,20 +754,26 @@ if test "x$enable_guile" = "xyes" ; then
     enable_plugins="yes"
 
     guile_found="no"
-    GUILECONFIG=""
-    AC_CHECK_PROGS(GUILECONFIG, guile-config)
-    if test "x$GUILECONFIG" != "x" ; then
-        AC_MSG_CHECKING(for Guile headers and librairies with guile-config)
+    PKGCONFIG=""
+    AC_CHECK_PROGS(PKGCONFIG, pkg-config)
+    if test "x$PKGCONFIG" != "x"; then
+        AC_MSG_CHECKING(for Guile headers and librairies)
         echo
-        GUILE_CFLAGS=`$GUILECONFIG compile`
-        GUILE_LFLAGS=`$GUILECONFIG link`
-        GUILE_VERSION=`$GUILECONFIG info guileversion`
-        guile_found="yes"
+        for v in "2.0" "1.8" ; do
+            pkgconfig_guile_found=`$PKGCONFIG --exists guile-$v 2>/dev/null`
+            if test "x$?" = "x0" ; then
+                GUILE_VERSION=`$PKGCONFIG --modversion guile-$v`
+                GUILE_CFLAGS=`$PKGCONFIG --cflags guile-$v`
+                GUILE_LFLAGS=`$PKGCONFIG --libs guile-$v`
+                guile_found="yes"
+                break
+            fi
+        done
     fi
 
     if test "x$guile_found" = "xno" ; then
         AC_MSG_WARN([
-*** Script guile-config couldn't be found on your system.
+*** Guile couldn't be found on your system.
 *** WeeChat will be built without Guile (scheme) support.])
         enable_guile="no"
         not_found="$not_found guile"
