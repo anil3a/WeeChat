@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2013-01-24 23:12+0900\n"
-"PO-Revision-Date: 2013-01-22 21:48+0900\n"
+"PO-Revision-Date: 2013-01-24 23:31+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -4270,9 +4270,9 @@ msgstr "%s: パイプを開けました"
 msgid "%s%s: unable to open pipe (%s) for reading"
 msgstr "%s%s: 読み取りパイプ (%s) を開けません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: unable to create pipe for remote control (%s): error %d %s"
-msgstr "%s%s: リモート操作用のパイプを作成できません (%s)"
+msgstr "%s%s: リモート操作用のパイプを作成できません (%s): エラー %d %s"
 
 #, c-format
 msgid "%s: pipe closed"
@@ -8169,17 +8169,19 @@ msgstr "Relay 生メッセージ"
 msgid "%s: socket closed for %s (port %d)"
 msgstr "%s: %s (ポート %d) のソケットが閉じられました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: cannot accept client on port %d (%s): error %d %s"
-msgstr "%s%s: ポート %d (%s) はクライアントを受け付けません"
+msgstr ""
+"%s%s: ポート %d (%s) ではクライアントを受け付けることができません: エラー %d "
+"%s"
 
 #, c-format
 msgid "%s%s: IP address \"%s\" not allowed for relay"
 msgstr "%s%s: IP アドレス \"%s\" はリレーの許可がありません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: cannot set socket option \"%s\" to %d: error %d %s"
-msgstr "%s%s: ソケットの作成に失敗: エラー %d %s"
+msgstr "%s%s: ソケットオプション \"%s\" を %d に設定できません: エラー %d %s"
 
 #, c-format
 msgid "%s%s: cannot create socket: error %d %s"
@@ -8189,13 +8191,15 @@ msgstr "%s%s: ソケットの作成に失敗: エラー %d %s"
 msgid "%s%s: try /set relay.network.ipv6 off"
 msgstr "%s%s: /set relay.network.ipv6 off を試してください"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: cannot \"bind\" on port %d (%s): error %d %s"
-msgstr "%s%s: ポート %d (%s) での \"bind\" にエラー"
+msgstr "%s%s: ポート %d (%s) に \"bind\" できません: エラー %d %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: cannot \"listen\" on port %d (%s): error %d %s"
-msgstr "%s%s: ポート %d (%s) はクライアントを受け付けません"
+msgstr ""
+"%s%s: ポート %d (%s) ではクライアントを受け付けることができません: エラー %d "
+"%s"
 
 #, c-format
 msgid "%s: listening on port %d (relay: %s, %s, max %d clients)"
@@ -9262,9 +9266,9 @@ msgstr ""
 "%s%s: \"%s\" のアドレスが見つかりません、ローカル IP アドレスに切り替えていま"
 "す"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: cannot create socket for xfer: error %d %s"
-msgstr "%s%s: ソケットの作成に失敗: エラー %d %s"
+msgstr "%s%s: xfer 用のソケット作成に失敗: エラー %d %s"
 
 #, c-format
 msgid "%s%s: cannot find available port for xfer"
@@ -9469,9 +9473,9 @@ msgstr "xfer のリスト"
 msgid "xfer pointer (optional)"
 msgstr "xfer ポインタ (オプション)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: unable to create pipe: error %d %s"
-msgstr "%s%s: パイプを作成できません"
+msgstr "%s%s: パイプを作成できません: エラー %d %s"
 
 #, c-format
 msgid "%s%s: unable to read local file"
@@ -9509,13 +9513,13 @@ msgstr ""
 "%s: %s (%ld.%ld.%ld.%ld、%s.%s) へファイルを送信、名前: %s (ローカルファイル"
 "名: %s)、%llu バイト (プロトコル: %s)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: unable to create socket for sending file: error %d %s"
-msgstr "%s%s: ファイル送信用にソケットを作れません"
+msgstr "%s%s: ファイル送信用にソケットを作れません: エラー %d %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: unable to set option \"nonblock\" for socket: error %d %s"
-msgstr "%s%s: ソケットにオプション \"nonblock\" を設定できません"
+msgstr "%s%s: ソケットにオプション \"nonblock\" を設定できません: エラー %d %s"
 
 #, c-format
 msgid "%s%s: timeout for \"%s\" with %s"
