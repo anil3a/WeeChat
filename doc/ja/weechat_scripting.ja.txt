@@ -152,8 +152,7 @@ weechat::print "" "Hello, from tcl script!"
 [[load_script]]
 === スクリプトのロード ===
 
-// TRANSLATION MISSING
-It is recommended to use the "script" plugin to load scripts, for example:
+スクリプトをロードするには "script" プラグインを使うことを推奨します。例:
 
 ----------------------------------------
 /script load script.py
@@ -164,8 +163,7 @@ It is recommended to use the "script" plugin to load scripts, for example:
 /script load script.scm
 ----------------------------------------
 
-// TRANSLATION MISSING
-Each language has also its own command:
+プログラミング言語ごとの固有コマンドを利用することもできます:
 
 ----------------------------------------
 /python load python/script.py
@@ -186,10 +184,9 @@ $ cd ~/.weechat/python/autoload
 $ ln -s ../script.py
 ----------------------------------------
 
-// TRANSLATION MISSING
 [NOTE]
-When installing a script with command `/script install` the link in 'autoload'
-directory is automatically created.
+`/script install` コマンドでスクリプトをインストールした場合、'autoload'
+ディレクトリ内にリンクが自動的に作成されます。
 
 [[differences_with_c_api]]
 == C API との違い ==
@@ -261,8 +258,7 @@ weechat.prnt("", "hi!")
 C コールバックはポインタ型の "data" 引数を利用します。スクリプト API
 では、"data" は文字列型で任意の値を取れます (ポインタ型ではありません)。
 
-// TRANSLATION MISSING
-Example of callback, for each language:
+各プログラミング言語でコールバックを利用する例:
 
 * python:
 
