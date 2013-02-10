@@ -27,11 +27,11 @@ Ses principales fonctionnalités sont les suivantes :
 * connexion multi-serveurs (avec SSL, IPv6, proxy)
 * petit, rapide et léger
 * paramétrable et extensible avec des extensions et des scripts
-* conforme aux RFCs IRC http://www.ietf.org/rfc/rfc1459.txt[1459],
-  http://www.ietf.org/rfc/rfc2810.txt[2810],
-  http://www.ietf.org/rfc/rfc2811.txt[2811],
-  http://www.ietf.org/rfc/rfc2812.txt[2812] et
-  http://www.ietf.org/rfc/rfc2813.txt[2813]
+* conforme aux RFCs IRC http://tools.ietf.org/html/rfc1459[1459],
+  http://tools.ietf.org/html/rfc2810[2810],
+  http://tools.ietf.org/html/rfc2811[2811],
+  http://tools.ietf.org/html/rfc2812[2812] et
+  http://tools.ietf.org/html/rfc2813[2813]
 * multi plates-formes (GNU/Linux, *BSD, MacOS X, Windows et d'autres systèmes)
 * 100% GPL, logiciel libre
 
@@ -298,7 +298,7 @@ Merci pour votre aide !
 Debug de WeeChat qui tourne
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Pour débugger WeeChat qui tourne (par exemple si WeeChat semble bloqué), vous
+Pour déboguer WeeChat qui tourne (par exemple si WeeChat semble bloqué), vous
 pouvez utiliser gdb avec l'identifiant du processus (remplacez '12345' par le
 PID du processus weechat-curses) :
 
@@ -2380,8 +2380,8 @@ Vous pouvez limiter le nombre de clients autorisés :
 ----------------------------------------
 
 [[relay_weechat_protocol]]
-WeeChat protocol
-^^^^^^^^^^^^^^^^
+Protocole WeeChat
+^^^^^^^^^^^^^^^^^
 
 L'extension Relay peut envoyer les données à une interface distante en
 utilisant le protocole WeeChat.
@@ -2427,6 +2427,30 @@ Et ajoutez le relai avec SSL, par exemple :
 /relay add ssl.irc.freenode 8001
 /relay add ssl.weechat 9001
 ----------------------------------------
+
+[[relay_websocket]]
+Websocket
+^^^^^^^^^
+
+Le protocole WebSocket (http://tools.ietf.org/html/rfc6455[RFC 6455]) est
+supporté dans l'extension Relay pour tous les protocoles.
+
+La poignée de main ("handshake") WebSocket est automatiquement détectée et le
+socket devient prêt pour WebSocket si les en-tête requis sont trouvés dans la
+poignée de main et si l'origine est autorisée (voir l'option
+<<option_relay.network.websocket_allowed_origins,relay.network.websocket_allowed_origins>>).
+
+Un WebSocket peut être ouvert dans une page HTML5 avec une seule ligne de
+JavaScript :
+
+[source,js]
+----------------------------------------
+websocket = new WebSocket("ws://server.com:5000/weechat");
+----------------------------------------
+
+Le port (5000 dans l'exemple) est le port défini dans l'extension Relay.
+L'URI doit toujours se terminer par "/weechat" (pour les protocoles IRC et
+WeeChat).
 
 [[rmodifier_plugin]]
 Extension Rmodifier

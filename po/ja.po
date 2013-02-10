@@ -1346,6 +1346,7 @@ msgstr ""
 "list || enable|disable|toggle [<name>] || add <name> <buffer>[,<buffer>...] "
 "<tags> <regex> || del <name>|-all"
 
+#, fuzzy
 msgid ""
 "   list: list all filters\n"
 " enable: enable filters (filters are enabled by default)\n"
@@ -1380,7 +1381,7 @@ msgid ""
 "  notify_none, notify_message, notify_private, notify_highlight,\n"
 "  nick_xxx (xxx is nick in message), prefix_nick_ccc (ccc is color of "
 "nick),\n"
-"  irc_xxx (xxx is command name or number, see /server raw),\n"
+"  irc_xxx (xxx is command name or number, see /server raw or /debug tags),\n"
 "  irc_numeric, irc_error, irc_action, irc_ctcp, irc_ctcp_reply, "
 "irc_smart_filter, away_info.\n"
 "To see tags for lines in buffers: /debug tags\n"
@@ -3189,9 +3190,10 @@ msgstr ""
 "有効化された場合、補完する元単語はカーソル前の文字で終了; そうでなければ元単"
 "語はカーソル後の最初の文字で終了"
 
+#, fuzzy
 msgid ""
 "default completion template (please see documentation for template codes and "
-"values)"
+"values: plugin API reference, function \"weechat_hook_command\")"
 msgstr ""
 "デフォルトの補完テンプレート (テンプレートコードと値のドキュメントを参照)"
 
@@ -3929,18 +3931,29 @@ msgstr ""
 msgid "Spell checker for input (with Aspell)"
 msgstr "入力に対するスペルチェッカ (Aspell を利用)"
 
-#, c-format
-msgid "%s: \"%s\" removed"
-msgstr "%s: \"%s\" 削除しました"
-
 #. TRANSLATORS: "%s" is "aspell"
 #, c-format
 msgid "%s dictionaries list:"
 msgstr "%s ディレクトリリスト:"
 
 #, c-format
+msgid "%s: \"%s\" removed"
+msgstr "%s: \"%s\" 削除しました"
+
+#, c-format
 msgid "%s: error: dictionary \"%s\" is not available on your system"
 msgstr "%s: エラー: ディレクトリ \"%s\" がシステム上に見つかりません"
+
+#, c-format
+msgid "%s%s: no dictionary on this buffer for adding word"
+msgstr "%s%s: このバッファ上には単語を追加する辞書がありません"
+
+#, c-format
+msgid ""
+"%s%s: many dictionaries are defined for this buffer, please specify "
+"dictionary"
+msgstr ""
+"%s%s: このバッファには複数の辞書が定義されています、辞書を指定してください"
 
 #, c-format
 msgid "%s: word \"%s\" added to personal dictionary"
@@ -3972,33 +3985,25 @@ msgstr "Aspell が有効化されています"
 msgid "Aspell disabled"
 msgstr "Aspell が無効化されています"
 
-#, c-format
-msgid "%s%s: no dictionary on this buffer for adding word"
-msgstr "%s%s: このバッファ上には単語を追加する辞書がありません"
-
-#, c-format
-msgid ""
-"%s%s: many dictionaries are defined for this buffer, please specify "
-"dictionary"
-msgstr ""
-"%s%s: このバッファには複数の辞書が定義されています、辞書を指定してください"
-
 msgid "aspell plugin configuration"
 msgstr "aspell プラグイン設定"
 
+#, fuzzy
 msgid ""
-"enable|disable|toggle || listdict || setdict <lang> || deldict || addword "
-"[<lang>] <word>"
+"enable|disable|toggle || listdict || setdict <dict>[,<dict>...] || deldict "
+"|| addword [<dict>] <word>"
 msgstr ""
 "enable|disable|toggle || listdict || setdict <lang> || deldict || addword "
 "[<lang>] <word>"
 
+#, fuzzy
 msgid ""
 "  enable: enable aspell\n"
 " disable: disable aspell\n"
 "  toggle: toggle aspell\n"
 "listdict: show installed dictionaries\n"
-" setdict: set dictionary for current buffer\n"
+" setdict: set dictionary for current buffer (multiple dictionaries can be "
+"separated by a comma)\n"
 " deldict: delete dictionary used on current buffer\n"
 " addword: add a word in personal aspell dictionary\n"
 "\n"
@@ -4030,8 +4035,13 @@ msgstr ""
 "\n"
 "aspell の有効無効を切り替えるデフォルトのキーは alt-s　です。"
 
-msgid "list of supported langs for aspell"
+#, fuzzy
+msgid "list of all languages supported by aspell"
 msgstr "aspell でサポートされる言語のリスト"
+
+#, fuzzy
+msgid "list of aspell installed dictionaries"
+msgstr "インストール済みスクリプトのリスト (リポジトリから)"
 
 msgid "comma separated list of dictionaries to use on this buffer"
 msgstr "このバッファで使用中の辞書のカンマ区切りリスト"
@@ -4096,13 +4106,18 @@ msgid ""
 "minimum length for a word to be spell checked (use 0 to check all words)"
 msgstr "スペルチェックを行う単語長の最小値 (0 の場合は全ての単語をチェック)"
 
+#, fuzzy
+msgid "comma-separated list of dictionaries used in buffer"
+msgstr "このバッファで使用中の辞書のカンマ区切りリスト"
+
+msgid ""
+"buffer pointer (\"0x12345678\") or buffer full name (\"irc.freenode.#weechat"
+"\")"
+msgstr ""
+
 #, c-format
 msgid "%s: warning: dictionary \"%s\" is not available on your system"
 msgstr "%s: 警告: 辞書 \"%s\" がこのシステム上では利用できません"
-
-#, c-format
-msgid "%s%s: not enough memory to create new speller"
-msgstr "%s%s: 新しい speller を作る十分なメモリがありません"
 
 msgid "Charset conversions"
 msgstr "文字コード変換"
@@ -7845,6 +7860,19 @@ msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクが失�
 msgid "%s%s: TLS handshake timeout for client %s%s%s"
 msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクがタイムアウト"
 
+#, fuzzy, c-format
+msgid "%s%s: invalid websocket handshake received for client %s%s%s"
+msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクがタイムアウト"
+
+#, fuzzy, c-format
+msgid "%s%s: origin \"%s\" not allowed for websocket"
+msgstr "%s%s: IP アドレス \"%s\" はリレーの許可がありません"
+
+#, fuzzy, c-format
+msgid "%s%s: error decoding websocket frame for client %s%s%s"
+msgstr ""
+"%s%s: クライアント %s%s%s のソケットからデータを読み取り中: エラー %d %s"
+
 #, c-format
 msgid "%s%s: reading data on socket for client %s%s%s: error %d %s"
 msgstr ""
@@ -8114,6 +8142,12 @@ msgstr ""
 msgid ""
 "file with SSL certificate and private key (for serving clients with SSL)"
 msgstr "SSL 証明書と秘密鍵のファイル (SSL 接続を利用するクライアント用)"
+
+msgid ""
+"regular expression with origins allowed in websockets (case insensitive, use "
+"\"(?-i)\" at beginning to make it case sensitive), example: \"^http://(www"
+"\\.)?example\\.(com|org)\""
+msgstr ""
 
 msgid "maximum number of lines in backlog per IRC channel (0 = unlimited)"
 msgstr "IRC チャンネルごとのバックログの最大行数 (0 = 制限無し)"
@@ -9560,6 +9594,9 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "%s%s: not enough memory to create new speller"
+#~ msgstr "%s%s: 新しい speller を作る十分なメモリがありません"
 
 #~ msgid "%s%s: cannot set socket option \"SO_REUSEADDR\""
 #~ msgstr "%s%s: ソケットオプション \"SO_REUSEADDR\" の設定に失敗"

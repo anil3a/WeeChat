@@ -107,8 +107,14 @@
 ./src/plugins/aspell/weechat-aspell.h
 ./src/plugins/aspell/weechat-aspell-bar-item.c
 ./src/plugins/aspell/weechat-aspell-bar-item.h
+./src/plugins/aspell/weechat-aspell-command.c
+./src/plugins/aspell/weechat-aspell-command.h
+./src/plugins/aspell/weechat-aspell-completion.c
+./src/plugins/aspell/weechat-aspell-completion.h
 ./src/plugins/aspell/weechat-aspell-config.c
 ./src/plugins/aspell/weechat-aspell-config.h
+./src/plugins/aspell/weechat-aspell-info.c
+./src/plugins/aspell/weechat-aspell-info.h
 ./src/plugins/aspell/weechat-aspell-speller.c
 ./src/plugins/aspell/weechat-aspell-speller.h
 ./src/plugins/charset/charset.c
@@ -211,6 +217,8 @@
 ./src/plugins/relay/relay-server.h
 ./src/plugins/relay/relay-upgrade.c
 ./src/plugins/relay/relay-upgrade.h
+./src/plugins/relay/relay-websocket.c
+./src/plugins/relay/relay-websocket.h
 ./src/plugins/relay/irc/relay-irc.c
 ./src/plugins/relay/irc/relay-irc.h
 ./src/plugins/relay/weechat/relay-weechat.c

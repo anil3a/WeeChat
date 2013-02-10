@@ -26,11 +26,11 @@ wesentliche Merkmale:
 * mehrere Server Verbindungen sind möglich (mittels SSL, IPv6, proxy)
 * klein, schnell und schlank
 * den eigenen persönlichen Bedürfnissen anpassbar und durch Erweiterungen und Skripten in der Funktionalität erweiterbar
-* IRC RFCs konform http://www.ietf.org/rfc/rfc1459.txt[1459],
-  http://www.ietf.org/rfc/rfc2810.txt[2810],
-  http://www.ietf.org/rfc/rfc2811.txt[2811],
-  http://www.ietf.org/rfc/rfc2812.txt[2812] and
-  http://www.ietf.org/rfc/rfc2813.txt[2813]
+* IRC RFCs konform http://tools.ietf.org/html/rfc1459[1459],
+  http://tools.ietf.org/html/rfc2810[2810],
+  http://tools.ietf.org/html/rfc2811[2811],
+  http://tools.ietf.org/html/rfc2812[2812] and
+  http://tools.ietf.org/html/rfc2813[2813]
 * Betriebssystemunabhängig (GNU/Linux, *BSD, MacOS X, Windows und weitere)
 * 100% GPL, freie Software
 
@@ -2402,6 +2402,29 @@ um dann die Relay-Verbindung, mit SSL Verschlüsselung, anzulegen:
 /relay add ssl.irc.freenode 8001
 /relay add ssl.weechat 9001
 ----------------------------------------
+
+// TRANSLATION MISSING
+[[relay_websocket]]
+Websocket
+^^^^^^^^^
+
+WebSocket protocol (http://tools.ietf.org/html/rfc6455[RFC 6455]) is supported
+in Relay plugin for all protocols.
+
+The WebSocket handshake is automatically detected and socket becomes ready for
+WebSocket if required headers are found in handshake and if origin is allowed
+(see option
+<<option_relay.network.websocket_allowed_origins,relay.network.websocket_allowed_origins>>).
+
+A WebSocket can be opened in a HTML5 with a single line of JavaScript:
+
+[source,js]
+----------------------------------------
+websocket = new WebSocket("ws://server.com:5000/weechat");
+----------------------------------------
+
+The port (5000 in example) is the port defined in Relay plugin.
+The URI must always ends with "/weechat" (for both IRC and WeeChat protocols).
 
 [[rmodifier_plugin]]
 Rmodifier Erweiterung

@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-01-24 08:46+0100\n"
-"PO-Revision-Date: 2013-01-23 14:54+0100\n"
+"POT-Creation-Date: 2013-02-10 20:17+0100\n"
+"PO-Revision-Date: 2013-02-10 08:29+0100\n"
 "Last-Translator: Sebastien Helleu <flashcode@flashtux.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: French\n"
@@ -1415,7 +1415,7 @@ msgid ""
 "  notify_none, notify_message, notify_private, notify_highlight,\n"
 "  nick_xxx (xxx is nick in message), prefix_nick_ccc (ccc is color of "
 "nick),\n"
-"  irc_xxx (xxx is command name or number, see /server raw),\n"
+"  irc_xxx (xxx is command name or number, see /server raw or /debug tags),\n"
 "  irc_numeric, irc_error, irc_action, irc_ctcp, irc_ctcp_reply, "
 "irc_smart_filter, away_info.\n"
 "To see tags for lines in buffers: /debug tags\n"
@@ -1470,7 +1470,8 @@ msgstr ""
 "  notify_none, notify_message, notify_private, notify_highlight,\n"
 "  nick_xxx (xxx est le pseudo dans le message), prefix_nick_ccc (ccc est la "
 "couleur du pseudo),\n"
-"  irc_xxx (xxx est un nom de commande ou nombre, voir /server raw),\n"
+"  irc_xxx (xxx est un nom de commande ou nombre, voir /server raw ou /debug "
+"tags),\n"
 "  irc_numeric, irc_error, irc_action, irc_ctcp, irc_ctcp_reply, "
 "irc_smart_filter, away_info.\n"
 "Pour voir les tags des lignes affichées: /debug tags\n"
@@ -3318,10 +3319,11 @@ msgstr ""
 
 msgid ""
 "default completion template (please see documentation for template codes and "
-"values)"
+"values: plugin API reference, function \"weechat_hook_command\")"
 msgstr ""
 "modèle de complétion par défaut (merci de consulter la documentation pour "
-"les codes et valeurs du modèle)"
+"les codes et valeurs du modèle: Référence API extension, fonction "
+"\"weechat_hook_command\")"
 
 msgid ""
 "add space after nick completion (when nick is not first word on command line)"
@@ -4088,19 +4090,31 @@ msgstr ""
 msgid "Spell checker for input (with Aspell)"
 msgstr "Vérificateur d'orthographe pour la saisie (avec Aspell)"
 
-#, c-format
-msgid "%s: \"%s\" removed"
-msgstr "%s: \"%s\" supprimé"
-
 #. TRANSLATORS: "%s" is "aspell"
 #, c-format
 msgid "%s dictionaries list:"
 msgstr "Liste des dictionnaires %s:"
 
 #, c-format
+msgid "%s: \"%s\" removed"
+msgstr "%s: \"%s\" supprimé"
+
+#, c-format
 msgid "%s: error: dictionary \"%s\" is not available on your system"
 msgstr ""
 "%s: erreur: le dictionnaire \"%s\" n'est pas disponible sur votre système"
+
+#, c-format
+msgid "%s%s: no dictionary on this buffer for adding word"
+msgstr "%s%s: pas de dictionnaire sur ce tampon pour ajouter le mot"
+
+#, c-format
+msgid ""
+"%s%s: many dictionaries are defined for this buffer, please specify "
+"dictionary"
+msgstr ""
+"%s%s: plusieurs dictionnaires sont définis pour ce tampon, merci de préciser "
+"le dictionnaire"
 
 #, c-format
 msgid "%s: word \"%s\" added to personal dictionary"
@@ -4132,34 +4146,23 @@ msgstr "Aspell activé"
 msgid "Aspell disabled"
 msgstr "Aspell désactivé"
 
-#, c-format
-msgid "%s%s: no dictionary on this buffer for adding word"
-msgstr "%s%s: pas de dictionnaire sur ce tampon pour ajouter le mot"
-
-#, c-format
-msgid ""
-"%s%s: many dictionaries are defined for this buffer, please specify "
-"dictionary"
-msgstr ""
-"%s%s: plusieurs dictionnaires sont définis pour ce tampon, merci de préciser "
-"le dictionnaire"
-
 msgid "aspell plugin configuration"
 msgstr "configuration de l'extension aspell"
 
 msgid ""
-"enable|disable|toggle || listdict || setdict <lang> || deldict || addword "
-"[<lang>] <word>"
+"enable|disable|toggle || listdict || setdict <dict>[,<dict>...] || deldict "
+"|| addword [<dict>] <word>"
 msgstr ""
-"enable|disable|toggle || listdict || setdict <langue> || deldict || addword "
-"[<langue>] <mot>"
+"enable|disable|toggle || listdict || setdict <dict>[,<dict>...] || deldict "
+"|| addword [<dict>] <mot>"
 
 msgid ""
 "  enable: enable aspell\n"
 " disable: disable aspell\n"
 "  toggle: toggle aspell\n"
 "listdict: show installed dictionaries\n"
-" setdict: set dictionary for current buffer\n"
+" setdict: set dictionary for current buffer (multiple dictionaries can be "
+"separated by a comma)\n"
 " deldict: delete dictionary used on current buffer\n"
 " addword: add a word in personal aspell dictionary\n"
 "\n"
@@ -4177,7 +4180,8 @@ msgstr ""
 " disable: désactiver aspell\n"
 "  toggle: activer/désactiver aspell\n"
 "listdict: afficher les dictionnaires installés\n"
-" setdict: définir le dictionnaire pour le tampon courant\n"
+" setdict: définir le dictionnaire pour le tampon courant (plusieurs "
+"dictionnaires peuvent être séparés par une virgule)\n"
 " deldict: supprimer le dictionnaire utilisé sur le tampon courant\n"
 " addword: ajouter un mot dans le dictionnaire personnel aspell\n"
 "\n"
@@ -4191,8 +4195,11 @@ msgstr ""
 "\n"
 "La touche par défaut pour activer/désactiver aspell est alt-s."
 
-msgid "list of supported langs for aspell"
-msgstr "liste des langues supportées pour aspell"
+msgid "list of all languages supported by aspell"
+msgstr "liste de toutes les langues supportées par aspell"
+
+msgid "list of aspell installed dictionaries"
+msgstr "liste des dictionnaires aspell installés"
 
 msgid "comma separated list of dictionaries to use on this buffer"
 msgstr ""
@@ -4262,15 +4269,22 @@ msgstr ""
 "longueur minimum d'un mot pour que l'otrhographe soit vérifiée (utilisez 0 "
 "pour vérifier tous les mots)"
 
+msgid "comma-separated list of dictionaries used in buffer"
+msgstr ""
+"liste de dictionnaires (séparés par des virgules) utilisés sur le tampon"
+
+msgid ""
+"buffer pointer (\"0x12345678\") or buffer full name (\"irc.freenode.#weechat"
+"\")"
+msgstr ""
+"pointeur vers un tampon (\"0x12345678\") ou nom complet de tampon (\"irc."
+"freenode.#weechat\")"
+
 #, c-format
 msgid "%s: warning: dictionary \"%s\" is not available on your system"
 msgstr ""
 "%s: attention: le dictionnaire \\\"%s\\\" n'est pas disponible sur votre "
 "système"
-
-#, c-format
-msgid "%s%s: not enough memory to create new speller"
-msgstr "%s%s: pas assez de mémoire pour créer un nouveau speller"
 
 msgid "Charset conversions"
 msgstr "Conversions de charset"
@@ -8130,6 +8144,19 @@ msgstr ""
 "le client %s%s%s"
 
 #, c-format
+msgid "%s%s: invalid websocket handshake received for client %s%s%s"
+msgstr ""
+"%s%s: poignée de main (handshake) websocket invalide pour le client %s%s%s"
+
+#, c-format
+msgid "%s%s: origin \"%s\" not allowed for websocket"
+msgstr "%s%s: origine \"%s\" non autorisée pour le websocket"
+
+#, c-format
+msgid "%s%s: error decoding websocket frame for client %s%s%s"
+msgstr "%s%s: erreur de décodage d'un message websocket pour le client %s%s%s"
+
+#, c-format
 msgid "%s%s: reading data on socket for client %s%s%s: error %d %s"
 msgstr ""
 "%s%s: lecture de données sur la socket pour le client %s%s%s: erreur %d %s"
@@ -8407,6 +8434,15 @@ msgid ""
 msgstr ""
 "fichier avec le certificat et la clé privée SSL (pour servir les clients "
 "avec SSL)"
+
+msgid ""
+"regular expression with origins allowed in websockets (case insensitive, use "
+"\"(?-i)\" at beginning to make it case sensitive), example: \"^http://(www"
+"\\.)?example\\.(com|org)\""
+msgstr ""
+"expression régulière avec les origines autorisées dans les websockets "
+"(insensible à la casse, utilisez \"(?-i)\" en début de chaîne pour la rendre "
+"insensible à la casse), exemple: \"^http://(www\\.)?example\\.(com|org)\""
 
 msgid "maximum number of lines in backlog per IRC channel (0 = unlimited)"
 msgstr ""
@@ -9893,33 +9929,3 @@ msgstr "Type"
 
 msgid "Constants"
 msgstr "Constantes"
-
-#~ msgid "%s%s: cannot set socket option \"SO_REUSEADDR\""
-#~ msgstr "%s%s: impossible d'activer l'option socket \"SO_REUSEADDR\""
-
-#~ msgid "%s%s: cannot set socket option \"IPV6_V6ONLY\" to value %d"
-#~ msgstr ""
-#~ "%s%s: impossible d'activer l'option socket \"IPV6_V6ONLY\" à la valeur %d"
-
-#~ msgid "%s%s: cannot set socket option \"SO_KEEPALIVE\""
-#~ msgstr "%s%s: impossible d'activer l'option socket \"SO_KEEPALIVE\""
-
-#~ msgid "%s%s: cannot create socket for xfer"
-#~ msgstr "%s%s: impossible de créer la socket pour le xfer"
-
-#~ msgid "%s%s: not enough memory to parse file \"%s\""
-#~ msgstr "%s%s: mémoire insuffisante pour lire le fichier \"%s\""
-
-#~ msgid "%s%s: unable to run file \"%s\""
-#~ msgstr "%s%s: impossible de lancer le fichier \"%s\""
-
-#~ msgid "%s%s: unknown error while loading file \"%s\""
-#~ msgstr "%s%s: erreur inconnue en chargement du fichier \"%s\""
-
-#~ msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"
-#~ msgstr ""
-#~ "%s: erreur de chargement du script \"%s\" (mauvais nom, les espaces sont "
-#~ "interdits)"
-
-#~ msgid "%s%s: cannot create socket"
-#~ msgstr "%s%s: impossible de créer la socket"

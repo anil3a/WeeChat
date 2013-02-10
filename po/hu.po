@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-01-24 08:46+0100\n"
+"POT-Creation-Date: 2013-02-10 20:17+0100\n"
 "PO-Revision-Date: 2013-01-20 12:07+0100\n"
 "Last-Translator: Andras Voroskoi <voroskoi@frugalware.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -1254,7 +1254,7 @@ msgid ""
 "  notify_none, notify_message, notify_private, notify_highlight,\n"
 "  nick_xxx (xxx is nick in message), prefix_nick_ccc (ccc is color of "
 "nick),\n"
-"  irc_xxx (xxx is command name or number, see /server raw),\n"
+"  irc_xxx (xxx is command name or number, see /server raw or /debug tags),\n"
 "  irc_numeric, irc_error, irc_action, irc_ctcp, irc_ctcp_reply, "
 "irc_smart_filter, away_info.\n"
 "To see tags for lines in buffers: /debug tags\n"
@@ -2665,7 +2665,7 @@ msgstr ""
 
 msgid ""
 "default completion template (please see documentation for template codes and "
-"values)"
+"values: plugin API reference, function \"weechat_hook_command\")"
 msgstr ""
 
 msgid ""
@@ -3394,17 +3394,27 @@ msgstr ""
 msgid "Spell checker for input (with Aspell)"
 msgstr ""
 
-#, fuzzy, c-format
-msgid "%s: \"%s\" removed"
-msgstr "A \"%s\" aliasz eltávolítva\n"
-
 #. TRANSLATORS: "%s" is "aspell"
 #, fuzzy, c-format
 msgid "%s dictionaries list:"
 msgstr "a /who lista vége"
 
+#, fuzzy, c-format
+msgid "%s: \"%s\" removed"
+msgstr "A \"%s\" aliasz eltávolítva\n"
+
 #, c-format
 msgid "%s: error: dictionary \"%s\" is not available on your system"
+msgstr ""
+
+#, c-format
+msgid "%s%s: no dictionary on this buffer for adding word"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s%s: many dictionaries are defined for this buffer, please specify "
+"dictionary"
 msgstr ""
 
 #, c-format
@@ -3441,23 +3451,13 @@ msgstr "a felhasználók le lettek tiltva"
 msgid "Aspell disabled"
 msgstr "Nincs aliasz definiálva.\n"
 
-#, c-format
-msgid "%s%s: no dictionary on this buffer for adding word"
-msgstr ""
-
-#, c-format
-msgid ""
-"%s%s: many dictionaries are defined for this buffer, please specify "
-"dictionary"
-msgstr ""
-
 #, fuzzy
 msgid "aspell plugin configuration"
 msgstr "Beállítások mentése a lemezre\n"
 
 msgid ""
-"enable|disable|toggle || listdict || setdict <lang> || deldict || addword "
-"[<lang>] <word>"
+"enable|disable|toggle || listdict || setdict <dict>[,<dict>...] || deldict "
+"|| addword [<dict>] <word>"
 msgstr ""
 
 msgid ""
@@ -3465,7 +3465,8 @@ msgid ""
 " disable: disable aspell\n"
 "  toggle: toggle aspell\n"
 "listdict: show installed dictionaries\n"
-" setdict: set dictionary for current buffer\n"
+" setdict: set dictionary for current buffer (multiple dictionaries can be "
+"separated by a comma)\n"
 " deldict: delete dictionary used on current buffer\n"
 " addword: add a word in personal aspell dictionary\n"
 "\n"
@@ -3480,7 +3481,10 @@ msgid ""
 "Default key to toggle aspell is alt-s."
 msgstr ""
 
-msgid "list of supported langs for aspell"
+msgid "list of all languages supported by aspell"
+msgstr ""
+
+msgid "list of aspell installed dictionaries"
 msgstr ""
 
 msgid "comma separated list of dictionaries to use on this buffer"
@@ -3535,13 +3539,17 @@ msgid ""
 "minimum length for a word to be spell checked (use 0 to check all words)"
 msgstr ""
 
+msgid "comma-separated list of dictionaries used in buffer"
+msgstr ""
+
+msgid ""
+"buffer pointer (\"0x12345678\") or buffer full name (\"irc.freenode.#weechat"
+"\")"
+msgstr ""
+
 #, c-format
 msgid "%s: warning: dictionary \"%s\" is not available on your system"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "%s%s: not enough memory to create new speller"
-msgstr "%s nincs elegendő memória új DCC számára\n"
 
 #, fuzzy
 msgid "Charset conversions"
@@ -7176,6 +7184,18 @@ msgid "%s%s: TLS handshake timeout for client %s%s%s"
 msgstr "%s gnutls kézfogás sikertelen\n"
 
 #, fuzzy, c-format
+msgid "%s%s: invalid websocket handshake received for client %s%s%s"
+msgstr "%s gnutls kézfogás sikertelen\n"
+
+#, fuzzy, c-format
+msgid "%s%s: origin \"%s\" not allowed for websocket"
+msgstr "%s cím \"%s\" nem található\n"
+
+#, fuzzy, c-format
+msgid "%s%s: error decoding websocket frame for client %s%s%s"
+msgstr "%s adatküldési hiba az IRC szerveren\n"
+
+#, fuzzy, c-format
 msgid "%s%s: reading data on socket for client %s%s%s: error %d %s"
 msgstr "%s adatküldési hiba az IRC szerveren\n"
 
@@ -7404,6 +7424,12 @@ msgstr ""
 
 msgid ""
 "file with SSL certificate and private key (for serving clients with SSL)"
+msgstr ""
+
+msgid ""
+"regular expression with origins allowed in websockets (case insensitive, use "
+"\"(?-i)\" at beginning to make it case sensitive), example: \"^http://(www"
+"\\.)?example\\.(com|org)\""
 msgstr ""
 
 #, fuzzy
@@ -8781,6 +8807,10 @@ msgstr ""
 
 msgid "Constants"
 msgstr ""
+
+#, fuzzy
+#~ msgid "%s%s: not enough memory to create new speller"
+#~ msgstr "%s nincs elegendő memória új DCC számára\n"
 
 #, fuzzy
 #~ msgid "%s%s: cannot set socket option \"SO_REUSEADDR\""

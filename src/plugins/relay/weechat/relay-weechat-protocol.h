@@ -22,6 +22,18 @@
 
 #define RELAY_WEECHAT_PROTOCOL_SYNC_BUFFER   1
 #define RELAY_WEECHAT_PROTOCOL_SYNC_NICKLIST 2
+#define RELAY_WEECHAT_PROTOCOL_SYNC_BUFFERS  4
+#define RELAY_WEECHAT_PROTOCOL_SYNC_UPGRADE  8
+
+#define RELAY_WEECHAT_PROTOCOL_SYNC_ALL         \
+    (RELAY_WEECHAT_PROTOCOL_SYNC_BUFFER |       \
+     RELAY_WEECHAT_PROTOCOL_SYNC_NICKLIST |     \
+     RELAY_WEECHAT_PROTOCOL_SYNC_BUFFERS |      \
+     RELAY_WEECHAT_PROTOCOL_SYNC_UPGRADE)
+
+#define RELAY_WEECHAT_PROTOCOL_SYNC_FOR_BUFFER  \
+    (RELAY_WEECHAT_PROTOCOL_SYNC_BUFFER |       \
+     RELAY_WEECHAT_PROTOCOL_SYNC_NICKLIST)
 
 #define RELAY_WEECHAT_PROTOCOL_CALLBACK(__command)                      \
     int                                                                 \
@@ -84,6 +96,6 @@ extern int relay_weechat_protocol_signal_upgrade_cb (void *data,
 extern int relay_weechat_protocol_timer_nicklist_cb (void *data,
                                                      int remaining_calls);
 extern void relay_weechat_protocol_recv (struct t_relay_client *client,
-                                         char *data);
+                                         const char *data);
 
 #endif /* __WEECHAT_RELAY_WEECHAT_PROTOCOL_H */
