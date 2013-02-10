@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-01-27 18:41+0900\n"
-"PO-Revision-Date: 2013-01-24 23:31+0900\n"
+"POT-Creation-Date: 2013-02-11 04:35+0900\n"
+"PO-Revision-Date: 2013-02-11 05:09+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -1346,7 +1346,6 @@ msgstr ""
 "list || enable|disable|toggle [<name>] || add <name> <buffer>[,<buffer>...] "
 "<tags> <regex> || del <name>|-all"
 
-#, fuzzy
 msgid ""
 "   list: list all filters\n"
 " enable: enable filters (filters are enabled by default)\n"
@@ -1434,7 +1433,8 @@ msgstr ""
 "  notify_none, notify_message, notify_private, notify_highlight,\n"
 "  nick_xxx (xxx はメッセージのニックネーム), prefix_nick_ccc (ccc はニック"
 "ネームの色)\n"
-"  irc_xxx (xxx はコマンド名又は番号、/server raw で確認),\n"
+"  irc_xxx (xxx はコマンド名又は番号、/server raw または /debug tags で確"
+"認),\n"
 "  irc_numeric, irc_error, irc_action, irc_ctcp, irc_ctcp_reply, "
 "irc_smart_filter, away_info.\n"
 "バッファ内でタグを見るには: /debug tags\n"
@@ -3190,12 +3190,12 @@ msgstr ""
 "有効化された場合、補完する元単語はカーソル前の文字で終了; そうでなければ元単"
 "語はカーソル後の最初の文字で終了"
 
-#, fuzzy
 msgid ""
 "default completion template (please see documentation for template codes and "
 "values: plugin API reference, function \"weechat_hook_command\")"
 msgstr ""
-"デフォルトの補完テンプレート (テンプレートコードと値のドキュメントを参照)"
+"デフォルトの補完テンプレート (テンプレートコードと値のドキュメントを参照: プ"
+"ラグイン API リファレンス、\"weechat_hook_command\" 関数)"
 
 msgid ""
 "add space after nick completion (when nick is not first word on command line)"
@@ -3988,15 +3988,13 @@ msgstr "Aspell が無効化されています"
 msgid "aspell plugin configuration"
 msgstr "aspell プラグイン設定"
 
-#, fuzzy
 msgid ""
 "enable|disable|toggle || listdict || setdict <dict>[,<dict>...] || deldict "
 "|| addword [<dict>] <word>"
 msgstr ""
-"enable|disable|toggle || listdict || setdict <lang> || deldict || addword "
-"[<lang>] <word>"
+"enable|disable|toggle || listdict || setdict <dict>[,<dict>...] || deldict "
+"|| addword [<dict>] <word>"
 
-#, fuzzy
 msgid ""
 "  enable: enable aspell\n"
 " disable: disable aspell\n"
@@ -4021,7 +4019,8 @@ msgstr ""
 " disable: aspell の無効化\n"
 "  toggle: aspell の有効無効を切り替え\n"
 "listdict: インストール済み辞書を表示\n"
-" setdict: 現在のバッファ用の辞書を設定\n"
+" setdict: 現在のバッファ用の辞書を設定 (カンマで区切れば複数の辞書を指定可"
+"能)\n"
 " deldict: 現在のバッファ用の辞書を削除\n"
 " addword: aspell の個人辞書に単語を追加\n"
 "\n"
@@ -4035,13 +4034,11 @@ msgstr ""
 "\n"
 "aspell の有効無効を切り替えるデフォルトのキーは alt-s　です。"
 
-#, fuzzy
 msgid "list of all languages supported by aspell"
-msgstr "aspell でサポートされる言語のリスト"
+msgstr "aspell でサポートされる全ての言語のリスト"
 
-#, fuzzy
 msgid "list of aspell installed dictionaries"
-msgstr "インストール済みスクリプトのリスト (リポジトリから)"
+msgstr "aspell のインストール済み辞書のリスト"
 
 msgid "comma separated list of dictionaries to use on this buffer"
 msgstr "このバッファで使用中の辞書のカンマ区切りリスト"
@@ -4106,14 +4103,15 @@ msgid ""
 "minimum length for a word to be spell checked (use 0 to check all words)"
 msgstr "スペルチェックを行う単語長の最小値 (0 の場合は全ての単語をチェック)"
 
-#, fuzzy
 msgid "comma-separated list of dictionaries used in buffer"
-msgstr "このバッファで使用中の辞書のカンマ区切りリスト"
+msgstr "バッファで使用中の辞書のカンマ区切りリスト"
 
 msgid ""
 "buffer pointer (\"0x12345678\") or buffer full name (\"irc.freenode.#weechat"
 "\")"
 msgstr ""
+"バッファポインタ (\"0x12345678\") またはバッファのフルネーム (\"irc.freenode."
+"#weechat\")"
 
 #, c-format
 msgid "%s: warning: dictionary \"%s\" is not available on your system"
@@ -7860,18 +7858,19 @@ msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクが失�
 msgid "%s%s: TLS handshake timeout for client %s%s%s"
 msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクがタイムアウト"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: invalid websocket handshake received for client %s%s%s"
-msgstr "%s%s: クライアント %s%s%s との TLS ハンドシェイクがタイムアウト"
+msgstr ""
+"%s%s: クライアント %s%s%s から受け取った不正なウェブソケットハンドシェイク"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: origin \"%s\" not allowed for websocket"
-msgstr "%s%s: IP アドレス \"%s\" はリレーの許可がありません"
+msgstr "%s%s: \"%s\" はウェブソケットの origin に使うことを許可されていません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: error decoding websocket frame for client %s%s%s"
 msgstr ""
-"%s%s: クライアント %s%s%s のソケットからデータを読み取り中: エラー %d %s"
+"%s%s: クライアント %s%s%s 用のウェブソケットフレームのデコード中にエラー"
 
 #, c-format
 msgid "%s%s: reading data on socket for client %s%s%s: error %d %s"
@@ -8148,6 +8147,9 @@ msgid ""
 "\"(?-i)\" at beginning to make it case sensitive), example: \"^http://(www"
 "\\.)?example\\.(com|org)\""
 msgstr ""
+"ウェブソケットに使うことを許可する origin の正規表現 (大文字小文字を区別しな"
+"い、\"(?-i)\" を先頭に置くと大文字小文字を区別する)、例: \"^http://(www\\.)?"
+"example\\.(com|org)\""
 
 msgid "maximum number of lines in backlog per IRC channel (0 = unlimited)"
 msgstr "IRC チャンネルごとのバックログの最大行数 (0 = 制限無し)"
