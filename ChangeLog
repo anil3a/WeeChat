@@ -1,12 +1,15 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.4.1-dev, 2013-02-12
+v0.4.1-dev, 2013-02-17
 
 
 Version 0.4.1 (under dev!)
 --------------------------
 
+* core: allow read of array in hdata without using index
+* core: add option "dirs" for command /debug
+* core: fix detection of iconv with cmake on OS X (bug #38321)
 * core: add signal "window_opened" (task #12464)
 * core: fix structures before buffer data when a buffer is closed
 * core: fix refresh of line after changes with hdata_update (update flag
@@ -20,6 +23,10 @@ Version 0.4.1 (under dev!)
 * aspell: add info "aspell_dict" (dictionaries used on a buffer)
 * aspell: optimization on spellers to improve speed (save state by buffer)
 * guile: fix compilation with guile 2.0
+* irc: unmask smart filtered join if nick speaks in channel some minutes after
+  the join, new option irc.look.smart_filter_join_unmask (task #12405)
+* irc: fix memory leak in purge of hashtables with joins (it was done only for
+  the first server in the list)
 * irc: add color in output of /names when result is on server buffer (channel
   not joined) (bug #38070)
 * perl: simplify code to load scripts

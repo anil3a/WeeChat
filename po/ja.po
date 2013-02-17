@@ -1175,6 +1175,7 @@ msgstr ""
 "list || set <plugin> <level> || dump [<plugin>] || buffer|color|infolists|"
 "memory|tags|term|windows || mouse|cursor [verbose] || hdata [free]"
 
+#, fuzzy
 msgid ""
 "     list: list plugins with debug levels\n"
 "      set: set debug level for plugin\n"
@@ -1185,6 +1186,7 @@ msgid ""
 "   buffer: dump buffer content with hexadecimal values in log file\n"
 "    color: display infos about current color pairs\n"
 "   cursor: toggle debug for cursor mode\n"
+"     dirs: display directories\n"
 "    hdata: display infos about hdata (with free: remove all hdata in "
 "memory)\n"
 "    hooks: display infos about hooks\n"
@@ -3371,6 +3373,13 @@ msgstr "メモリ使用量 (ヘルプを見るには \"man mallinfo\" を参照)
 
 msgid "Memory usage not available (function \"mallinfo\" not found)"
 msgstr "メモリ使用量は利用できません (\"mallinfo\" 関数が見つかりません)"
+
+msgid "Directories:"
+msgstr ""
+
+#, fuzzy
+msgid "default"
+msgstr "デフォルト: "
 
 #, c-format
 msgid "%sError: another command \"%s\" already exists for plugin \"%s\""
@@ -6265,12 +6274,21 @@ msgstr "参加/退出/終了 メッセージのフィルタリングを遅らせ
 msgid "enable smart filter for \"join\" messages"
 msgstr "\"join\" メッセージのスマートフィルタを有効化"
 
+msgid ""
+"delay for unmasking a join message that was filtered with tag "
+"\"irc_smart_filter\" (in minutes): if a nick jas joined max N minutes ago "
+"and then says something on channel (message, notice or update on topic), the "
+"join is unmasked, as well as nick changes after this join (0 = disable: "
+"never unmask a join)"
+msgstr ""
+
 #. TRANSLATORS: please do not translate "part" and "quit"
 msgid "enable smart filter for \"part\" and \"quit\" messages"
 msgstr "\"part\" と \"quit\" メッセージのスマートフィルタを有効化"
 
 #. TRANSLATORS: please do not translate "nick"
-msgid "enable smart filter for \"nick\" messages"
+#, fuzzy
+msgid "enable smart filter for \"nick\" messages (nick changes)"
 msgstr "\"nick\" メッセージのスマートフィルタを有効化"
 
 msgid "strip colors in topic (used only when displaying buffer title)"
