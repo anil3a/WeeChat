@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-02-13 18:41+0900\n"
-"PO-Revision-Date: 2013-02-11 05:09+0900\n"
+"POT-Creation-Date: 2013-02-18 01:13+0900\n"
+"PO-Revision-Date: 2013-02-18 01:38+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -1175,7 +1175,6 @@ msgstr ""
 "list || set <plugin> <level> || dump [<plugin>] || buffer|color|infolists|"
 "memory|tags|term|windows || mouse|cursor [verbose] || hdata [free]"
 
-#, fuzzy
 msgid ""
 "     list: list plugins with debug levels\n"
 "      set: set debug level for plugin\n"
@@ -1203,9 +1202,10 @@ msgstr ""
 "    level: プラグインのデバッグレベル (0 はデバッグの無効化)\n"
 "     dump: WeeChat ログファイルにメモリダンプを保存 (WeeChat がクラッシュした"
 "場合と同じダンプが書き込まれます)\n"
-"   buffer: ログファイルに16進値でバッファ内容をダンプ\n"
+"   buffer: ログファイルに 16 進値でバッファ内容をダンプ\n"
 "    color: 現在の色ペアに関する情報を表示\n"
 "   cursor: カーソルモードのデバッグを切り替え\n"
+"     dirs: ディレクトリを表示\n"
 "    hdata: hdata に関する情報を表示 (free を付ければ: メモリから全ての hdata "
 "を削除)\n"
 "    hooks: フックに関する情報を表示\n"
@@ -3375,11 +3375,10 @@ msgid "Memory usage not available (function \"mallinfo\" not found)"
 msgstr "メモリ使用量は利用できません (\"mallinfo\" 関数が見つかりません)"
 
 msgid "Directories:"
-msgstr ""
+msgstr "ディレクトリ:"
 
-#, fuzzy
 msgid "default"
-msgstr "デフォルト: "
+msgstr "デフォルト"
 
 #, c-format
 msgid "%sError: another command \"%s\" already exists for plugin \"%s\""
@@ -3640,10 +3639,6 @@ msgstr "マウスを無効化しました"
 #, c-format
 msgid "  TERM='%s', size: %dx%d"
 msgstr "  TERM='%s'、サイズ: %dx%d"
-
-msgid "server"
-msgid_plural "servers"
-msgstr[0] "サーバ"
 
 #, c-format
 msgid ""
@@ -4321,6 +4316,10 @@ msgstr "FIFO パイプの名前"
 
 msgid "away"
 msgstr "離席"
+
+msgid "server"
+msgid_plural "servers"
+msgstr[0] "サーバ"
 
 msgid "Lag"
 msgstr "遅延時間"
@@ -6281,15 +6280,20 @@ msgid ""
 "join is unmasked, as well as nick changes after this join (0 = disable: "
 "never unmask a join)"
 msgstr ""
+"\"irc_smart_filter\" タグでフィルタリングされる参加メッセージのマスクを外すま"
+"での遅延時間 (分単位): 最長 N 分前にニックネーム jas があるチャンネルに参加"
+"し、そこで何か喋るか (メッセージ、通知、トピックのアップデートなど) 参加後に"
+"ニックネームを変更したら、参加メッセージのマスクが外れます (0 = 無効: 参加"
+"メッセージは必ずマスクされます)。"
 
 #. TRANSLATORS: please do not translate "part" and "quit"
 msgid "enable smart filter for \"part\" and \"quit\" messages"
 msgstr "\"part\" と \"quit\" メッセージのスマートフィルタを有効化"
 
 #. TRANSLATORS: please do not translate "nick"
-#, fuzzy
 msgid "enable smart filter for \"nick\" messages (nick changes)"
-msgstr "\"nick\" メッセージのスマートフィルタを有効化"
+msgstr ""
+"\"nick\" メッセージに対するスマートフィルタを有効化 (ニックネームの変更通知)"
 
 msgid "strip colors in topic (used only when displaying buffer title)"
 msgstr ""
