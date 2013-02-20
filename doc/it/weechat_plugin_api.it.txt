@@ -3824,7 +3824,7 @@ Valore restituito:
 
 [NOTE]
 Il file NON viene creato su disco da questa funzione. Verrà creato chiamando
-la funzione <<_weechat_write_config,weechat_write_config>>.
+la funzione <<_weechat_config_write,weechat_config_write>>.
 Si dovrebbe chiamare questa funzione solo dopo aver aggiunto alcune sezioni
 (con <<_weechat_config_new_section,weechat_config_new_section>>) e le
 opzioni (con <<_weechat_config_new_option,weechat_config_new_option>>).
@@ -12591,10 +12591,10 @@ Esempio in C:
 ----------------------------------------
 char buffer[256];
 /* ... */
-struct t_infolist_var *var = weechat_infolist_new_variable_buffer (item,
-                                                                   "my_buffer",
-                                                                   &buffer,
-                                                                   sizeof (buffer));
+struct t_infolist_var *var = weechat_infolist_new_var_buffer (item,
+                                                              "my_buffer",
+                                                              &buffer,
+                                                              sizeof (buffer));
 ----------------------------------------
 
 [NOTE]
@@ -12628,9 +12628,9 @@ Esempio in C:
 
 [source,C]
 ----------------------------------------
-struct t_infolist_var *var = weechat_infolist_new_variable_time (item,
-                                                                 "my_time",
-                                                                 time (NULL));
+struct t_infolist_var *var = weechat_infolist_new_var_time (item,
+                                                            "my_time",
+                                                            time (NULL));
 ----------------------------------------
 
 Script (Python):

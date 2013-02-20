@@ -3822,7 +3822,7 @@ Return value:
 
 [NOTE]
 File is NOT created on disk by this function. It will be created by call to
-function <<_weechat_write_config,weechat_write_config>>.
+function <<_weechat_config_write,weechat_config_write>>.
 You should call this function only after adding some sections (with
 <<_weechat_config_new_section,weechat_config_new_section>>) and options (with
 <<_weechat_config_new_option,weechat_config_new_option>>).
@@ -12433,10 +12433,10 @@ C example:
 ----------------------------------------
 char buffer[256];
 /* ... */
-struct t_infolist_var *var = weechat_infolist_new_variable_buffer (item,
-                                                                   "my_buffer",
-                                                                   &buffer,
-                                                                   sizeof (buffer));
+struct t_infolist_var *var = weechat_infolist_new_var_buffer (item,
+                                                              "my_buffer",
+                                                              &buffer,
+                                                              sizeof (buffer));
 ----------------------------------------
 
 [NOTE]
@@ -12470,9 +12470,9 @@ C example:
 
 [source,C]
 ----------------------------------------
-struct t_infolist_var *var = weechat_infolist_new_variable_time (item,
-                                                                 "my_time",
-                                                                 time (NULL));
+struct t_infolist_var *var = weechat_infolist_new_var_time (item,
+                                                            "my_time",
+                                                            time (NULL));
 ----------------------------------------
 
 Script (Python):
