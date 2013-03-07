@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-02-17 12:17+0100\n"
-"PO-Revision-Date: 2013-01-20 12:07+0100\n"
+"POT-Creation-Date: 2013-02-26 21:38+0100\n"
+"PO-Revision-Date: 2013-02-23 11:11+0100\n"
 "Last-Translator: Andras Voroskoi <voroskoi@frugalware.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: Hungarian\n"
@@ -3114,12 +3114,6 @@ msgstr "Nincs aliasz definiálva.\n"
 msgid "  TERM='%s', size: %dx%d"
 msgstr ""
 
-#, fuzzy
-msgid "server"
-msgid_plural "servers"
-msgstr[0] "szerver"
-msgstr[1] "szerver"
-
 #, c-format
 msgid ""
 "%sUnable to change bar type: you must delete bar and create another to do "
@@ -3747,6 +3741,12 @@ msgstr ""
 msgid "away"
 msgstr ""
 
+#, fuzzy
+msgid "server"
+msgid_plural "servers"
+msgstr[0] "szerver"
+msgstr[1] "szerver"
+
 msgid "Lag"
 msgstr ""
 
@@ -3951,6 +3951,37 @@ msgstr "aláírás nem található"
 #, fuzzy, c-format
 msgid "%s%s: cannot create new private buffer \"%s\""
 msgstr "%s nem sikerült új privát ablakot nyitni \"%s\"\n"
+
+#, fuzzy, c-format
+msgid "Server: %s%s %s[%s%s%s]%s%s"
+msgstr "%s Szerver: %s%s %s[%s%s%s]\n"
+
+msgid "connected"
+msgstr "csatlakozva"
+
+msgid "not connected"
+msgstr "nincs csatlakozva"
+
+msgid " (temporary)"
+msgstr ""
+
+msgid "on"
+msgstr "be"
+
+msgid "off"
+msgstr "ki"
+
+#, fuzzy
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "perc"
+msgstr[1] "perc"
+
+#, fuzzy
+msgid "channel"
+msgid_plural "channels"
+msgstr[0] "%d szoba"
+msgstr[1] "%d szoba"
 
 #, fuzzy
 msgid "All servers:"
@@ -5522,9 +5553,6 @@ msgstr ""
 msgid "display nick prefix in \"input_prompt\" bar item"
 msgstr ""
 
-msgid "hide password displayed by nickserv"
-msgstr "a nickserv által mutatott jelszó elrejtése"
-
 msgid ""
 "comma separated list of words to highlight in server buffers (case "
 "insensitive, use \"(?-i)\" at beginning of words to make them case "
@@ -5566,6 +5594,12 @@ msgstr ""
 msgid ""
 "default target buffer for msgbuffer options when target is private and that "
 "private buffer is not found"
+msgstr ""
+
+msgid ""
+"comma separated list of nicks for which passwords will be hidden when a "
+"message is sent, for example to hide password in message displayed by \"/msg "
+"nickserv identify password\", example: \"nickserv,nickbot\""
 msgstr ""
 
 #, fuzzy
@@ -5790,37 +5824,6 @@ msgstr "%s usmeretlen DCC CHAT típus érkezett a következőtől:"
 #, fuzzy, c-format
 msgid "%sUnknown CTCP requested by %s%s%s: %s%s%s%s%s"
 msgstr "Ismeretlen CTCP %s%s%s érkezett innen: %s%s"
-
-#, fuzzy, c-format
-msgid "Server: %s%s %s[%s%s%s]%s%s"
-msgstr "%s Szerver: %s%s %s[%s%s%s]\n"
-
-msgid "connected"
-msgstr "csatlakozva"
-
-msgid "not connected"
-msgstr "nincs csatlakozva"
-
-msgid " (temporary)"
-msgstr ""
-
-msgid "on"
-msgstr "be"
-
-msgid "off"
-msgstr "ki"
-
-#, fuzzy
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "perc"
-msgstr[1] "perc"
-
-#, fuzzy
-msgid "channel"
-msgid_plural "channels"
-msgstr[0] "%d szoba"
-msgstr[1] "%d szoba"
 
 #, fuzzy
 msgid "1 if string is a valid IRC channel name for server"
@@ -7306,7 +7309,9 @@ msgid ""
 "         ipv6: force use of IPv6\n"
 "          ssl: enable SSL\n"
 "protocol.name: protocol and name to relay:\n"
-"                 - protocol \"irc\": name is the server to share\n"
+"                 - protocol \"irc\": name is the server to share (optional, "
+"if not given, the server name must be sent by client in command \"PASS\", "
+"with format: \"PASS server:password\")\n"
 "                 - protocol \"weechat\" (name is not used)\n"
 "         port: port used for relay\n"
 "          raw: open buffer with raw Relay data\n"
@@ -7320,6 +7325,8 @@ msgid ""
 "    /relay add irc.freenode 8000\n"
 "  irc proxy, for server \"freenode\", with SSL:\n"
 "    /relay add ssl.irc.freenode 8001\n"
+"  irc proxy, for all servers (client will choose), with SSL:\n"
+"    /relay add ssl.irc 8002\n"
 "  weechat protocol:\n"
 "    /relay add weechat 9000\n"
 "  weechat protocol with SSL:\n"
@@ -7358,10 +7365,6 @@ msgstr "%s ismeretlen billentyűparancs \"%s\"\n"
 
 #, fuzzy, c-format
 msgid "%s%s: error: name is not allowed for protocol \"%s\""
-msgstr "%s ismeretlen billentyűparancs \"%s\"\n"
-
-#, fuzzy, c-format
-msgid "%s%s: error: name is not required for protocol \"%s\""
 msgstr "%s ismeretlen billentyűparancs \"%s\"\n"
 
 #, fuzzy, c-format
@@ -7950,6 +7953,22 @@ msgid "%s: script \"%s\" is not loaded"
 msgstr "%s a \"%s\" szerver nem található\n"
 
 #, fuzzy, c-format
+msgid "%s: script \"%s\" not found"
+msgstr "%s a \"%s\" szerver nem található\n"
+
+#, fuzzy, c-format
+msgid "%s: script \"%s\" is not installed"
+msgstr "%s a \"%s\" szerver nem található\n"
+
+#, fuzzy, c-format
+msgid "%s: autoload enabled for script \"%s\""
+msgstr "folyamat: \"%s\" szerver betöltése\n"
+
+#, fuzzy, c-format
+msgid "%s: autoload disabled for script \"%s\""
+msgstr "folyamat: \"%s\" szerver betöltése\n"
+
+#, fuzzy, c-format
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "folyamat: \"%s\" szerver betöltése\n"
 
@@ -7963,14 +7982,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%s: downloading script \"%s\"..."
 msgstr "folyamat: \"%s\" szerver betöltése\n"
-
-#, fuzzy, c-format
-msgid "%s: script \"%s\" not found"
-msgstr "%s a \"%s\" szerver nem található\n"
-
-#, fuzzy, c-format
-msgid "%s: script \"%s\" is not installed"
-msgstr "%s a \"%s\" szerver nem található\n"
 
 #, fuzzy, c-format
 msgid "%s: script \"%s\" is held"
@@ -8062,9 +8073,9 @@ msgstr ""
 #, c-format
 msgid ""
 "%d/%d scripts (filter: %s) | Sort: %s | Alt+key/input: i=install r=remove "
-"l=load L=reload u=unload h=(un)hold v=view script | Input: q=close $=refresh "
-"s:x,y=sort words=filter *=reset filter | Mouse: left=select right=install/"
-"remove"
+"l=load L=reload u=unload A=autoload h=(un)hold v=view script | Input: "
+"q=close $=refresh s:x,y=sort words=filter *=reset filter | Mouse: "
+"left=select right=install/remove"
 msgstr ""
 
 msgid "Scripts"
@@ -8076,30 +8087,34 @@ msgstr "WeeChat szlogen"
 
 msgid ""
 "list [-o|-i] || search <text> || show <script> || load|unload|reload "
-"<script> [<script>...] || install|remove|installremove|hold [-q] <script> "
+"<script> [<script>...] || autoload|noautoload|toggleautoload <script> "
+"[<script>...] || install|remove|installremove|hold [-q] <script> "
 "[<script>...] || upgrade || update"
 msgstr ""
 
 msgid ""
-"         list: list loaded scripts (all languages)\n"
-"           -o: send list of loaded scripts to buffer\n"
-"           -i: copy list of loaded scripts in command line (for sending to "
+"          list: list loaded scripts (all languages)\n"
+"            -o: send list of loaded scripts to buffer\n"
+"            -i: copy list of loaded scripts in command line (for sending to "
 "buffer)\n"
-"       search: search scripts by tags or text and display result on scripts "
+"        search: search scripts by tags or text and display result on scripts "
 "buffer\n"
-"         show: show detailed info about a script\n"
-"         load: load script(s)\n"
-"       unload: unload script(s)\n"
-"       reload: reload script(s)\n"
-"      install: install/upgrade script(s)\n"
-"       remove: remove script(s)\n"
-"installremove: install or remove script(s), depending on current state\n"
-"         hold: hold/unhold script(s) (a script held will not be upgraded any "
-"more and cannot be removed)\n"
-"           -q: quiet mode: do not display messages\n"
-"      upgrade: upgrade all installed scripts which are obsolete (new version "
-"available)\n"
-"       update: update local scripts cache\n"
+"          show: show detailed info about a script\n"
+"          load: load script(s)\n"
+"        unload: unload script(s)\n"
+"        reload: reload script(s)\n"
+"      autoload: autoload the script\n"
+"    noautoload: do not autoload the script\n"
+"toggleautoload: toggle autoload\n"
+"       install: install/upgrade script(s)\n"
+"        remove: remove script(s)\n"
+" installremove: install or remove script(s), depending on current state\n"
+"          hold: hold/unhold script(s) (a script held will not be upgraded "
+"any more and cannot be removed)\n"
+"            -q: quiet mode: do not display messages\n"
+"       upgrade: upgrade all installed scripts which are obsolete (new "
+"version available)\n"
+"        update: update local scripts cache\n"
 "\n"
 "Without argument, this command opens a buffer with list of scripts.\n"
 "\n"
@@ -8304,6 +8319,11 @@ msgstr "szerver nevének színe"
 #, fuzzy
 msgid "background color for selected line in script buffer"
 msgstr "szerver nevének színe"
+
+msgid ""
+"autoload scripts installed (make a link in \"autoload\" directory to script "
+"in parent directory"
+msgstr ""
 
 msgid ""
 "local cache expiration time, in minutes (-1 = never expires, 0 = always "
@@ -8761,6 +8781,10 @@ msgid "%s%s: unable to write local file"
 msgstr "%s DCC: nem sikerült a helyi fájlt írni\n"
 
 #, fuzzy, c-format
+msgid "%s%s: unable to send ACK to sender"
+msgstr "%s DCC: nem sikerült kapcsolódni a küldőhöz\n"
+
+#, fuzzy, c-format
 msgid "%s%s: unable to fork"
 msgstr "%s DCC: nem sikerült forkolni\n"
 
@@ -8825,37 +8849,5 @@ msgid "Constants"
 msgstr ""
 
 #, fuzzy
-#~ msgid "%s%s: not enough memory to create new speller"
-#~ msgstr "%s nincs elegendő memória új DCC számára\n"
-
-#, fuzzy
-#~ msgid "%s%s: cannot set socket option \"SO_REUSEADDR\""
-#~ msgstr "%s nem sikerült a \"SO_REUSEADDR\" csatornaopciót beállítani\n"
-
-#, fuzzy
-#~ msgid "%s%s: cannot set socket option \"IPV6_V6ONLY\" to value %d"
-#~ msgstr "%s nem sikerült a \"SO_KEEPALIVE\" csatornaopciót beállítani\n"
-
-#, fuzzy
-#~ msgid "%s%s: cannot set socket option \"SO_KEEPALIVE\""
-#~ msgstr "%s nem sikerült a \"SO_KEEPALIVE\" csatornaopciót beállítani\n"
-
-#, fuzzy
-#~ msgid "%s%s: cannot create socket for xfer"
-#~ msgstr "%s nem sikerült a csatornát létrehozni\n"
-
-#, fuzzy
-#~ msgid "%s%s: not enough memory to parse file \"%s\""
-#~ msgstr "%s nincs elegendő memória új DCC számára\n"
-
-#, fuzzy
-#~ msgid "%s%s: unable to run file \"%s\""
-#~ msgstr "Nem sikerült a(z) \"%s\" naplófájlt írni\n"
-
-#, fuzzy
-#~ msgid "%s%s: unknown error while loading file \"%s\""
-#~ msgstr "Nem sikerült a(z) \"%s\" naplófájlt írni\n"
-
-#, fuzzy
-#~ msgid "%s%s: cannot create socket"
-#~ msgstr "%s nem sikerült a csatornát létrehozni\n"
+#~ msgid "%s: script \"%s\" is now autoloaded"
+#~ msgstr "%s a \"%s\" szerver nem található\n"

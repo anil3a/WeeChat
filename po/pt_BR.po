@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-02-17 12:17+0100\n"
-"PO-Revision-Date: 2013-01-20 12:08+0100\n"
+"POT-Creation-Date: 2013-02-26 21:38+0100\n"
+"PO-Revision-Date: 2013-02-23 11:12+0100\n"
 "Last-Translator: Sergio Durigan Junior <sergiosdj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: Portuguese\n"
@@ -3546,11 +3546,6 @@ msgstr "Mouse está desabilitado"
 msgid "  TERM='%s', size: %dx%d"
 msgstr "  TERM='%s', tamanho: %dx%d"
 
-msgid "server"
-msgid_plural "servers"
-msgstr[0] "servidor"
-msgstr[1] "servidores"
-
 #, c-format
 msgid ""
 "%sUnable to change bar type: you must delete bar and create another to do "
@@ -4172,6 +4167,11 @@ msgstr ""
 msgid "away"
 msgstr ""
 
+msgid "server"
+msgid_plural "servers"
+msgstr[0] "servidor"
+msgstr[1] "servidores"
+
 msgid "Lag"
 msgstr ""
 
@@ -4376,6 +4376,35 @@ msgstr ""
 #, c-format
 msgid "%s%s: cannot create new private buffer \"%s\""
 msgstr ""
+
+#, c-format
+msgid "Server: %s%s %s[%s%s%s]%s%s"
+msgstr "Servidor: %s%s %s[%s%s%s]%s%s"
+
+msgid "connected"
+msgstr "conectado"
+
+msgid "not connected"
+msgstr "não conectado"
+
+msgid " (temporary)"
+msgstr " (temporário)"
+
+msgid "on"
+msgstr "ligado"
+
+msgid "off"
+msgstr "desligado"
+
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuto"
+msgstr[1] "minutos"
+
+msgid "channel"
+msgid_plural "channels"
+msgstr[0] "canal"
+msgstr[1] "canais"
 
 msgid "All servers:"
 msgstr ""
@@ -5700,9 +5729,6 @@ msgstr ""
 msgid "display nick prefix in \"input_prompt\" bar item"
 msgstr ""
 
-msgid "hide password displayed by nickserv"
-msgstr "ocultar senha exibida pelo nickserv"
-
 msgid ""
 "comma separated list of words to highlight in server buffers (case "
 "insensitive, use \"(?-i)\" at beginning of words to make them case "
@@ -5744,6 +5770,12 @@ msgstr ""
 msgid ""
 "default target buffer for msgbuffer options when target is private and that "
 "private buffer is not found"
+msgstr ""
+
+msgid ""
+"comma separated list of nicks for which passwords will be hidden when a "
+"message is sent, for example to hide password in message displayed by \"/msg "
+"nickserv identify password\", example: \"nickserv,nickbot\""
 msgstr ""
 
 msgid ""
@@ -5964,35 +5996,6 @@ msgstr ""
 #, c-format
 msgid "%sUnknown CTCP requested by %s%s%s: %s%s%s%s%s"
 msgstr "%sRequisição CTCP desconhecida por %s%s%s: %s%s%s%s%s"
-
-#, c-format
-msgid "Server: %s%s %s[%s%s%s]%s%s"
-msgstr "Servidor: %s%s %s[%s%s%s]%s%s"
-
-msgid "connected"
-msgstr "conectado"
-
-msgid "not connected"
-msgstr "não conectado"
-
-msgid " (temporary)"
-msgstr " (temporário)"
-
-msgid "on"
-msgstr "ligado"
-
-msgid "off"
-msgstr "desligado"
-
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "minuto"
-msgstr[1] "minutos"
-
-msgid "channel"
-msgid_plural "channels"
-msgstr[0] "canal"
-msgstr[1] "canais"
 
 msgid "1 if string is a valid IRC channel name for server"
 msgstr "1 se string é um nome de canal IRC válido para o servidor"
@@ -7464,7 +7467,9 @@ msgid ""
 "         ipv6: force use of IPv6\n"
 "          ssl: enable SSL\n"
 "protocol.name: protocol and name to relay:\n"
-"                 - protocol \"irc\": name is the server to share\n"
+"                 - protocol \"irc\": name is the server to share (optional, "
+"if not given, the server name must be sent by client in command \"PASS\", "
+"with format: \"PASS server:password\")\n"
 "                 - protocol \"weechat\" (name is not used)\n"
 "         port: port used for relay\n"
 "          raw: open buffer with raw Relay data\n"
@@ -7478,6 +7483,8 @@ msgid ""
 "    /relay add irc.freenode 8000\n"
 "  irc proxy, for server \"freenode\", with SSL:\n"
 "    /relay add ssl.irc.freenode 8001\n"
+"  irc proxy, for all servers (client will choose), with SSL:\n"
+"    /relay add ssl.irc 8002\n"
 "  weechat protocol:\n"
 "    /relay add weechat 9000\n"
 "  weechat protocol with SSL:\n"
@@ -7515,10 +7522,6 @@ msgstr "%s%s: erro: protocolo \"%s\" desconhecido"
 
 #, fuzzy, c-format
 msgid "%s%s: error: name is not allowed for protocol \"%s\""
-msgstr "%s%s: erro: protocolo \"%s\" desconhecido"
-
-#, fuzzy, c-format
-msgid "%s%s: error: name is not required for protocol \"%s\""
 msgstr "%s%s: erro: protocolo \"%s\" desconhecido"
 
 #, c-format
@@ -8115,6 +8118,22 @@ msgid "%s: script \"%s\" is not loaded"
 msgstr "%s%s: script \"%s\" não carregado"
 
 #, fuzzy, c-format
+msgid "%s: script \"%s\" not found"
+msgstr "%s%s: script \"%s\" não encontrado"
+
+#, fuzzy, c-format
+msgid "%s: script \"%s\" is not installed"
+msgstr "%s%s: script \"%s\" não carregado"
+
+#, fuzzy, c-format
+msgid "%s: autoload enabled for script \"%s\""
+msgstr "%s: descarregando script \"%s\""
+
+#, fuzzy, c-format
+msgid "%s: autoload disabled for script \"%s\""
+msgstr "%s: descarregando script \"%s\""
+
+#, fuzzy, c-format
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "%s: descarregando script \"%s\""
 
@@ -8127,14 +8146,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%s: downloading script \"%s\"..."
 msgstr "%s: descarregando script \"%s\""
-
-#, fuzzy, c-format
-msgid "%s: script \"%s\" not found"
-msgstr "%s%s: script \"%s\" não encontrado"
-
-#, fuzzy, c-format
-msgid "%s: script \"%s\" is not installed"
-msgstr "%s%s: script \"%s\" não carregado"
 
 #, fuzzy, c-format
 msgid "%s: script \"%s\" is held"
@@ -8224,9 +8235,9 @@ msgstr ""
 #, c-format
 msgid ""
 "%d/%d scripts (filter: %s) | Sort: %s | Alt+key/input: i=install r=remove "
-"l=load L=reload u=unload h=(un)hold v=view script | Input: q=close $=refresh "
-"s:x,y=sort words=filter *=reset filter | Mouse: left=select right=install/"
-"remove"
+"l=load L=reload u=unload A=autoload h=(un)hold v=view script | Input: "
+"q=close $=refresh s:x,y=sort words=filter *=reset filter | Mouse: "
+"left=select right=install/remove"
 msgstr ""
 
 msgid "Scripts"
@@ -8238,30 +8249,34 @@ msgstr "site do WeeChat"
 
 msgid ""
 "list [-o|-i] || search <text> || show <script> || load|unload|reload "
-"<script> [<script>...] || install|remove|installremove|hold [-q] <script> "
+"<script> [<script>...] || autoload|noautoload|toggleautoload <script> "
+"[<script>...] || install|remove|installremove|hold [-q] <script> "
 "[<script>...] || upgrade || update"
 msgstr ""
 
 msgid ""
-"         list: list loaded scripts (all languages)\n"
-"           -o: send list of loaded scripts to buffer\n"
-"           -i: copy list of loaded scripts in command line (for sending to "
+"          list: list loaded scripts (all languages)\n"
+"            -o: send list of loaded scripts to buffer\n"
+"            -i: copy list of loaded scripts in command line (for sending to "
 "buffer)\n"
-"       search: search scripts by tags or text and display result on scripts "
+"        search: search scripts by tags or text and display result on scripts "
 "buffer\n"
-"         show: show detailed info about a script\n"
-"         load: load script(s)\n"
-"       unload: unload script(s)\n"
-"       reload: reload script(s)\n"
-"      install: install/upgrade script(s)\n"
-"       remove: remove script(s)\n"
-"installremove: install or remove script(s), depending on current state\n"
-"         hold: hold/unhold script(s) (a script held will not be upgraded any "
-"more and cannot be removed)\n"
-"           -q: quiet mode: do not display messages\n"
-"      upgrade: upgrade all installed scripts which are obsolete (new version "
-"available)\n"
-"       update: update local scripts cache\n"
+"          show: show detailed info about a script\n"
+"          load: load script(s)\n"
+"        unload: unload script(s)\n"
+"        reload: reload script(s)\n"
+"      autoload: autoload the script\n"
+"    noautoload: do not autoload the script\n"
+"toggleautoload: toggle autoload\n"
+"       install: install/upgrade script(s)\n"
+"        remove: remove script(s)\n"
+" installremove: install or remove script(s), depending on current state\n"
+"          hold: hold/unhold script(s) (a script held will not be upgraded "
+"any more and cannot be removed)\n"
+"            -q: quiet mode: do not display messages\n"
+"       upgrade: upgrade all installed scripts which are obsolete (new "
+"version available)\n"
+"        update: update local scripts cache\n"
 "\n"
 "Without argument, this command opens a buffer with list of scripts.\n"
 "\n"
@@ -8466,6 +8481,11 @@ msgstr "cor do texto da linha do cliente selecionada"
 #, fuzzy
 msgid "background color for selected line in script buffer"
 msgstr "cor do texto da linha do cliente selecionada"
+
+msgid ""
+"autoload scripts installed (make a link in \"autoload\" directory to script "
+"in parent directory"
+msgstr ""
 
 msgid ""
 "local cache expiration time, in minutes (-1 = never expires, 0 = always "
@@ -8916,6 +8936,10 @@ msgstr "%s%s: não foi possível receber dado do remetente"
 msgid "%s%s: unable to write local file"
 msgstr "%s%s: não foi possível escrever o arquivo local"
 
+#, fuzzy, c-format
+msgid "%s%s: unable to send ACK to sender"
+msgstr "%s%s: não foi possível conectar ao remetente"
+
 #, c-format
 msgid "%s%s: unable to fork"
 msgstr "%s%s: não foi possível efetuar o fork"
@@ -8977,34 +9001,6 @@ msgstr ""
 msgid "Constants"
 msgstr ""
 
-#~ msgid "%s%s: not enough memory to create new speller"
-#~ msgstr "%s%s: memória insuficiente para criar novo verificador ortográfico"
-
-#~ msgid "%s%s: cannot set socket option \"SO_REUSEADDR\""
-#~ msgstr "%s%s: não foi possível setar opção \"SO_REUSEADDR\" para o socket"
-
 #, fuzzy
-#~ msgid "%s%s: cannot set socket option \"IPV6_V6ONLY\" to value %d"
-#~ msgstr "%s%s: não foi possível setar opção \"SO_KEEPALIVE\" para o socket"
-
-#~ msgid "%s%s: cannot set socket option \"SO_KEEPALIVE\""
-#~ msgstr "%s%s: não foi possível setar opção \"SO_KEEPALIVE\" para o socket"
-
-#~ msgid "%s%s: cannot create socket for xfer"
-#~ msgstr "%s%s: não foi possível criar socket para transferência"
-
-#~ msgid "%s%s: not enough memory to parse file \"%s\""
-#~ msgstr "%s%s: memória insuficiente para interpretar arquivo \"%s\""
-
-#~ msgid "%s%s: unable to run file \"%s\""
-#~ msgstr "%s%s: não foi possível executar arquivo \"%s\""
-
-#~ msgid "%s%s: unknown error while loading file \"%s\""
-#~ msgstr "%s%s: erro desconhecido ao carregar arquivo \"%s\""
-
-#~ msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"
-#~ msgstr ""
-#~ "%s: erro ao carregar script \"%s\" (nome inválido, espaços são proibidos)"
-
-#~ msgid "%s%s: cannot create socket"
-#~ msgstr "%s%s: não foi possível criar socket"
+#~ msgid "%s: script \"%s\" is now autoloaded"
+#~ msgstr "%s%s: script \"%s\" não carregado"

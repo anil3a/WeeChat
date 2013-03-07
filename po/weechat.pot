@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-02-17 12:17+0100\n"
+"POT-Creation-Date: 2013-02-26 21:38+0100\n"
 "PO-Revision-Date: 2013-02-14 18:20+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
@@ -2766,11 +2766,6 @@ msgstr ""
 msgid "  TERM='%s', size: %dx%d"
 msgstr ""
 
-msgid "server"
-msgid_plural "servers"
-msgstr[0] ""
-msgstr[1] ""
-
 #, c-format
 msgid ""
 "%sUnable to change bar type: you must delete bar and create another to do "
@@ -3349,6 +3344,11 @@ msgstr ""
 msgid "away"
 msgstr ""
 
+msgid "server"
+msgid_plural "servers"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Lag"
 msgstr ""
 
@@ -3553,6 +3553,35 @@ msgstr ""
 #, c-format
 msgid "%s%s: cannot create new private buffer \"%s\""
 msgstr ""
+
+#, c-format
+msgid "Server: %s%s %s[%s%s%s]%s%s"
+msgstr ""
+
+msgid "connected"
+msgstr ""
+
+msgid "not connected"
+msgstr ""
+
+msgid " (temporary)"
+msgstr ""
+
+msgid "on"
+msgstr ""
+
+msgid "off"
+msgstr ""
+
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "channel"
+msgid_plural "channels"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "All servers:"
 msgstr ""
@@ -4801,9 +4830,6 @@ msgstr ""
 msgid "display nick prefix in \"input_prompt\" bar item"
 msgstr ""
 
-msgid "hide password displayed by nickserv"
-msgstr ""
-
 msgid ""
 "comma separated list of words to highlight in server buffers (case "
 "insensitive, use \"(?-i)\" at beginning of words to make them case "
@@ -4845,6 +4871,12 @@ msgstr ""
 msgid ""
 "default target buffer for msgbuffer options when target is private and that "
 "private buffer is not found"
+msgstr ""
+
+msgid ""
+"comma separated list of nicks for which passwords will be hidden when a "
+"message is sent, for example to hide password in message displayed by \"/msg "
+"nickserv identify password\", example: \"nickserv,nickbot\""
 msgstr ""
 
 msgid ""
@@ -5049,35 +5081,6 @@ msgstr ""
 #, c-format
 msgid "%sUnknown CTCP requested by %s%s%s: %s%s%s%s%s"
 msgstr ""
-
-#, c-format
-msgid "Server: %s%s %s[%s%s%s]%s%s"
-msgstr ""
-
-msgid "connected"
-msgstr ""
-
-msgid "not connected"
-msgstr ""
-
-msgid " (temporary)"
-msgstr ""
-
-msgid "on"
-msgstr ""
-
-msgid "off"
-msgstr ""
-
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "channel"
-msgid_plural "channels"
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "1 if string is a valid IRC channel name for server"
 msgstr ""
@@ -6451,7 +6454,9 @@ msgid ""
 "         ipv6: force use of IPv6\n"
 "          ssl: enable SSL\n"
 "protocol.name: protocol and name to relay:\n"
-"                 - protocol \"irc\": name is the server to share\n"
+"                 - protocol \"irc\": name is the server to share (optional, "
+"if not given, the server name must be sent by client in command \"PASS\", "
+"with format: \"PASS server:password\")\n"
 "                 - protocol \"weechat\" (name is not used)\n"
 "         port: port used for relay\n"
 "          raw: open buffer with raw Relay data\n"
@@ -6465,6 +6470,8 @@ msgid ""
 "    /relay add irc.freenode 8000\n"
 "  irc proxy, for server \"freenode\", with SSL:\n"
 "    /relay add ssl.irc.freenode 8001\n"
+"  irc proxy, for all servers (client will choose), with SSL:\n"
+"    /relay add ssl.irc 8002\n"
 "  weechat protocol:\n"
 "    /relay add weechat 9000\n"
 "  weechat protocol with SSL:\n"
@@ -6500,10 +6507,6 @@ msgstr ""
 
 #, c-format
 msgid "%s%s: error: name is not allowed for protocol \"%s\""
-msgstr ""
-
-#, c-format
-msgid "%s%s: error: name is not required for protocol \"%s\""
 msgstr ""
 
 #, c-format
@@ -7043,6 +7046,22 @@ msgid "%s: script \"%s\" is not loaded"
 msgstr ""
 
 #, c-format
+msgid "%s: script \"%s\" not found"
+msgstr ""
+
+#, c-format
+msgid "%s: script \"%s\" is not installed"
+msgstr ""
+
+#, c-format
+msgid "%s: autoload enabled for script \"%s\""
+msgstr ""
+
+#, c-format
+msgid "%s: autoload disabled for script \"%s\""
+msgstr ""
+
+#, c-format
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr ""
 
@@ -7053,14 +7072,6 @@ msgstr ""
 
 #, c-format
 msgid "%s: downloading script \"%s\"..."
-msgstr ""
-
-#, c-format
-msgid "%s: script \"%s\" not found"
-msgstr ""
-
-#, c-format
-msgid "%s: script \"%s\" is not installed"
 msgstr ""
 
 #, c-format
@@ -7144,9 +7155,9 @@ msgstr ""
 #, c-format
 msgid ""
 "%d/%d scripts (filter: %s) | Sort: %s | Alt+key/input: i=install r=remove "
-"l=load L=reload u=unload h=(un)hold v=view script | Input: q=close $=refresh "
-"s:x,y=sort words=filter *=reset filter | Mouse: left=select right=install/"
-"remove"
+"l=load L=reload u=unload A=autoload h=(un)hold v=view script | Input: "
+"q=close $=refresh s:x,y=sort words=filter *=reset filter | Mouse: "
+"left=select right=install/remove"
 msgstr ""
 
 msgid "Scripts"
@@ -7157,30 +7168,34 @@ msgstr ""
 
 msgid ""
 "list [-o|-i] || search <text> || show <script> || load|unload|reload "
-"<script> [<script>...] || install|remove|installremove|hold [-q] <script> "
+"<script> [<script>...] || autoload|noautoload|toggleautoload <script> "
+"[<script>...] || install|remove|installremove|hold [-q] <script> "
 "[<script>...] || upgrade || update"
 msgstr ""
 
 msgid ""
-"         list: list loaded scripts (all languages)\n"
-"           -o: send list of loaded scripts to buffer\n"
-"           -i: copy list of loaded scripts in command line (for sending to "
+"          list: list loaded scripts (all languages)\n"
+"            -o: send list of loaded scripts to buffer\n"
+"            -i: copy list of loaded scripts in command line (for sending to "
 "buffer)\n"
-"       search: search scripts by tags or text and display result on scripts "
+"        search: search scripts by tags or text and display result on scripts "
 "buffer\n"
-"         show: show detailed info about a script\n"
-"         load: load script(s)\n"
-"       unload: unload script(s)\n"
-"       reload: reload script(s)\n"
-"      install: install/upgrade script(s)\n"
-"       remove: remove script(s)\n"
-"installremove: install or remove script(s), depending on current state\n"
-"         hold: hold/unhold script(s) (a script held will not be upgraded any "
-"more and cannot be removed)\n"
-"           -q: quiet mode: do not display messages\n"
-"      upgrade: upgrade all installed scripts which are obsolete (new version "
-"available)\n"
-"       update: update local scripts cache\n"
+"          show: show detailed info about a script\n"
+"          load: load script(s)\n"
+"        unload: unload script(s)\n"
+"        reload: reload script(s)\n"
+"      autoload: autoload the script\n"
+"    noautoload: do not autoload the script\n"
+"toggleautoload: toggle autoload\n"
+"       install: install/upgrade script(s)\n"
+"        remove: remove script(s)\n"
+" installremove: install or remove script(s), depending on current state\n"
+"          hold: hold/unhold script(s) (a script held will not be upgraded "
+"any more and cannot be removed)\n"
+"            -q: quiet mode: do not display messages\n"
+"       upgrade: upgrade all installed scripts which are obsolete (new "
+"version available)\n"
+"        update: update local scripts cache\n"
 "\n"
 "Without argument, this command opens a buffer with list of scripts.\n"
 "\n"
@@ -7361,6 +7376,11 @@ msgid "text color of version loaded for selected line in script buffer"
 msgstr ""
 
 msgid "background color for selected line in script buffer"
+msgstr ""
+
+msgid ""
+"autoload scripts installed (make a link in \"autoload\" directory to script "
+"in parent directory"
 msgstr ""
 
 msgid ""
@@ -7758,6 +7778,10 @@ msgstr ""
 
 #, c-format
 msgid "%s%s: unable to write local file"
+msgstr ""
+
+#, c-format
+msgid "%s%s: unable to send ACK to sender"
 msgstr ""
 
 #, c-format

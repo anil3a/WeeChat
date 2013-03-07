@@ -7964,21 +7964,37 @@ Argomenti:
   string: tasto digitato |
   tasto digitato
 
+// TRANSLATION MISSING
 | weechat | nicklist_group_added +
   (_novità nella versione 0.3.2_) |
   string: buffer pointer + "," + group name |
   group added in nicklist
 
+// TRANSLATION MISSING
+| weechat | nicklist_group_changed +
+  (_novità nella versione 0.3.4_) |
+  string: buffer pointer + "," + group name |
+  group changed in nicklist
+
+// TRANSLATION MISSING
 | weechat | nicklist_group_removed +
   (_novità nella versione 0.3.2_) |
   string: buffer pointer + "," + group name |
   group removed from nicklist
 
+// TRANSLATION MISSING
 | weechat | nicklist_nick_added +
   (_novità nella versione 0.3.2_) |
   string: buffer pointer + "," + nick name |
   nick added in nicklist
 
+// TRANSLATION MISSING
+| weechat | nicklist_nick_changed +
+  (_novità nella versione 0.3.4_) |
+  string: buffer pointer + "," + nick name |
+  nick changed in nicklist
+
+// TRANSLATION MISSING
 | weechat | nicklist_nick_removed +
   (_novità nella versione 0.3.2_) |
   string: buffer pointer + "," + nick name |
@@ -8953,6 +8969,20 @@ Argomenti:
   "1" per mantenere i colori, "0" per rimuovere i colori |
   qualsiasi stringa |
   stringa con i codici colori IRC, o senza colore
+
+// TRANSLATION MISSING
+| irc | irc_command_auth +
+  (_novità nella versione 0.4.1_) |
+  nome server |
+  authentication command (for example: `/msg nickserv identify password`) |
+  command with hidden password (for example: `/msg nickserv identify ********`)
+
+// TRANSLATION MISSING
+| irc | irc_message_auth +
+  (_novità nella versione 0.4.1_) |
+  nome server |
+  message displayed after `/msg` sent to nickserv |
+  message with hidden password
 
 | irc | irc_in_xxx ^(1)^ |
   nome server |

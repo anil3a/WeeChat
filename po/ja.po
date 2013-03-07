@@ -4533,6 +4533,33 @@ msgstr "%s%s: 通知が見つかりません"
 msgid "%s%s: cannot create new private buffer \"%s\""
 msgstr "%s%s: 新しいプライベートバッファ \"%s\" の作成に失敗"
 
+#, c-format
+msgid "Server: %s%s %s[%s%s%s]%s%s"
+msgstr "サーバ: %s%s %s[%s%s%s]%s%s"
+
+msgid "connected"
+msgstr "接続済み"
+
+msgid "not connected"
+msgstr "未接続"
+
+msgid " (temporary)"
+msgstr " (一時的)"
+
+msgid "on"
+msgstr "オン"
+
+msgid "off"
+msgstr "オフ"
+
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "分"
+
+msgid "channel"
+msgid_plural "channels"
+msgstr[0] "チャンネル"
+
 msgid "All servers:"
 msgstr "全てのサーバ:"
 
@@ -6156,9 +6183,6 @@ msgstr "\"input_prompt\" バーアイテムではニックネームモードを�
 msgid "display nick prefix in \"input_prompt\" bar item"
 msgstr "\"input_prompt\" バーアイテムではニックネームプレフィックスを表示"
 
-msgid "hide password displayed by nickserv"
-msgstr "nickserv が表示するパスワードを隠す"
-
 msgid ""
 "comma separated list of words to highlight in server buffers (case "
 "insensitive, use \"(?-i)\" at beginning of words to make them case "
@@ -6223,6 +6247,12 @@ msgid ""
 msgstr ""
 "ターゲットがプライベートでプライベートバッファが見つからない場合の msgbuffer "
 "オプション用のデフォルトのターゲットバッファ"
+
+msgid ""
+"comma separated list of nicks for which passwords will be hidden when a "
+"message is sent, for example to hide password in message displayed by \"/msg "
+"nickserv identify password\", example: \"nickserv,nickbot\""
+msgstr ""
 
 msgid ""
 "display notices as private messages (if auto, use private buffer if found)"
@@ -6479,33 +6509,6 @@ msgstr "%s%s: %s%s%s からの未知の DCC CHAT タイプ: \"%s\""
 #, c-format
 msgid "%sUnknown CTCP requested by %s%s%s: %s%s%s%s%s"
 msgstr "%s%s%s%s からの未知の CTCP 要求: %s%s%s%s%s"
-
-#, c-format
-msgid "Server: %s%s %s[%s%s%s]%s%s"
-msgstr "サーバ: %s%s %s[%s%s%s]%s%s"
-
-msgid "connected"
-msgstr "接続済み"
-
-msgid "not connected"
-msgstr "未接続"
-
-msgid " (temporary)"
-msgstr " (一時的)"
-
-msgid "on"
-msgstr "オン"
-
-msgid "off"
-msgstr "オフ"
-
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "分"
-
-msgid "channel"
-msgid_plural "channels"
-msgstr[0] "チャンネル"
 
 msgid "1 if string is a valid IRC channel name for server"
 msgstr "文字列がサーバの有効な IRC チャンネル名なら 1"
@@ -7982,6 +7985,7 @@ msgstr ""
 "list|listfull|listrelay || add [ipv4.][ipv6.][ssl.]<protocol.name> <port> || "
 "del [ipv4.][ipv6.][ssl.]<protocol.name> || raw || sslcertkey"
 
+#, fuzzy
 msgid ""
 "         list: list relay clients (only active relays)\n"
 "     listfull: list relay clients (verbose, all relays)\n"
@@ -7992,7 +7996,9 @@ msgid ""
 "         ipv6: force use of IPv6\n"
 "          ssl: enable SSL\n"
 "protocol.name: protocol and name to relay:\n"
-"                 - protocol \"irc\": name is the server to share\n"
+"                 - protocol \"irc\": name is the server to share (optional, "
+"if not given, the server name must be sent by client in command \"PASS\", "
+"with format: \"PASS server:password\")\n"
 "                 - protocol \"weechat\" (name is not used)\n"
 "         port: port used for relay\n"
 "          raw: open buffer with raw Relay data\n"
@@ -8006,6 +8012,8 @@ msgid ""
 "    /relay add irc.freenode 8000\n"
 "  irc proxy, for server \"freenode\", with SSL:\n"
 "    /relay add ssl.irc.freenode 8001\n"
+"  irc proxy, for all servers (client will choose), with SSL:\n"
+"    /relay add ssl.irc 8002\n"
 "  weechat protocol:\n"
 "    /relay add weechat 9000\n"
 "  weechat protocol with SSL:\n"
@@ -8077,10 +8085,6 @@ msgstr "%s%s: エラー: 不明なプロトコル \"%s\""
 #, c-format
 msgid "%s%s: error: name is not allowed for protocol \"%s\""
 msgstr "%s%s: エラー: プロトコル \"%s\" では name を使えません"
-
-#, c-format
-msgid "%s%s: error: name is not required for protocol \"%s\""
-msgstr "%s%s: エラー: プロトコル \"%s\" では name が必要です"
 
 #, c-format
 msgid "%s%s: error: relay for \"%s\" already exists"
@@ -8703,6 +8707,22 @@ msgid "%s: script \"%s\" is not loaded"
 msgstr "%s: スクリプト \"%s\" はロードされていません"
 
 #, c-format
+msgid "%s: script \"%s\" not found"
+msgstr "%s: スクリプト \"%s\" が見つかりません"
+
+#, c-format
+msgid "%s: script \"%s\" is not installed"
+msgstr "%s: スクリプト \"%s\" はインストールされていません"
+
+#, fuzzy, c-format
+msgid "%s: autoload enabled for script \"%s\""
+msgstr "%s: スクリプト \"%s\" は利用できない言語で書かれています"
+
+#, fuzzy, c-format
+msgid "%s: autoload disabled for script \"%s\""
+msgstr "%s: スクリプト \"%s\" は利用できない言語で書かれています"
+
+#, c-format
 msgid "%s%s: error downloading script \"%s\": %s"
 msgstr "%s%s: スクリプト \"%s\" のダウンロード中にエラーが発生: %s"
 
@@ -8716,14 +8736,6 @@ msgstr ""
 #, c-format
 msgid "%s: downloading script \"%s\"..."
 msgstr "%s: スクリプト \"%s\" のダウンロード中"
-
-#, c-format
-msgid "%s: script \"%s\" not found"
-msgstr "%s: スクリプト \"%s\" が見つかりません"
-
-#, c-format
-msgid "%s: script \"%s\" is not installed"
-msgstr "%s: スクリプト \"%s\" はインストールされていません"
 
 #, c-format
 msgid "%s: script \"%s\" is held"
@@ -8805,12 +8817,12 @@ msgstr "WeeChat を最大化"
 msgid "Alt+key/input: v=back to list d=jump to diff"
 msgstr "Alt+key/input: v=リストに戻る d=比較する"
 
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%d/%d scripts (filter: %s) | Sort: %s | Alt+key/input: i=install r=remove "
-"l=load L=reload u=unload h=(un)hold v=view script | Input: q=close $=refresh "
-"s:x,y=sort words=filter *=reset filter | Mouse: left=select right=install/"
-"remove"
+"l=load L=reload u=unload A=autoload h=(un)hold v=view script | Input: "
+"q=close $=refresh s:x,y=sort words=filter *=reset filter | Mouse: "
+"left=select right=install/remove"
 msgstr ""
 "%d/%d 個のスクリプト (フィルタ: %s) | ソート: %s | Alt+key/input: i=インス"
 "トール r=削除 l=ロード L=リロード u=アンロード h=(アン)ホールド v=スクリプト"
@@ -8823,35 +8835,41 @@ msgstr "スクリプト"
 msgid "WeeChat scripts manager"
 msgstr "WeeChat スクリプトマネージャ"
 
+#, fuzzy
 msgid ""
 "list [-o|-i] || search <text> || show <script> || load|unload|reload "
-"<script> [<script>...] || install|remove|installremove|hold [-q] <script> "
+"<script> [<script>...] || autoload|noautoload|toggleautoload <script> "
+"[<script>...] || install|remove|installremove|hold [-q] <script> "
 "[<script>...] || upgrade || update"
 msgstr ""
 "list || search <text> || show <script> || load|unload|reload <script> "
 "[<script>...] || install|remove|hold <script> [<script>...] || upgrade || "
 "update"
 
+#, fuzzy
 msgid ""
-"         list: list loaded scripts (all languages)\n"
-"           -o: send list of loaded scripts to buffer\n"
-"           -i: copy list of loaded scripts in command line (for sending to "
+"          list: list loaded scripts (all languages)\n"
+"            -o: send list of loaded scripts to buffer\n"
+"            -i: copy list of loaded scripts in command line (for sending to "
 "buffer)\n"
-"       search: search scripts by tags or text and display result on scripts "
+"        search: search scripts by tags or text and display result on scripts "
 "buffer\n"
-"         show: show detailed info about a script\n"
-"         load: load script(s)\n"
-"       unload: unload script(s)\n"
-"       reload: reload script(s)\n"
-"      install: install/upgrade script(s)\n"
-"       remove: remove script(s)\n"
-"installremove: install or remove script(s), depending on current state\n"
-"         hold: hold/unhold script(s) (a script held will not be upgraded any "
-"more and cannot be removed)\n"
-"           -q: quiet mode: do not display messages\n"
-"      upgrade: upgrade all installed scripts which are obsolete (new version "
-"available)\n"
-"       update: update local scripts cache\n"
+"          show: show detailed info about a script\n"
+"          load: load script(s)\n"
+"        unload: unload script(s)\n"
+"        reload: reload script(s)\n"
+"      autoload: autoload the script\n"
+"    noautoload: do not autoload the script\n"
+"toggleautoload: toggle autoload\n"
+"       install: install/upgrade script(s)\n"
+"        remove: remove script(s)\n"
+" installremove: install or remove script(s), depending on current state\n"
+"          hold: hold/unhold script(s) (a script held will not be upgraded "
+"any more and cannot be removed)\n"
+"            -q: quiet mode: do not display messages\n"
+"       upgrade: upgrade all installed scripts which are obsolete (new "
+"version available)\n"
+"        update: update local scripts cache\n"
 "\n"
 "Without argument, this command opens a buffer with list of scripts.\n"
 "\n"
@@ -9118,6 +9136,11 @@ msgstr "スクリプトバッファ内のロード済みバージョンが選択
 
 msgid "background color for selected line in script buffer"
 msgstr "スクリプトバッファ内の選択行の背景色"
+
+msgid ""
+"autoload scripts installed (make a link in \"autoload\" directory to script "
+"in parent directory"
+msgstr ""
 
 msgid ""
 "local cache expiration time, in minutes (-1 = never expires, 0 = always "
@@ -9559,6 +9582,10 @@ msgstr "%s%s: 送信者からブロックを受信できません"
 msgid "%s%s: unable to write local file"
 msgstr "%s%s: ローカルファイルに書き込めません"
 
+#, fuzzy, c-format
+msgid "%s%s: unable to send ACK to sender"
+msgstr "%s%s: 送信者に接続できません"
+
 #, c-format
 msgid "%s%s: unable to fork"
 msgstr "%s%s: フォークできません"
@@ -9619,35 +9646,6 @@ msgstr "タイプ"
 msgid "Constants"
 msgstr "定数"
 
-#~ msgid "%s%s: not enough memory to create new speller"
-#~ msgstr "%s%s: 新しい speller を作る十分なメモリがありません"
-
-#~ msgid "%s%s: cannot set socket option \"SO_REUSEADDR\""
-#~ msgstr "%s%s: ソケットオプション \"SO_REUSEADDR\" の設定に失敗"
-
-#~ msgid "%s%s: cannot set socket option \"IPV6_V6ONLY\" to value %d"
-#~ msgstr ""
-#~ "%s%s: ソケットオプション \"IPV6_V6ONLY\" の値を %d に設定することはできま"
-#~ "せん"
-
-#~ msgid "%s%s: cannot set socket option \"SO_KEEPALIVE\""
-#~ msgstr "%s%s: ソケットオプション \"SO_KEEPALIVE\" の設定に失敗"
-
-#~ msgid "%s%s: cannot create socket for xfer"
-#~ msgstr "%s%s: xfer 用のソケットの作成に失敗"
-
-#~ msgid "%s%s: not enough memory to parse file \"%s\""
-#~ msgstr "%s%s: ファイル \"%s\" を解析する十分なメモリがありません"
-
-#~ msgid "%s%s: unable to run file \"%s\""
-#~ msgstr "%s%s: ファイル \"%s\" を実行できません"
-
-#~ msgid "%s%s: unknown error while loading file \"%s\""
-#~ msgstr "%s%s: ファイル \"%s\" のロード中の未定義のエラー"
-
-#~ msgid "%s: error loading script \"%s\" (bad name, spaces are forbidden)"
-#~ msgstr ""
-#~ "%s: スクリプト \"%s\" のロード中にエラー (無効な名前、スペースは禁止)"
-
-#~ msgid "%s%s: cannot create socket"
-#~ msgstr "%s%s: ソケットの作成に失敗"
+#, fuzzy
+#~ msgid "%s: script \"%s\" is now autoloaded"
+#~ msgstr "%s: スクリプト \"%s\" はロードされていません"
