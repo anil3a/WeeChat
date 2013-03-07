@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-02-19 08:29+0900\n"
-"PO-Revision-Date: 2013-02-18 01:38+0900\n"
+"POT-Creation-Date: 2013-02-20 18:41+0900\n"
+"PO-Revision-Date: 2013-03-07 22:39+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -6728,7 +6728,7 @@ msgstr "%s%s: クライアントの機能、拒否されました: %s"
 
 #, c-format
 msgid "%sYou have been invited to %s%s%s by %s%s%s"
-msgstr "%1$s%5$s%6$s%7$s が %2$s%3$s%4$s に招待しています"
+msgstr "%1$s%5$s%6$s%7$s から %2$s%3$s%4$s に招待されました"
 
 #, c-format
 msgid "%s%s: cannot create new channel \"%s\""
@@ -7024,8 +7024,8 @@ msgid ""
 "%s%s: too few arguments received from IRC server for command \"%s"
 "\" (received: %d arguments, expected: at least %d)"
 msgstr ""
-"%s%s: IRC サーバから受け取ったコマンド \"%s\" の応答に引数が足りません (応答"
-"の引数: %d 個の引数、期待される: 少なくとも %d 個)"
+"%s%s: IRC サーバから受け取ったコマンド \"%s\" に引数が足りません (受け取った"
+"引数の数: %d 個、期待される数: 最低 %d 個)"
 
 #, c-format
 msgid "%s%s: \"%s\" command received without host"
