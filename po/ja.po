@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-03-12 18:41+0900\n"
-"PO-Revision-Date: 2013-03-10 18:21+0900\n"
+"POT-Creation-Date: 2013-03-16 22:45+0900\n"
+"PO-Revision-Date: 2013-03-16 22:52+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -6445,11 +6445,10 @@ msgstr "遅延の確認間のインターバル (秒単位、0 = 確認しない
 msgid "minimum lag to show (in milliseconds)"
 msgstr "表示する最短の遅延 (ミリ秒単位)"
 
-#, fuzzy
 msgid ""
 "reconnect to server if lag is greater than this value (in seconds, 0 = never "
 "reconnect)"
-msgstr "長い遅延の後は再接続 (分単位、0 = 再接続しない)"
+msgstr "この値より長く遅延した場合は再接続 (秒単位、0 = 再接続しない)"
 
 msgid ""
 "interval between two refreshs of lag item, when lag is increasing (in "
@@ -7126,17 +7125,17 @@ msgstr "%s%s: 接続タイムアウト (メッセージ 001 が受信されま�
 msgid "%s%s: sasl authentication timeout"
 msgstr "%s%s: sasl 認証タイムアウト"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: lag is high, reconnecting to server %s%s%s"
-msgstr "%s%s: ラグが長いです、サーバとの接続を切断中..."
+msgstr "%s%s: 遅延が長いです、サーバ %s%s%s に再接続します"
 
 #, c-format
 msgid "%s%s: reconnecting to server in %d %s, %d %s"
-msgstr "%s%s: サーバに再接続中 %d %s、%d %s"
+msgstr "%s%s: %d %s 後にサーバに再接続します、%d %s"
 
 #, c-format
 msgid "%s%s: reconnecting to server in %d %s"
-msgstr "%s%s: サーバに再接続中 %d %s"
+msgstr "%s%s: %d %s 後にサーバに再接続します"
 
 #, c-format
 msgid "%s%s: switching address to %s/%d"
