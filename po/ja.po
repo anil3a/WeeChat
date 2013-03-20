@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.1-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-03-20 20:34+0900\n"
-"PO-Revision-Date: 2013-03-16 22:52+0900\n"
+"POT-Creation-Date: 2013-03-20 20:46+0900\n"
+"PO-Revision-Date: 2013-03-20 21:17+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -184,9 +184,9 @@ msgstr "全てのバーを削除しました。"
 msgid "%sError: unknown bar \"%s\""
 msgstr "%sエラー: バー \"%s\" は未定義です。"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Bar \"%s\" deleted"
-msgstr "バーを削除しました"
+msgstr "バー \"%s\" を削除しました"
 
 #, c-format
 msgid "%sError: unable to set option \"%s\" for bar \"%s\""
@@ -465,13 +465,11 @@ msgid "%d new key added"
 msgid_plural "%d new keys added (context: \"%s\")"
 msgstr[0] "%d 個の新しいキーを追加しました (コンテキスト: \"%s\")"
 
-#, fuzzy
 msgid "Saved layouts:"
-msgstr "保存されたバッファのレイアウト:"
+msgstr "保存されたレイアウト:"
 
-#, fuzzy
 msgid " (current layout)"
-msgstr "現在の値"
+msgstr " (現在のレイアウト)"
 
 msgid "No layout saved"
 msgstr "レイアウトが保存されていません"
@@ -479,39 +477,38 @@ msgstr "レイアウトが保存されていません"
 #. TRANSLATORS: %s%s%s is "buffers" or "windows" or "buffers+windows"
 #, c-format
 msgid "Layout of %s%s%s saved in \"%s\" (current layout: %s)"
-msgstr ""
+msgstr "%s%s%s のレイアウトを \"%s\" で保存しました (現在のレイアウト: %s)"
 
-#, fuzzy
 msgid "buffers"
 msgstr "バッファ"
 
-#, fuzzy
 msgid "windows"
 msgstr "ウィンドウ"
 
 msgid "Layout of buffers+windows reset (current layout: -)"
 msgstr ""
+"バッファとウィンドウのレイアウトをリセットしました (現在のレイアウト: -)"
 
 #, c-format
 msgid "Layout \"%s\" deleted (current layout: %s)"
-msgstr ""
+msgstr "レイアウト \"%s\" を削除しました (現在のレイアウト: %s)"
 
 #. TRANSLATORS: %s%s%s is "buffers" or "windows" or "buffers+windows"
-#, fuzzy, c-format
+#, c-format
 msgid "Layout of %s%s%s reset in \"%s\""
-msgstr "%s%s%s%s のトピックは %s 設定されました"
+msgstr "%s%s%s のレイアウトを \"%s\" でリセットしました"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sError: unknown layout \"%s\""
-msgstr "%sエラー: バー \"%s\" は未定義です。"
+msgstr "%sエラー: レイアウト \"%s\" は未定義です"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sError: layout \"%s\" already exists for \"%s\" command"
-msgstr "%1$s%2$s: \"%4$s\" コマンドのサーバ \"%3$s\" は既に存在しています"
+msgstr "%sエラー: コマンド \"%s\" 用のレイアウト \"%s\" はすでに存在しています"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Layout \"%s\" has been renamed to \"%s\""
-msgstr "フィルタ \"%s\" の名前を \"%s\" に変更しました"
+msgstr "レイアウト \"%s\" を \"%s\" にリネームしました"
 
 msgid "Mouse enabled"
 msgstr "マウスを有効化しました"
@@ -1235,7 +1232,6 @@ msgstr "式を評価して結果をバッファに送信"
 msgid "[-n] <expression> || [-n] <expression1> <operator> <expression2>"
 msgstr "[-n] <expression> || [-n] <expression1> <operator> <expression2>"
 
-#, fuzzy
 msgid ""
 "        -n: display result without sending it to buffer (debug mode)\n"
 "expression: expression to evaluate, variables with format ${variable} are "
@@ -1748,14 +1744,13 @@ msgstr ""
 msgid "save/apply/reset layout for buffers and windows"
 msgstr "バッファとウィンドウのレイアウトを保存/適用/リセット"
 
-#, fuzzy
 msgid ""
 "save [<name>] [buffers|windows] || apply [<name>] [buffers|windows] || leave "
 "|| reset [<name>] [buffers|windows] || rename <name> <new_name>"
 msgstr ""
-"save [buffers|windows] || apply [buffers|windows] || reset [buffers|windows]"
+"save [<name>] [buffers|windows] || apply [<name>] [buffers|windows] || leave "
+"|| reset [<name>] [buffers|windows] || rename <name> <new_name>"
 
-#, fuzzy
 msgid ""
 "   save: save current layout\n"
 "  apply: apply saved layout\n"
@@ -1771,7 +1766,12 @@ msgid ""
 msgstr ""
 "   save: 現在のレイアウトを保存\n"
 "  apply: 保存されたレイアウトを適用\n"
-"  reset: 保存されたレイアウトを削除\n"
+"  leave: 現在のレイアウトを保持する (レイアウトを更新しない)\n"
+"  reset: 保存されたレイアウトでバッファとウィンドウをリセット\n"
+"         (バッファとウィンドウの両方がリセットされる場合、レイアウトは削除さ"
+"れます)\n"
+" rename: レイアウトのリネーム\n"
+"   name: 保存されたレイアウトの名前 (初期状態は \"default\")\n"
 "buffers: バッファのみに対してレイアウトを保存/適用 (バッファの順番)\n"
 "windows: ウィンドウのみに対してレイアウトを保存/適用 (それぞれのウィンドウに"
 "表示されるバッファ)\n"
@@ -2465,9 +2465,8 @@ msgstr "リセットできるキーコード (追加、再定義、削除され�
 msgid "areas (\"chat\" or bar name) for free cursor movement"
 msgstr "カーソルを自由に動かせるエリア (\"chat\" またはバーの名前)"
 
-#, fuzzy
 msgid "names of layouts"
-msgstr "バーの名前"
+msgstr "レイアウトの名前"
 
 msgid ""
 "Warning: you should now issue /save to write \"save_config_on_exit\" option "
@@ -6084,9 +6083,8 @@ msgstr ""
 msgid "merge server buffers"
 msgstr "サーババッファをマージ"
 
-#, fuzzy
 msgid "merge private buffers"
-msgstr "サーババッファをマージ"
+msgstr "プライベートバッファをマージ"
 
 msgid ""
 "force position of new channel in list of buffers (none = default position "
@@ -6129,17 +6127,17 @@ msgstr ""
 "ニックネームモードが有効でニックネームモードを持っていない (オペレータでな"
 "い、voice 権がない) 場合にはこれを空白で表示する"
 
-#, fuzzy
 msgid ""
 "force color for some nicks: hash computed with nickname to find color will "
 "not be used for these nicks (format is: \"nick1:color1;nick2:color2\"); look "
 "up for nicks is with exact case then lower case, so it's possible to use "
 "only lower case for nicks in this option"
 msgstr ""
-"ニックネーム色を強制するニックネーム: ニックネームから計算されるハッシュを元"
-"にした色を利用しない (フォーマット: \"nick1:color1;nick2:color2\"); オプショ"
-"ンで指定された通りのニックネーム、これを小文字化したニックネームの順で検索を"
-"行う。そのため、このオプションのニックネーム部分には小文字を使うと良い。"
+"一部のニックネームでニックネーム色を強制する: ニックネームから計算されるハッ"
+"シュを元にした色を利用しない (フォーマット: \"nick1:color1;nick2:color2\"); "
+"ニックネームの検索はまず大文字小文字が区別された状態で行われ、そのあとに小文"
+"字で行われる。このため、このオプションのニックネーム部分を小文字だけで書く事"
+"もできる。"
 
 msgid ""
 "chars used to stop in nick when computing color with letters of nick (at "
@@ -8385,7 +8383,6 @@ msgstr ""
 "list|listdefault || add <name> <modifiers> <groups> <regex> || del <name>|-"
 "all [<name>...] || default -yes"
 
-#, fuzzy
 msgid ""
 "       list: list all rmodifiers\n"
 "listdefault: list default rmodifiers\n"
@@ -8414,8 +8411,9 @@ msgstr ""
 "        add: rmodifier を追加\n"
 "       name: rmodifier の名前\n"
 "  modifiers: rmodifier のコンマ区切りリスト\n"
-"     groups: グループに対するアクション: グループ (1 から 9) のコンマ区切りリ"
-"スト、グループを隠すにはオプションで番号の後ろに \"*\" をつける\n"
+"     groups: 正規表現にマッチするグループに対するアクション (括弧内): グルー"
+"プ (1 から 9) のコンマ区切りリスト、グループを隠すにはオプションで番号の後ろ"
+"に \"*\" をつける\n"
 "      regex: 正規表現 (大文字小文字の区別無し、\"(?-i)\" で始めれば区別有"
 "り)\n"
 "        del: rmodifier を削除\n"
