@@ -148,7 +148,7 @@ relay_weechat_protocol_is_sync (struct t_relay_client *ptr_client,
         return ((*ptr_flags) & flags) ? 1 : 0;
 
     /*
-     * buffer not found at all in hashtable (neither name, neitner "*")
+     * buffer not found at all in hashtable (neither name, neither "*")
      * => it is NOT synchronized
      */
     return 0;
@@ -159,7 +159,7 @@ relay_weechat_protocol_is_sync (struct t_relay_client *ptr_client,
  *
  * Message looks like:
  *   init password=mypass
- *   init password=mypass,compression=gzip
+ *   init password=mypass,compression=zlib
  *   init password=mypass,compression=off
  */
 

@@ -2650,7 +2650,7 @@ irc_server_timer_connection_cb (void *data, int remaining_calls)
 
 /*
  * Callback for SASL authentication timer: it is called if there is a timeout
- * with SASL authentication (if SASL authentication is ok or failed, then hook
+ * with SASL authentication (if SASL authentication is OK or failed, then hook
  * timer is removed before this callback is called).
  */
 
@@ -3383,7 +3383,7 @@ irc_server_create_buffer (struct t_irc_server *server)
             break;
         case IRC_CONFIG_LOOK_SERVER_BUFFER_MERGE_WITHOUT_CORE:
             /* find buffer used to merge all IRC server buffers */
-            ptr_buffer_for_merge = irc_buffer_search_first_for_all_servers ();
+            ptr_buffer_for_merge = irc_buffer_search_server_lowest_number ();
             break;
     }
 

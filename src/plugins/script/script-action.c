@@ -1361,7 +1361,7 @@ script_action_run ()
                          ptr_script = ptr_script->next_script)
                     {
                         /*
-                         * if script is intalled, with new version available,
+                         * if script is installed, with new version available,
                          * and not held, then upgrade it
                          */
                         if ((ptr_script->status & SCRIPT_STATUS_INSTALLED)
@@ -1436,6 +1436,9 @@ void
 script_action_schedule (const char *action, int need_repository, int quiet)
 {
     script_action_add (action);
+
+    /* create again "script" directory, just in case it has been removed */
+    weechat_mkdir_home (SCRIPT_PLUGIN_NAME, 0755);
 
     if (need_repository)
     {

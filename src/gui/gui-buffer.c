@@ -1645,7 +1645,9 @@ gui_buffer_set (struct t_gui_buffer *buffer, const char *property,
     {
         gui_buffer_undo_snap (buffer);
         gui_input_replace_input (buffer, value);
-        gui_input_text_changed_modifier_and_signal (buffer, 1);
+        gui_input_text_changed_modifier_and_signal (buffer,
+                                                    1, /* save undo */
+                                                    1); /* stop completion */
     }
     else if (string_strcasecmp (property, "input_pos") == 0)
     {
@@ -1871,7 +1873,7 @@ gui_buffer_search_by_partial_name (const char *plugin, const char *name)
     if (!name || !name[0])
         return gui_current_window->buffer;
 
-    /* 0: mathces beginning of buffer name, 1: in the middle, 2: the end */
+    /* 0: matches beginning of buffer name, 1: in the middle, 2: the end */
     buffer_partial_match[0] = NULL;
     buffer_partial_match[1] = NULL;
     buffer_partial_match[2] = NULL;
@@ -2416,7 +2418,7 @@ gui_buffer_move_to_number (struct t_gui_buffer *buffer, int number)
     if (number < 1)
         number = 1;
 
-    /* buffer number is already ok ? */
+    /* buffer number is already OK ? */
     if (number == buffer->number)
         return;
 
