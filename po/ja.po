@@ -6183,6 +6183,12 @@ msgstr "ローカルクライアントからの参加メッセージにホスト
 msgid "display host in part/quit messages"
 msgstr "退出/終了 メッセージにホスト名を表示"
 
+msgid ""
+"comma-separated list of messages to display after joining a channel: 329 = "
+"channel creation date, 332 = topic, 333 = nick/date for topic, 366 = names "
+"on channel"
+msgstr ""
+
 msgid "display old topic when channel topic is changed"
 msgstr "チャンネルトピックが変更された場合に、古いトピックを表示"
 
@@ -9590,6 +9596,12 @@ msgstr "ファイルを自動的に受信 (注意して使用!)"
 
 msgid "automatically accept chat requests (use carefully!)"
 msgstr "チャット要求を自動的に許可 (注意して使用!)"
+
+msgid ""
+"comma-separated list of nicks for which the incoming files and chats are "
+"automatically accepted; format is \"server.nick\" (for a specific server) or "
+"\"nick\" (for all servers); example: \"freenode.FlashCode,andrew\""
+msgstr ""
 
 msgid "list of xfer"
 msgstr "xfer のリスト"
