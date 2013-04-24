@@ -5903,9 +5903,11 @@ msgid "password for server"
 msgstr "サーバのパスワード"
 
 #. TRANSLATORS: please keep words "client capabilities" between brackets if translation is different (see fr.po)
+#, fuzzy
 msgid ""
 "comma-separated list of client capabilities to enable for server if they are "
-"available (example: \"multi-prefix,extended-join\")"
+"available; capabilities supported by WeeChat are: multi-prefix, userhost-in-"
+"names (example: \"multi-prefix,userhost-in-names\")"
 msgstr ""
 "サーバで利用可能ならば有効化する、クライアントの機能のコンマ区切りリスト "
 "(例: \"multi-prefix,extended-join\")"
