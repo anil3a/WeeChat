@@ -2918,6 +2918,12 @@ msgstr ""
 "字)"
 
 msgid ""
+"display the truncature char (by default \"+\") after the text (by replacing "
+"the space that should be displayed here); if disabled, the truncature char "
+"replaces last char of text"
+msgstr ""
+
+msgid ""
 "prefix alignment for buffer name, when many buffers are merged with same "
 "number (none, left, right (default))"
 msgstr ""
