@@ -49,10 +49,9 @@ WeeChat (Wee Enhanced Environment for Chat) はフリー、高速、軽量な
 
 * 'weechat_init' を定義して、内部で 'register' を呼び出してください。
 * 関数は `Weechat.xxx(arg1, arg2, ...)` のように呼び出してください。
-// TRANSLATION MISSING
-* Due to a limitation of Ruby (15 arguments max by function), the function
-  `Weechat.config_new_option` receives the callbacks in an array of 6 strings
-  (3 callbacks + 3 data strings), so a call to this function looks like:
+* Ruby では関数に渡せる引数の数が最大 15 個に制限されているため、`Weechat.config_new_option`
+  関数はコールバック用の引数群を 6 個の文字列からなる 1 個の配列で受け取ります (3 個のコールバック
+  + 3 個のデータ文字列)、したがって `Weechat.config_new_option` 関数を呼び出すには以下のようにしてください:
 
 [source,ruby]
 ----------------------------------------
@@ -698,10 +697,9 @@ URL をダウンロードする (又は URL にポストする) には、関数 
 オプション無しの URL 転送の例: HTML ページの内容はコールバックの
 "out" 引数 (プロセスの標準出力) を通して渡されます。
 
-// TRANSLATION MISSING
 [source,python]
 ----------------------------------------
-# Display current stable version of WeeChat.
+# 現在の WeeChat 安定版のバージョンを表示。
 weechat_version = ""
 
 def weechat_process_cb(data, command, rc, out, err):
@@ -716,9 +714,8 @@ weechat.hook_process("url:http://weechat.org/info/stable/",
                      30 * 1000, "weechat_process_cb", "")
 ----------------------------------------
 
-// TRANSLATION MISSING
 [TIP]
-All infos available about WeeChat are on page http://weechat.org/info
+WeeChat に関して利用できる情報は全て http://weechat.org/info にあります
 
 オプション有りの URL 転送の例: 最新の WeeChat 開発パッケージをファイル
 '/tmp/weechat-devel.tar.gz' にダウンロード:
