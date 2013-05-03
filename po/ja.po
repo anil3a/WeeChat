@@ -18,7 +18,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: WeeChat 0.4.1-dev\n"
+"Project-Id-Version: WeeChat 0.4.1-rc1\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2013-04-29 09:02+0900\n"
 "PO-Revision-Date: 2013-04-24 09:11+0900\n"
@@ -5912,10 +5912,11 @@ msgstr ""
 "ト; WeeChat で利用できる機能: multi-prefix、userhost-in-names (例: \"multi-"
 "prefix,userhost-in-names\")"
 
+#, fuzzy
 msgid ""
 "mechanism for SASL authentication: \"plain\" for plain text password, \"dh-"
-"blowfish\" for crypted password, \"external\" for authentication using "
-"client side SSL cert"
+"blowfish\" for blowfish crypted password, \"dh-aes\" for AES crypted "
+"password, \"external\" for authentication using client side SSL cert"
 msgstr ""
 "SASL 認証メカニズム: \"plain\" は平文パスワード、\"dh-blowfish\" は暗号パス"
 "ワード、\"external\" はクライアントサイド SSL 証明書を利用した認証"

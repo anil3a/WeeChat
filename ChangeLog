@@ -1,7 +1,7 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.4.1-dev, 2013-04-28
+v0.4.1-rc1, 2013-05-01
 
 
 This document lists all changes for each version.
@@ -14,6 +14,11 @@ http://weechat.org/files/releasenotes/ReleaseNotes-devel.html[release notes]
 Version 0.4.1 (under dev!)
 --------------------------
 
+* core: fix display of long lines without time (message beginning with two tabs)
+* core: make nick prefix/suffix dynamic (not stored in the line): move options
+  irc.look.nick_{prefix|suffix} to weechat.look.nick_{prefix|suffix} and options
+  irc.color.nick_{prefix|suffix} to weechat.color.chat_nick_{prefix|suffix},
+  add new options logger.file.nick_{prefix|suffix} (bug #37531)
 * core: reset scroll in window before zooming on a merged buffer (bug #38207)
 * core: install icon file (patch #7972)
 * core: fix refresh of item "completion": clear it after any action that is
@@ -51,6 +56,7 @@ Version 0.4.1 (under dev!)
   list with arguments inside), guile >= 2.0 is now required (bug #38350)
 * guile: fix crash on calls to callbacks during load of script (bug #38343)
 * guile: fix compilation with guile 2.0
+* irc: add support of "dh-aes" SASL mechanism (patch #8020)
 * irc: fix duplicate nick completion when someone rejoins the channel with same
   nick but a different case (bug #38841)
 * irc: add support of UHNAMES (capability "userhost-in-names") (task #9353)

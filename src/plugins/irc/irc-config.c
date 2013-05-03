@@ -59,8 +59,6 @@ struct t_config_option *irc_config_look_server_buffer;
 struct t_config_option *irc_config_look_pv_buffer;
 struct t_config_option *irc_config_look_new_channel_position;
 struct t_config_option *irc_config_look_new_pv_position;
-struct t_config_option *irc_config_look_nick_prefix;
-struct t_config_option *irc_config_look_nick_suffix;
 struct t_config_option *irc_config_look_nick_mode;
 struct t_config_option *irc_config_look_nick_mode_empty;
 struct t_config_option *irc_config_look_nick_color_force;
@@ -107,8 +105,6 @@ struct t_config_option *irc_config_color_message_join;
 struct t_config_option *irc_config_color_message_quit;
 struct t_config_option *irc_config_color_mirc_remap;
 struct t_config_option *irc_config_color_nick_prefixes;
-struct t_config_option *irc_config_color_nick_prefix;
-struct t_config_option *irc_config_color_nick_suffix;
 struct t_config_option *irc_config_color_notice;
 struct t_config_option *irc_config_color_input_nick;
 struct t_config_option *irc_config_color_item_away;
@@ -1577,9 +1573,10 @@ irc_config_server_new_option (struct t_config_file *config_file,
                 config_file, section,
                 option_name, "integer",
                 N_("mechanism for SASL authentication: \"plain\" for plain text "
-                   "password, \"dh-blowfish\" for crypted password, \"external\" "
+                   "password, \"dh-blowfish\" for blowfish crypted password, "
+                   "\"dh-aes\" for AES crypted password, \"external\" "
                    "for authentication using client side SSL cert"),
-                "plain|dh-blowfish|external", 0, 0,
+                "plain|dh-blowfish|dh-aes|external", 0, 0,
                 default_value, value,
                 null_value_allowed,
                 callback_check_value, callback_check_value_data,
@@ -2209,16 +2206,6 @@ irc_config_init ()
            "of server)"),
         "none|next|near_server", 0, 0, "none",
         NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-    irc_config_look_nick_prefix = weechat_config_new_option (
-        irc_config_file, ptr_section,
-        "nick_prefix", "string",
-        N_("text to display before nick in chat window"),
-        NULL, 0, 0, "", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-    irc_config_look_nick_suffix = weechat_config_new_option (
-        irc_config_file, ptr_section,
-        "nick_suffix", "string",
-        N_("text to display after nick in chat window"),
-        NULL, 0, 0, "", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
     irc_config_look_nick_mode = weechat_config_new_option (
         irc_config_file, ptr_section,
         "nick_mode", "integer",
@@ -2551,20 +2538,6 @@ irc_config_init ()
         NULL, 0, 0, "q:lightred;a:lightcyan;o:lightgreen;h:lightmagenta;"
         "v:yellow;*:lightblue", NULL, 0, NULL, NULL,
         &irc_config_change_color_nick_prefixes, NULL, NULL, NULL);
-    irc_config_color_nick_prefix = weechat_config_new_option (
-        irc_config_file, ptr_section,
-        "nick_prefix", "color",
-        N_("color for nick prefix (prefix is custom string displayed "
-            "before nick)"),
-        NULL, -1, 0, "green", NULL, 0, NULL, NULL,
-        NULL, NULL, NULL, NULL);
-    irc_config_color_nick_suffix = weechat_config_new_option (
-        irc_config_file, ptr_section,
-        "nick_suffix", "color",
-        N_("color for nick suffix (suffix is custom string displayed "
-            "after nick)"),
-        NULL, -1, 0, "green", NULL, 0, NULL, NULL,
-        NULL, NULL, NULL, NULL);
     irc_config_color_notice = weechat_config_new_option (
         irc_config_file, ptr_section,
         "notice", "color",
