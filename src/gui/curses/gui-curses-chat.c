@@ -479,9 +479,10 @@ gui_chat_display_word (struct t_gui_window *window,
                 && (CONFIG_INTEGER(config_look_prefix_align) != CONFIG_LOOK_PREFIX_ALIGN_NONE)
                 && CONFIG_STRING(config_look_prefix_suffix)
                 && CONFIG_STRING(config_look_prefix_suffix)[0]
-                && line->data->str_time
-                && line->data->str_time[0])
+                && line->data->date > 0)
             {
+                attrs = 0;
+                pair = 0;
                 if (!simulate)
                 {
                     ptr_attrs = &attrs;

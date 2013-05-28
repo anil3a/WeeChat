@@ -1534,14 +1534,13 @@ network_connect_child_read_cb (void *arg_hook_connect, int fd)
 void
 network_connect_with_fork (struct t_hook *hook_connect)
 {
-    int child_pipe[2];
+    int child_pipe[2], rc;
 #ifdef HOOK_CONNECT_MAX_SOCKETS
     int i;
 #else
     int child_socket[2];
 #endif
 #ifdef HAVE_GNUTLS
-    int rc;
     const char *pos_error;
 #endif
     pid_t pid;
@@ -1625,7 +1624,8 @@ network_connect_with_fork (struct t_hook *hook_connect)
             return;
         /* child process */
         case 0:
-            setuid (getuid ());
+            rc = setuid (getuid ());
+            (void) rc;
             close (HOOK_CONNECT(hook_connect, child_read));
 #ifndef HOOK_CONNECT_MAX_SOCKETS
             close (HOOK_CONNECT(hook_connect, child_recv));

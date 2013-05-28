@@ -25,31 +25,9 @@ mais elle ne s'applique pas à WeeChat !).
 Pourquoi choisir WeeChat ? X-Chat et Irssi sont si bien...
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Parce que WeeChat est très léger et a de nouvelles fonctionnalités.
-Quelques fonctionnalités (version ≥ 0.3.x) :
+Parce que WeeChat est très léger et apporte des fonctionnalités innovantes.
 
-* support multi-protocoles via extensions (IRC, Jabber)
-* plusieurs interfaces déportées en plus de Curses (à venir bientôt)
-* support 256 couleurs
-* disponible en plusieurs langues
-* extensible par des extensions (C, Perl, Python, Ruby, Lua, Tcl)
-* tampons avec contenu libre
-* filtrage de l'affichage avec tags et expressions régulières
-* découpage de la fenêtre horizontalement et verticalement
-* barres personnalisables et extensibles
-* liste des pseudos en natif
-* liste des tampons (script buffers.pl)
-* proxy IRC
-* redirection des commandes IRC
-* recherche incrémentale de texte dans les tampons, saut aux highlights
-* tube FIFO pour contrôle à distance
-* support aspell
-* double encodage (décodage/encodage)
-* développé à partir de zéro (non basé sur un quelconque client)
-* multi plates-formes
-* 100% GPL et libre
-
-Plus d'infos sur cette page : http://www.weechat.org/features
+Plus d'infos sur cette page : http://weechat.org/about/features
 
 [[compilation_install]]
 Compilation / installation
@@ -59,10 +37,12 @@ Compilation / installation
 J'ai entendu parler de plusieurs interfaces pour WeeChat. Comment puis-je les compiler/utiliser ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Aujourd'hui seule l'interface Curses est disponible.
+Des interfaces distantes sont disponibles :
 
-D'autres interfaces seront disponibles en mode distant (actuellement
-en développement).
+* http://weechat.org/download/devel[QWeeChat] (Qt)
+* https://github.com/ubergeek42/weechat-android[weechat-android] (Android)
+* https://github.com/the-kenny/weechat.el[weechat.el] (Emacs)
+* https://github.com/eirikb/weecloud[weecloud] (Web)
 
 [[compile_git]]
 Je ne peux pas compiler WeeChat après avoir cloné la base git, pourquoi ?
@@ -295,7 +275,7 @@ Cette option peut causer des problèmes d'affichage. Si vous rencontrez de tels
 problèmes, vous devez désactiver cette option.
 
 Une autre solution est d'utiliser un script :
-http://www.weechat.org/scripts/stable/tag/url
+http://weechat.org/scripts/stable/tag/url
 
 [[change_locale_without_quit]]
 Je souhaite changer la langue des messages affichés par WeeChat, mais sans quitter WeeChat, est-ce possible ?
@@ -706,7 +686,7 @@ Pour 'launcher.pl', vous devez configurer la commande :
 /set plugins.var.perl.launcher.signal.weechat_highlight "/chemin/vers/commande paramètres"
 ----------------------------------------
 
-Autres scripts sur ce sujet : http://www.weechat.org/scripts/stable/tag/notify/
+Autres scripts sur ce sujet : http://weechat.org/scripts/stable/tag/notify/
 
 [[irc_target_buffer]]
 Comment puis-je changer le serveur cible pour les commandes avec des tampons mélangés (comme le tampon avec les serveurs) ?
@@ -785,7 +765,7 @@ Il y a 3 possibilités :
   * demander une nouvelle fonctionnalité: https://savannah.nongnu.org/task/?group=weechat
   * envoyer un patch: https://savannah.nongnu.org/patch/?group=weechat
 . vous pouvez envoyer un mail aux développeurs, consultez la page support
-  pour les mails des développeurs : http://www.weechat.org/about
+  pour les mails des développeurs : http://weechat.org/dev/support
   (vous pouvez souscrire et envoyer à la liste de diffusion nommée "support")
 
 [[gdb_error_threads]]
@@ -813,7 +793,7 @@ $ LD_PRELOAD=/lib/libpthread.so.0 gdb /path/to/weechat-curses
 Quelle est la liste des plates-formes supportées par WeeChat ? Sera-t-il porté sur d'autres systèmes d'exploitation ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-La liste complète est sur cette page : http://www.weechat.org/download
+La liste complète est sur cette page : http://weechat.org/download
 
 Nous faisons le maximum pour supporter le plus de plates-formes possible.
 Toute aide est la bienvenue pour les systèmes que nous n'avons pas, pour y
@@ -826,11 +806,11 @@ Je souhaiterais aider les développeurs WeeChat. Que puis-je faire ?
 Il y a plusieurs choses à faire (test, code, documentation, etc...)
 
 Merci de prendre contact avec nous par IRC ou mail, consultez la page
-support : http://www.weechat.org/support
+support : http://weechat.org/dev/support
 
 [[donate]]
 Puis-je donner de l'argent ou d'autres choses aux développeurs WeeChat ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Vous pouvez donner de l'argent pour aider le développement.
-Plus de détails sur http://www.weechat.org/donate
+Plus de détails sur http://weechat.org/about/donate

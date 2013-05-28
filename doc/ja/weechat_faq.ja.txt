@@ -22,31 +22,10 @@ Sébastien Helleu <flashcode@flashtux.org>
 [[why_choose_weechat]]
 === WeeChat を選ぶ理由は何ですか? X-Chat や Irssi は最高なのに... ===
 
-なぜなら WeeChat はとても軽量で新しい機能を持っているからです。
-いくつかの機能 (バージョン ≥ 0.3.x):
+// TRANSLATION MISSING
+Because WeeChat is very light and brings innovating features.
 
-* プラグインでマルチプロトコルをサポート (IRC、Jabber)
-* Curses の他に多くのリモート GUI をサポート(近日公開)
-* 256 色サポート
-* 多くの言語で利用可能
-* プラグインによる拡張 (C 言語、Perl、Python、Ruby、Lua、Tcl)
-* 任意の内容を持てるバッファ
-* タグや正規表現を用いた表示制限フィルタ
-* 水平垂直方向のウィンドウ分割
-* カスタマイズと拡張可能なバー
-* 組み込み済みのニックネームリスト
-* バッファリスト (buffers.pl スクリプト)
-* IRC プロキシ
-* IRC コマンドのリダイレクト
-* バッファ内のインクリメンタルテキスト検索、ハイライト部分へのジャンプ
-* リモート操作用の FIFO パイプ
-* aspell サポート
-* 2 つの文字セット (エンコード/デコード)
-* ゼロからの開発 (他のどんなクライアントにも基づかない)
-* マルチプラットフォーム
-* GPL に準拠してフリー
-
-こののページに関するより詳しい情報: http://www.weechat.org/features
+こののページに関するより詳しい情報: http://weechat.org/about/features
 
 [[compilation_install]]
 == コンパイル / インストール ==
@@ -54,9 +33,13 @@ Sébastien Helleu <flashcode@flashtux.org>
 [[gui]]
 === WeeChat には多くの GUI があると聞きました。コンパイル/利用方法を教えてください。 ===
 
-今のところ利用可能なのは Curses GUI だけです。
+// TRANSLATION MISSING
+Some remote GUIs are available:
 
-その他の GUI はリモートクライアントとして利用可能になる予定です(現在開発中)。
+* http://weechat.org/download/devel[QWeeChat] (Qt)
+* https://github.com/ubergeek42/weechat-android[weechat-android] (Android)
+* https://github.com/the-kenny/weechat.el[weechat.el] (Emacs)
+* https://github.com/eirikb/weecloud[weecloud] (Web)
 
 [[compile_git]]
 === git リポジトリをクローンした後に WeeChat をコンパイルできません。 ===
@@ -264,7 +247,7 @@ WeeChat ≥ 0.3.6 では、"eat_newline_glitch" オプションを有効化で�
 このオプションには表示上の問題を引き起こす可能性があります。
 表示上の問題が起きた場合はこのオプションを無効化してください。
 
-別の解決策として、スクリプトを利用することもできます: http://www.weechat.org/scripts/stable/tag/url
+別の解決策として、スクリプトを利用することもできます: http://weechat.org/scripts/stable/tag/url
 
 [[change_locale_without_quit]]
 === WeeChat が出力するメッセージの言語を、再起動せずに変更したいです。このようなことは可能ですか。 ===
@@ -634,7 +617,7 @@ WeeChat 0.3.3 以下では、オプション名が 'irc.network.away_check' と
 /set plugins.var.perl.launcher.signal.weechat_highlight "/path/to/command arguments"
 ----------------------------------------
 
-この問題に対するその他のスクリプトは: http://www.weechat.org/scripts/stable/tag/notify/
+この問題に対するその他のスクリプトは: http://weechat.org/scripts/stable/tag/notify/
 
 [[irc_target_buffer]]
 === どうすればマージされたバッファ内であるコマンドを発行するターゲットバッファを変更できますか。 ===
@@ -703,7 +686,7 @@ OpenBSD では、プラグインファイル名の末尾が ".so.0.0" です (Li
   * 新機能のリクエスト: https://savannah.nongnu.org/task/?group=weechat
   * パッチ送信: https://savannah.nongnu.org/patch/?group=weechat
 . メールで開発者に連絡、開発者のメールアドレスはサポートページを参照:
-  http://www.weechat.org/about
+  http://weechat.org/dev/support
   ("support" メーリングリストを購読して送信することもできます)
 
 [[gdb_error_threads]]
@@ -729,7 +712,7 @@ $ LD_PRELOAD=/lib/libpthread.so.0 gdb /path/to/weechat-curses
 [[supported_os]]
 === WeeChat をサポートするプラットフォームのリストを教えてください。他のオペレーティングシステムへの移植予定はありますか。 ===
 
-完全なリストはこのページにあります: http://www.weechat.org/download
+完全なリストはこのページにあります: http://weechat.org/download
 
 我々は可能な限り多くのプラットフォームに移植することに最善を尽くしています。
 我々が持っていない OS で WeeChat をテストすることを歓迎します。
@@ -740,10 +723,10 @@ $ LD_PRELOAD=/lib/libpthread.so.0 gdb /path/to/weechat-curses
 多くの課題があります (テスト、コード、ドキュメント作成、...)。
 
 IRC かメールで連絡を取り、サポートページを確認してください:
-http://www.weechat.org/support
+http://weechat.org/dev/support
 
 [[donate]]
 === WeeChat 開発者にお金か何かを贈りたいのですが。 ===
 
 開発補助のためお金を贈ることができます。
-詳しいことは http://www.weechat.org/donate に載っています。
+詳しいことは http://weechat.org/about/donate に載っています。

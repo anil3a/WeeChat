@@ -19,10 +19,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: WeeChat 0.4.1-rc2\n"
+"Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-05-11 18:28+0200\n"
-"PO-Revision-Date: 2013-05-11 18:28+0200\n"
+"POT-Creation-Date: 2013-05-21 22:34+0200\n"
+"PO-Revision-Date: 2013-05-20 16:55+0200\n"
 "Last-Translator: Aleksey V Zapparov AKA ixti <ixti@member.fsf.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: ru\n"
@@ -7022,6 +7022,10 @@ msgid "context (\"default\", \"search\", \"cursor\" or \"mouse\") (optional)"
 msgstr ""
 
 #, fuzzy
+msgid "list of layouts"
+msgstr "Список сокращений:\n"
+
+#, fuzzy
 msgid "nicks in nicklist for a buffer"
 msgstr "некорректная длина буфера"
 
@@ -7110,6 +7114,18 @@ msgstr "вставить строку в поле ввода"
 
 msgid "a key (keyboard shortcut)"
 msgstr ""
+
+#, fuzzy
+msgid "layout"
+msgstr "время в буферах"
+
+#, fuzzy
+msgid "buffer layout"
+msgstr "поиск текста в истории буфера"
+
+#, fuzzy
+msgid "window layout"
+msgstr "управление окнами"
 
 msgid "structure with lines"
 msgstr ""
