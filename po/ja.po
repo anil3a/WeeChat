@@ -5389,7 +5389,8 @@ msgstr ""
 msgid "send a private message to a nick"
 msgstr "ニックネーム宛にプライベートメッセージを送信"
 
-msgid "[-server <server>] <nick> [<text>]"
+#, fuzzy
+msgid "[-server <server>] <nick>[,<nick>...] [<text>]"
 msgstr "[-server <server>] <nick> [<text>]"
 
 msgid ""
