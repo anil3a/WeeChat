@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-06-01 14:08+0900\n"
-"PO-Revision-Date: 2013-05-28 09:20+0900\n"
+"POT-Creation-Date: 2013-06-01 14:11+0900\n"
+"PO-Revision-Date: 2013-06-01 14:16+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -5389,9 +5389,8 @@ msgstr ""
 msgid "send a private message to a nick"
 msgstr "ニックネーム宛にプライベートメッセージを送信"
 
-#, fuzzy
 msgid "[-server <server>] <nick>[,<nick>...] [<text>]"
-msgstr "[-server <server>] <nick> [<text>]"
+msgstr "[-server <server>] <nick>[,<nick>...] [<text>]"
 
 msgid ""
 "server: send to this server (internal name)\n"
@@ -8325,9 +8324,9 @@ msgid "%s%s: cannot set socket option \"%s\" to %d: error %d %s"
 msgstr "%s%s: ソケットオプション \"%s\" を %d に設定できません: エラー %d %s"
 
 #. TRANSLATORS: second "%s" is "IPv4" or "IPv6"
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: invalid bind address \"%s\" for %s"
-msgstr "%s%s: 不正な文字集合: \"%s\""
+msgstr "%1$s%2$s: %4$s 用に割り当てた不正なアドレス \"%3$s\""
 
 #, c-format
 msgid "%s%s: cannot create socket: error %d %s"
