@@ -54,13 +54,15 @@
 
 | weechat | key | Auflistung der Tastenzuweisungen | - | Kontext ("default", "search", "cursor" oder "mouse") (optional)
 
-| weechat | layout | list of layouts | - | -
+| weechat | layout | Auflistung der Layouts | - | -
 
 | weechat | nicklist | Nicks in Nickliste für einen Buffer | Buffer Pointer | nick_xxx oder group_xxx um nur den Nick/Group xxx abzufragen (optional)
 
 | weechat | option | Auflistung der Optionen | - | Name einer Option (darf mit einem "*" als Platzhalter beginnen oder enden) (optional)
 
 | weechat | plugin | Auflistung der Erweiterungen | Pointer der Erweiterung (optional) | Name einer Erweiterung (darf mit einem "*" als Platzhalter beginnen oder enden) (optional)
+
+| weechat | proxy | list of proxies | proxy pointer (optional) | proxy name (can start or end with "*" as wildcard) (optional)
 
 | weechat | url_options | Optionen für URL | - | -
 

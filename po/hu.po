@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-06-02 10:52+0200\n"
-"PO-Revision-Date: 2013-05-20 16:54+0200\n"
+"POT-Creation-Date: 2013-06-08 17:43+0200\n"
+"PO-Revision-Date: 2013-06-08 12:30+0200\n"
 "Last-Translator: Andras Voroskoi <voroskoi@frugalware.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: hu\n"
@@ -2019,6 +2019,12 @@ msgid ""
 "problems, you must turn off this option."
 msgstr ""
 
+#, c-format
+msgid ""
+"%sWarning: proxy \"%s\" does not exist (you can create it with command /"
+"proxy)"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "\t\tDay changed to %s"
 msgstr "A mai dátum: %s\n"
@@ -2790,6 +2796,12 @@ msgstr ""
 msgid "timeout (in seconds) for gnutls handshake"
 msgstr "SSL használata a a kapcsolathoz"
 
+msgid ""
+"name of proxy used for download of URLs with Curl (used to download list of "
+"scripts and in scripts calling function hook_process); the proxy must be "
+"defined with command /proxy"
+msgstr ""
+
 #, fuzzy
 msgid ""
 "comma separated list of plugins to load automatically at startup, \"*\" "
@@ -3465,12 +3477,17 @@ msgstr ""
 msgid "%s%s: failed to add word to personal dictionary"
 msgstr ""
 
+#. TRANSLATORS: second "%s" is "aspell" or "enchant"
+#, fuzzy, c-format
+msgid "%s (using %s)"
+msgstr "  (nem található bővítőmodul)\n"
+
 #, fuzzy
-msgid "Aspell is enabled"
+msgid "Spell checking is enabled"
 msgstr "a felhasználók le lettek tiltva"
 
 #, fuzzy
-msgid "Aspell is disabled"
+msgid "Spell checking is disabled"
 msgstr "Nincs aliasz definiálva.\n"
 
 #, fuzzy, c-format
@@ -3590,6 +3607,10 @@ msgstr ""
 #, c-format
 msgid "%s: warning: dictionary \"%s\" is not available on your system"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "%s%s: error: unable to create speller for lang \"%s\""
+msgstr "%s nem sikerült a szervert létrehozni\n"
 
 #, fuzzy
 msgid "Charset conversions"
@@ -4124,7 +4145,8 @@ msgid ""
 " -exclude: exclude some channels ('*' is allowed at beginning or end of "
 "channel name, to exclude many channels)\n"
 "  command: command to execute\n"
-"arguments: arguments for command\n"
+"arguments: arguments for command (special variables $nick, $channel and "
+"$server are replaced by their value)\n"
 "\n"
 "Examples:\n"
 "  execute '/me is testing' on all channels:\n"
@@ -4147,13 +4169,16 @@ msgid ""
 " -exclude: exclude some servers ('*' is allowed at beginning or end of "
 "server name, to exclude many servers)\n"
 "  command: command to execute\n"
-"arguments: arguments for command\n"
+"arguments: arguments for command (special variables $nick, $channel and "
+"$server are replaced by their value)\n"
 "\n"
 "Examples:\n"
 "  change nick on all servers:\n"
 "    /allserv nick newnick\n"
 "  set away on all servers:\n"
-"    /allserv away I'm away"
+"    /allserv away I'm away\n"
+"  do a whois on my nick on all servers:\n"
+"    /allserv whois $nick"
 msgstr ""
 
 #, fuzzy
@@ -5245,6 +5270,12 @@ msgstr "%s nem található ilyen mellőzés\n"
 
 #, c-format
 msgid ""
+"%s%s: warning: proxy \"%s\" does not exist (you can create it with command /"
+"proxy)"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s%s: invalid priorities string, error at this position in string: \"%s\""
 msgstr ""
 
@@ -5277,7 +5308,9 @@ msgstr "%s nincs elég memória az információs pult üzenethez\n"
 msgid "list of hostname/port or IP/port for server (separated by comma)"
 msgstr "felhasználónév az IRC szerveren"
 
-msgid "proxy used for this server (optional)"
+msgid ""
+"name of proxy used for this server (optional, proxy must be defined with "
+"command /proxy)"
 msgstr ""
 
 msgid ""
@@ -7029,6 +7062,17 @@ msgid "plugin name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 
 #, fuzzy
+msgid "list of proxies"
+msgstr "Aliaszok listája:\n"
+
+#, fuzzy
+msgid "proxy pointer (optional)"
+msgstr "Beállítások mentése a lemezre\n"
+
+msgid "proxy name (can start or end with \"*\" as wildcard) (optional)"
+msgstr ""
+
+#, fuzzy
 msgid "options for URL"
 msgstr "Aliaszok listája:\n"
 
@@ -7126,6 +7170,9 @@ msgstr "%s nem található ilyen mellőzés\n"
 #, fuzzy
 msgid "plugin"
 msgstr "  (nem található bővítőmodul)\n"
+
+msgid "proxy"
+msgstr ""
 
 #, fuzzy
 msgid "window"
@@ -8928,7 +8975,3 @@ msgstr ""
 
 msgid "Constants"
 msgstr ""
-
-#, fuzzy
-#~ msgid "display names when joining channel"
-#~ msgstr "speciális üzenet az aktuális nap megváltozásakor"

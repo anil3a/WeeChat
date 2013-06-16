@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-06-02 10:52+0200\n"
-"PO-Revision-Date: 2013-05-20 16:54+0200\n"
+"POT-Creation-Date: 2013-06-10 09:20+0200\n"
+"PO-Revision-Date: 2013-06-10 09:18+0200\n"
 "Last-Translator: Krzysztof Korościk <soltys@szluug.org>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: pl\n"
@@ -2532,6 +2532,12 @@ msgstr ""
 "doświadczysz należy wyłączyć ta opcję."
 
 #, c-format
+msgid ""
+"%sWarning: proxy \"%s\" does not exist (you can create it with command /"
+"proxy)"
+msgstr ""
+
+#, c-format
 msgid "\t\tDay changed to %s"
 msgstr "\t\tDzień zmienił się na %s"
 
@@ -3415,6 +3421,12 @@ msgid "timeout (in seconds) for gnutls handshake"
 msgstr "czas oczekiwania (w sekundach) na uwierzytelnienie gnutls"
 
 msgid ""
+"name of proxy used for download of URLs with Curl (used to download list of "
+"scripts and in scripts calling function hook_process); the proxy must be "
+"defined with command /proxy"
+msgstr ""
+
+msgid ""
 "comma separated list of plugins to load automatically at startup, \"*\" "
 "means all plugins found, a name beginning with \"!\" is a negative value to "
 "prevent a plugin from being loaded, names can start or end with \"*\" to "
@@ -4108,10 +4120,17 @@ msgstr "%s: słowo \"%s\" dodane do osobistego słownika"
 msgid "%s%s: failed to add word to personal dictionary"
 msgstr "%s%s: nie udało się dodać słowa do osobistego słownika"
 
-msgid "Aspell is enabled"
+#. TRANSLATORS: second "%s" is "aspell" or "enchant"
+#, fuzzy, c-format
+msgid "%s (using %s)"
+msgstr "  %s (wtyczka: %s)"
+
+#, fuzzy
+msgid "Spell checking is enabled"
 msgstr "Aspell jest włączony"
 
-msgid "Aspell is disabled"
+#, fuzzy
+msgid "Spell checking is disabled"
 msgstr "Aspell jest wyłączony"
 
 #, c-format
@@ -4262,6 +4281,10 @@ msgstr ""
 #, c-format
 msgid "%s: warning: dictionary \"%s\" is not available on your system"
 msgstr "%s: ostrzeżenie: słownik \"%s\" nie jest dostępny w Twoim systemie"
+
+#, fuzzy, c-format
+msgid "%s%s: error: unable to create speller for lang \"%s\""
+msgstr "%s%s: nie można utworzyć serwera \"%s\""
 
 msgid "Charset conversions"
 msgstr "Konwersja kodowania"
@@ -4584,7 +4607,7 @@ msgstr "%s%s: już jest ignorowane"
 
 #, c-format
 msgid "%s: ignore added:"
-msgstr "%s: dodano nowy wpis na listę ignorowanych"
+msgstr "%s: dodano nowy wpis na listę ignorowanych:"
 
 #, c-format
 msgid "%s%s: error adding ignore"
@@ -4807,12 +4830,14 @@ msgstr "wykonuje komendę na wszystkich kanałach na połączonych serwerach"
 msgid "[-current] [-exclude=<channel>[,<channel>...]] <command> [<arguments>]"
 msgstr "[-current] [-exclude=<kanał>[,<kanał>...]] <komenda> [<argumenty>]"
 
+#, fuzzy
 msgid ""
 " -current: execute command for channels of current server only\n"
 " -exclude: exclude some channels ('*' is allowed at beginning or end of "
 "channel name, to exclude many channels)\n"
 "  command: command to execute\n"
-"arguments: arguments for command\n"
+"arguments: arguments for command (special variables $nick, $channel and "
+"$server are replaced by their value)\n"
 "\n"
 "Examples:\n"
 "  execute '/me is testing' on all channels:\n"
@@ -4844,17 +4869,21 @@ msgstr "wykonuje komendę na wszystkich połączonych serwerach"
 msgid "[-exclude=<server>[,<server>...]] <command> [<arguments>]"
 msgstr "[-exclude=<serwer>[,<serwer>...]] <komenda> [<argumenty>]"
 
+#, fuzzy
 msgid ""
 " -exclude: exclude some servers ('*' is allowed at beginning or end of "
 "server name, to exclude many servers)\n"
 "  command: command to execute\n"
-"arguments: arguments for command\n"
+"arguments: arguments for command (special variables $nick, $channel and "
+"$server are replaced by their value)\n"
 "\n"
 "Examples:\n"
 "  change nick on all servers:\n"
 "    /allserv nick newnick\n"
 "  set away on all servers:\n"
-"    /allserv away I'm away"
+"    /allserv away I'm away\n"
+"  do a whois on my nick on all servers:\n"
+"    /allserv whois $nick"
 msgstr ""
 " -exclude: wyklucza niektóre serwery ('*' jest dozwolone na początku lub "
 "końcu nazwy, w celu wykluczenia wielu serwerów)\n"
@@ -5967,6 +5996,12 @@ msgstr "nicki na liście powiadomień"
 
 #, c-format
 msgid ""
+"%s%s: warning: proxy \"%s\" does not exist (you can create it with command /"
+"proxy)"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s%s: invalid priorities string, error at this position in string: \"%s\""
 msgstr "%s%s: nieprawidłowy ciąg priorytetów, błąd na pozycji: \"%s\""
 
@@ -6006,8 +6041,10 @@ msgstr "%s%s: błąd podczas tworzenia CTCP \"%s\" => \"%s\""
 msgid "list of hostname/port or IP/port for server (separated by comma)"
 msgstr "lista host/port lub adres IP/port dla serwera (oddzielone przecinkiem)"
 
-msgid "proxy used for this server (optional)"
-msgstr "proxy użyte dla tego serwera (opcjonalne)"
+msgid ""
+"name of proxy used for this server (optional, proxy must be defined with "
+"command /proxy)"
+msgstr ""
 
 msgid ""
 "use IPv6 protocol for server communication (try IPv6 then fallback to IPv4); "
@@ -6877,7 +6914,7 @@ msgid "Notify list is empty on this server"
 msgstr "Lista powiadomień jest pusta dla tego serwera"
 
 msgid "Notify list for all servers:"
-msgstr "Lista powiadomień dla wszystkich serwerów"
+msgstr "Lista powiadomień dla wszystkich serwerów:"
 
 msgid "Notify list is empty on all servers"
 msgstr "Lista powiadomień jest pusta na wszystkich serwerach"
@@ -7890,6 +7927,18 @@ msgstr "wskaźnik wtyczki (opcjonalne)"
 msgid "plugin name (can start or end with \"*\" as wildcard) (optional)"
 msgstr "nazwa wtyczki (może się zaczynać lub kończyć \"*\") (opcjonalne)"
 
+#, fuzzy
+msgid "list of proxies"
+msgstr "Lista proxy:"
+
+#, fuzzy
+msgid "proxy pointer (optional)"
+msgstr "wskaźnik relay (opcjonalny)"
+
+#, fuzzy
+msgid "proxy name (can start or end with \"*\" as wildcard) (optional)"
+msgstr "nazwa paska (może się zaczynać lub kończyć \"*\") (opcjonalne)"
+
 msgid "options for URL"
 msgstr "opcje dla URLi"
 
@@ -7974,6 +8023,9 @@ msgstr "nicki na liście nicków"
 msgid "plugin"
 msgstr "wtyczka"
 
+msgid "proxy"
+msgstr ""
+
 msgid "window"
 msgstr "okno"
 
@@ -8054,7 +8106,7 @@ msgid "description of plugin option"
 msgstr "opis opcji wtyczki"
 
 msgid "Actions (letter+enter):"
-msgstr "Akcje (litera+enter)"
+msgstr "Akcje (litera+enter):"
 
 msgid "  [D] Disconnect"
 msgstr "  [D] Rozłącz"
@@ -8572,7 +8624,7 @@ msgid "%sRmodifier \"%s\" not found"
 msgstr "%sNie znaleziono rmodifiera \"%s\""
 
 msgid "Default rmodifiers restored:"
-msgstr "Przywrócono domyślne rmofifiery"
+msgstr "Przywrócono domyślne rmofifiery:"
 
 #, c-format
 msgid ""
@@ -9003,7 +9055,7 @@ msgid "Error: file not found"
 msgstr "Błąd: nie odnaleziono pliku"
 
 msgid "Source code:"
-msgstr "Kod źródłowy"
+msgstr "Kod źródłowy:"
 
 msgid "Downloading script..."
 msgstr "Pobieram skrypt..."
@@ -9915,7 +9967,3 @@ msgstr "Typ"
 
 msgid "Constants"
 msgstr "Stałe"
-
-#, fuzzy
-#~ msgid "display names when joining channel"
-#~ msgstr "wyświetlaj specjalną wiadomość, kiedy zmienia się dzień"

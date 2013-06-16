@@ -14,7 +14,7 @@ target: Server
  -current: führt einen Befehl aus der an alle Channels des aktuellen Servers gesendet wird
  -exclude: dient zum Ausschluss ausgewählter Channels ('*' wird zu Beginn oder am Ende des Channel-Namens akzeptiert, um mehrere Channels auszuschließen)
   command: Befehl der ausgeführt werden soll
-arguments: Argumente des Befehls
+arguments: Argumente für Befehl (Variablen die genutzt werden können: $nick, $channel und $server)
 
 Beispiele:
   Führe den Befehl '/me Ich teste gerade etwas...' für alle Channels aus:
@@ -32,13 +32,15 @@ Beispiele:
 
  -exclude: dient zum Ausschluss ausgewählter Server ('*' wird zu Beginn oder am Ende des Servernamens akzeptiert, um mehrere Server auszuschließen)
   command: Befehl der ausgeführt werden soll
-arguments: Argumente des Befehls
+arguments: Argumente für Befehl (Variablen die genutzt werden können: $nick, $channel und $server)
 
 Beispiele:
-  Ändere den Nick auf allen Servern:
+  ändere den Nick auf allen Servern:
     /allserv nick newnick
-  Setzt den Status, auf allen Servern,auf abwesend:
+  setzt den Status, auf allen Servern,auf abwesend:
     /allserv away I'm away
+  führt ein whois mit meinem nick auf alles Servern aus:
+    /allserv whois $nick
 ........................................
 
 [[command_irc_ban]]
