@@ -104,7 +104,8 @@ compile WeeChat.
 | guile-2.0-dev                   | ≥ 2.0       |          | guile (scheme) plugin
 | asciidoc                        | ≥ 8.5.0     |          | build documentation (HTML files)
 | source-highlight                |             |          | syntax highlight for sources in HTML documentation
-| docbook-xml, docbook-xsl        |             |          | build man page
+| xsltproc,
+  docbook-xml, docbook-xsl        |             |          | build man page
 |========================================
 
 [NOTE]
@@ -169,9 +170,10 @@ List of commonly used options:
 | ENABLE_DEMO | `ON`, `OFF` | OFF |
   Compile Demo plugin.
 
-| ENABLE_DOC | `ON`, `OFF` | ON |
-  Compile documentation (it takes a long time, you can turn off to speed up
-  the compilation).
+| ENABLE_DOC | `ON`, `OFF` | OFF |
+  Compile documentation (it takes a long time, recommended only if you build
+  a binary package embedding documentation or if you can't browse documentation
+  online).
 
 | ENABLE_ENCHANT | `ON`, `OFF` | OFF |
   Compile <<aspell_plugin,Aspell plugin>> with Enchant.
