@@ -2135,7 +2135,7 @@ msgid ""
 "IMPORTANT: you must restore the session with exactly same configuration "
 "(files *.conf).\n"
 "It is possible to restore WeeChat session on another machine if you copy the "
-"content of directory \"~/.weechat\""
+"content of directory \"~/.weechat\"."
 msgstr ""
 "path_to_binary: WeeChat バイナリへのパス (デフォルトは現在のバイナリ)\n"
 "         -quit: *すべての*接続を閉じ、セッションを保存して WeeChat を終了。遅"
@@ -4414,7 +4414,7 @@ msgid ""
 "you should restart WeeChat now (with /quit)."
 msgstr ""
 "%s%s: 警告: いくつかのネットワーク接続はオープンの状態にもかかわらず発見でき"
-"ません、WeeChat を再起動してください (/quit で)"
+"ません、WeeChat を再起動してください (/quit で)。"
 
 #, c-format
 msgid "%s%s: cannot allocate new channel"
@@ -5798,7 +5798,7 @@ msgstr ""
 "\n"
 "引数が無い場合、このコマンドは以下のユーザに対する whois を行います:\n"
 "- バッファがサーバ/チャンネルの場合、自分自身のニックネーム\n"
-"- バッファがプライベートの場合、相手のニックネーム"
+"- バッファがプライベートの場合、相手のニックネーム。"
 
 msgid "ask for information about a nick which no longer exists"
 msgstr "既に存在しないニックネームに関する情報を要求"
@@ -7900,7 +7900,7 @@ msgstr ""
 
 #, c-format
 msgid "%sIf plugin \"%s\" is old/obsolete, you can delete this file."
-msgstr "%sプラグイン \"%s\" が古い/廃止の場合、このファイルを削除できます"
+msgstr "%sプラグイン \"%s\" が古い/廃止の場合、このファイルを削除できます。"
 
 #, c-format
 msgid ""
