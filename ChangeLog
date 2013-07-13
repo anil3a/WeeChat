@@ -1,7 +1,7 @@
 WeeChat ChangeLog
 =================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.4.2-dev, 2013-07-10
+v0.4.2-dev, 2013-07-13
 
 
 This document lists all changes for each version.
@@ -18,7 +18,7 @@ Version 0.4.2 (under dev!)
 * core: fix crash in evaluation of expression when reading a string in hdata
   with a NULL value (bug #39419)
 * core: fix display bugs with some UTF-8 chars that truncates messages displayed
-  (for example U+26C4)
+  (for example U+26C4) (bug #39201)
 * core: update man page and add translations (in french, german, italian, and
   japanese)
 * core: remove extra space after empty prefix (when prefix for action, error,
@@ -33,6 +33,7 @@ Version 0.4.2 (under dev!)
 * core: fix line alignment when option weechat.look.buffer_time_format is set
   to empty string
 * aspell: add support of enchant library (patch #6858)
+* irc: add option irc.look.pv_tags
 * irc: fix error message on /invite without arguments (bug #39272)
 * irc: add support of special variables $nick/$channel/$server in commands
   /allchan and /allserv
@@ -40,8 +41,10 @@ Version 0.4.2 (under dev!)
   (patch #8062)
 * irc: fix multiple nicks in command /query (separated by commas): open one
   buffer per nick
+* lua: fix interpreter used in API functions (bug #39470)
 * relay: add command "ping" in weechat protocol (task #12689)
 * relay: fix binding to an IP address (bug #39119)
+* xfer: add option xfer.look.pv_tags
 * xfer: fix compilation on OpenBSD (bug #39071)
 
 Version 0.4.1 (2013-05-20)
