@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2013-07-11 06:07+0900\n"
-"PO-Revision-Date: 2013-07-06 09:11+0900\n"
+"PO-Revision-Date: 2013-07-13 16:35+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -358,7 +358,7 @@ msgstr ""
 "WeeChat の色名 (default、black、(dark)gray、white、(light)red、(light)green、"
 "brown、yellow、(light)blue、(light)magenta、(light)cyan) 、ターミナル色番号ま"
 "たはその別名; 色の前に属性を置くことができます (テキスト前景色のみ、背景色は"
-"出来ません): 太字は \"*\"、反転は \"!\"、下線は \"_\"。"
+"出来ません): 太字は \"*\"、反転は \"!\"、下線は \"_\""
 
 #. TRANSLATORS: please do not translate "(null)"
 msgid "undefined value allowed (null)"
@@ -394,7 +394,7 @@ msgstr ""
 
 #, c-format
 msgid "%sError: unable to bind key \"%s\""
-msgstr "%sエラー: キー \"%s\" の割り当てに失敗しました。"
+msgstr "%sエラー: キー \"%s\" の割り当てに失敗しました"
 
 #, c-format
 msgid "Key \"%s\" has already default value"
@@ -714,7 +714,7 @@ msgstr[0] "%s%d%s 個のオプション"
 #, c-format
 msgid "%s%d%s option with value changed"
 msgid_plural "%s%d%s options with value changed"
-msgstr[0] "%s%d%s 個のオプションで値が変更されました。"
+msgstr[0] "%s%d%s 個のオプションで値が変更されました"
 
 #, c-format
 msgid "%sError: failed to set option \"%s\""
@@ -2922,7 +2922,7 @@ msgid ""
 msgstr ""
 "テキストの後ろに切り捨て文字 (デフォルトでは \"+\") を表示 (この場所に表示さ"
 "れるべき空白を置換する); 無効化した場合、テキストの最後の文字が切り捨て文字に"
-"なります。"
+"なります"
 
 msgid ""
 "prefix alignment for buffer name, when many buffers are merged with same "
@@ -4027,7 +4027,7 @@ msgstr "%s%s: 単語の個人辞書への登録に失敗"
 #. TRANSLATORS: second "%s" is "aspell" or "enchant"
 #, c-format
 msgid "%s (using %s)"
-msgstr "  %s (%s を使用中)"
+msgstr "%s (%s を使用中)"
 
 msgid "Spell checking is enabled"
 msgstr "スペルチェックが有効化されています"
@@ -6316,6 +6316,8 @@ msgid ""
 "(position of letters matters: anagrams of a nick have different color), sum "
 "= sum of letters"
 msgstr ""
+"ニックネームに対する色を見つけるハッシュアルゴリズム: djb2 = djb2 (文字の位置"
+"が重要: ニックネームに同じ色が使われにくくなる) の亜種、sum = 文字の総和"
 
 msgid ""
 "chars used to stop in nick when computing color with letters of nick (at "
@@ -6359,17 +6361,15 @@ msgstr ""
 "notice をプライベートメッセージとして表示 (auto の場合、プライベートバッファ"
 "が見つかればそれを使用する)"
 
-#, fuzzy
 msgid ""
 "comma separated list of tags used in messages displayed by notify when a "
 "nick joins or quits server (result of command ison), for example: "
 "\"notify_message\", \"notify_private\" or \"notify_highlight\""
 msgstr ""
-"ニックネームが参加またはサーバから切断したときの (ison コマンドの結果)、"
+"あるニックネームが参加またはサーバから切断したときの (ison コマンドの結果)、"
 "notify によって表示されたメッセージに使われたタグのコンマ区切りリスト、例え"
-"ば: \"notify_highlight\"、\"notify_message\"、\"notify_private\""
+"ば: \"notify_message\"、\"notify_highlight\"、\"notify_private\""
 
-#, fuzzy
 msgid ""
 "comma separated list of tags used in messages displayed by notify when a "
 "nick away status changes (result of command whois), for example: "
@@ -6377,7 +6377,7 @@ msgid ""
 msgstr ""
 "ニックネームの離席状態に変化があった場合の (whois コマンドの結果)、notify に"
 "よって表示されたメッセージに使われたタグのコンマ区切りリスト、例えば: "
-"\"notify_highlight\"、\"notify_message\"、\"notify_private\""
+"\"notify_message\"、\"notify_private\"、\"notify_highlight\""
 
 msgid "close buffer when /part is issued on a channel"
 msgstr "/part を実行した場合にバッファを閉じる"
@@ -6385,14 +6385,12 @@ msgstr "/part を実行した場合にバッファを閉じる"
 msgid "merge private buffers"
 msgstr "プライベートバッファをマージ"
 
-#, fuzzy
 msgid ""
 "comma separated list of tags used in private messages, for example: "
 "\"notify_message\", \"notify_private\" or \"notify_highlight\""
 msgstr ""
-"ニックネームが参加またはサーバから切断したときの (ison コマンドの結果)、"
-"notify によって表示されたメッセージに使われたタグのコンマ区切りリスト、例え"
-"ば: \"notify_highlight\"、\"notify_message\"、\"notify_private\""
+"プライベートメッセージに使われたタグのコンマ区切りリスト、例えば: "
+"\"notify_message\"、\"notify_private\"、\"notify_highlight\""
 
 msgid ""
 "number of raw messages to save in memory when raw data buffer is closed "
@@ -8886,7 +8884,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: downloading script \"%s\"..."
-msgstr "%s: スクリプト \"%s\" のダウンロード中"
+msgstr "%s: スクリプト \"%s\" のダウンロード中..."
 
 #, c-format
 msgid "%s: script \"%s\" is held"
