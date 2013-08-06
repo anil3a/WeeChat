@@ -125,19 +125,21 @@ localvar: 現在のバッファのローカル変数を表示
 /color  alias <color> <name>
         unalias <color>
         reset
+        -o
 
-  alias: ある色に別名を追加
-unalias: 別名の削除
-  color: カラー番号 (0 以上、最大値はターミナル依存、多くの場合 63 か 255)
-   name: カラーの別名 (例えば: "orange")
-  reset: 全てのカラーペアをリセット (自動的なリセットが無効化されており、これ以上のカラーペアが利用できない場合に必要、オプション weechat.look.color_pairs_auto_reset を参照)
+  alias: add an alias for a color
+unalias: delete an alias
+  color: color number (greater than or equal to 0, max depends on terminal, commonly 63 or 255)
+   name: alias name for color (for example: "orange")
+  reset: reset all color pairs (required when no more color pairs are available if automatic reset is disabled, see option weechat.look.color_pairs_auto_reset)
+     -o: send terminal/colors info to current buffer as input
 
-引数無しの場合、コマンドは新しいバッファに色を表示します。
+Without argument, this command displays colors in a new buffer.
 
-例:
-  色番号 214 に対応する別名 "orange" を追加:
+Examples:
+  add alias "orange" for color 214:
     /color alias 214 orange
-  色番号 214 を削除:
+  delete color 214:
     /color unalias 214
 ........................................
 
@@ -205,55 +207,57 @@ infolists: infolist に関する情報を表示
 [command]*`eval`* 式を評価して結果をバッファに送信::
 ........................................
 /eval  [-n] <expression>
-       [-n] <expression1> <operator> <expression2>
+       [-n] -c <expression1> <operator> <expression2>
 
-        -n: 結果をバッファに送信せずに表示 (デバッグモード)
-expression: 評価する式、フォーマット、${variable} 型のフォーマットの変数は置換されます (以下を参照)
-  operator: 論理演算子や比較演算子:
-            - 論理演算子:
-                &&  ブール演算の "and"
-                ||  ブール演算の "or"
-            - 比較演算子:
-                ==  等しい
-                !=  等しくない
-                <=  以下
-                <   より少ない
-                >=  以上
-                >   より大きい
-                =~  正規表現にマッチ
-                !~  正規表現にマッチしない
+        -n: display result without sending it to buffer (debug mode)
+        -c: evaluate as condition: use operators and parentheses, return a boolean value ("0" or "1")
+expression: expression to evaluate, variables with format ${variable} are replaced (see below)
+  operator: a logical or comparison operator:
+            - logical operators:
+                &&  boolean "and"
+                ||  boolean "or"
+            - comparison operators:
+                ==  equal
+                !=  not equal
+                <=  less or equal
+                <   less
+                >=  greater or equal
+                >   greater
+                =~  is matching regex
+                !~  is NOT matching regex
 
-式が NULL でない場合、空でない場合、"0" でない場合、式は "真" と評価されます。
-両方の式が有効な整数である場合、比較は整数を使って行われます。
-文字列比較を強制するには、それぞれの式をダブルクォートで囲みます、例えば:
+An expression is considered as "true" if it is not NULL, not empty, and different from "0".
+The comparison is made using integers if the two expressions are valid integers.
+To force a string comparison, add double quotes around each expression, for example:
   50 > 100      ==> 0
   "50" > "100"  ==> 1
 
-式中の ${variable} 型のフォーマットの変数は置換さます。変数は以下の優先順位に従います。
-  1. オプションの名前 (file.section.option)
-  2. バッファのローカル変数の名前
-  3. hdata の名前/変数 (値は自動的に文字列に変換されます)、デフォルトでは "window" と "buffer" は現在のウィンドウ/バッファを指します。
-hdata のフォーマットは以下の 1 つです:
-  hdata.var1.var2...: hdata (ポインタは既知) で始まり、1 個ずつ変数を続ける (他の hdata を続けることも可能)
-  hdata(list).var1.var2...: リストを使って hdata を始める、例:
-    ${buffer[gui_buffers].full_name}: バッファリストにリンクされた最初のバッファのフルネーム
-    ${plugin[weechat_plugins].name}: プラグインリストにリンクされた最初のプラグインの名前
-hdata と変数の名前については、"プラグイン API リファレンス" の "weechat_hdata_get" 関数を参照してください。
+Some variables are replaced in expression, using the format ${variable}, variable can be, by order of priority :
+  1. a color (format: color:xxx)
+  2. an option (format: file.section.option)
+  3. a local variable in buffer
+  4. a hdata name/variable (the value is automatically converted to string), by default "window" and "buffer" point to current window/buffer.
+Format for hdata can be one of following:
+  hdata.var1.var2...: start with a hdata (pointer must be known), and ask variables one after one (other hdata can be followed)
+  hdata[list].var1.var2...: start with a hdata using a list, for example:
+    ${buffer[gui_buffers].full_name}: full name of first buffer in linked list of buffers
+    ${plugin[weechat_plugins].name}: name of first plugin in linked list of plugins
+For name of hdata and variables, please look at "Plugin API reference", function "weechat_hdata_get".
 
-例:
-  /eval -n ${weechat.look.scroll_amount}  ==> 3
-  /eval -n ${window}                      ==> 0x2549aa0
-  /eval -n ${window.buffer}               ==> 0x2549320
-  /eval -n ${window.buffer.full_name}     ==> core.weechat
-  /eval -n ${window.buffer.number}        ==> 1
-  /eval -n ${window.buffer.number} > 2    ==> 0
-  /eval -n ${window.win_width} > 100      ==> 1
-  /eval -n (8 > 12) || (5 > 2)            ==> 1
-  /eval -n (8 > 12) && (5 > 2)            ==> 0
-  /eval -n abcd =~ ^ABC                   ==> 1
-  /eval -n abcd =~ (?-i)^ABC              ==> 0
-  /eval -n abcd =~ (?-i)^abc              ==> 1
-  /eval -n abcd !~ abc                    ==> 0
+Examples:
+  /eval -n ${weechat.look.scroll_amount}   ==> 3
+  /eval -n ${window}                       ==> 0x2549aa0
+  /eval -n ${window.buffer}                ==> 0x2549320
+  /eval -n ${window.buffer.full_name}      ==> core.weechat
+  /eval -n ${window.buffer.number}         ==> 1
+  /eval -n -c ${window.buffer.number} > 2  ==> 0
+  /eval -n -c ${window.win_width} > 100    ==> 1
+  /eval -n -c (8 > 12) || (5 > 2)          ==> 1
+  /eval -n -c (8 > 12) && (5 > 2)          ==> 0
+  /eval -n -c abcd =~ ^ABC                 ==> 1
+  /eval -n -c abcd =~ (?-i)^ABC            ==> 0
+  /eval -n -c abcd =~ (?-i)^abc            ==> 1
+  /eval -n -c abcd !~ abc                  ==> 0
 ........................................
 
 [[command_weechat_filter]]
@@ -608,6 +612,45 @@ file: 保存する設定ファイル (拡張子 ".conf" は不要)
 引数無しでは、全てのファイル (WeeChat とプラグイン) が保存されます。
 ........................................
 
+[[command_weechat_secure]]
+[command]*`secure`* manage secured data (passwords or private data encrypted in file sec.conf)::
+........................................
+/secure  passphrase <passphrase>|-delete
+         decrypt <passphrase>|-discard
+         set <name> <value>
+         del <name>
+
+passphrase: change the passphrase (without passphrase, data is stored as plain text in file sec.conf)
+   -delete: delete passphrase
+   decrypt: decrypt data still encrypted (it happens only if passphrase was not given on startup)
+  -discard: discard all data still encrypted data
+       set: add or change secured data
+       del: delete secured data
+
+Without argument, this command displays secured data in a new buffer.
+
+When a passphrase is used (data encrypted), it is asked by WeeChat on startup.
+It is possible to set environment variable "WEECHAT_PASSPHRASE" to prevent the prompt (this same variable is used by WeeChat on /upgrade).
+
+Secured data with format ${sec.data.xxx} can be used in:
+  - command line argument "--run-command"
+  - irc server options: autojoin, command, password, sasl_{username|password}
+  - options weechat.startup.command_{before|after}_plugins
+  - command /eval.
+
+Examples:
+  set a passphrase:
+    /secure passphrase this is my passphrase
+  encrypt freenode SASL password:
+    /secure set freenode mypassword
+    /set irc.server.freenode.sasl_password "${sec.data.freenode}"
+  encrypt oftc password for nickserv:
+    /secure set oftc mypassword
+    /set irc.server.oftc.command "/msg nickserv identify ${sec.data.oftc}"
+  alias to ghost the nick "mynick":
+    /alias ghost /eval /msg -server freenode nickserv ghost mynick ${sec.data.freenode}
+........................................
+
 [[command_weechat_set]]
 [command]*`set`* オプションの設定::
 ........................................
@@ -678,7 +721,7 @@ With option "-quit", the process is slightly different:
   3. unload all plugins
   4. save WeeChat configuration
   5. quit WeeChat
-Then later you can restore session with command: weechat-curses --upgrade
+Then later you can restore session with command: weechat --upgrade
 IMPORTANT: you must restore the session with exactly same configuration (files *.conf).
 It is possible to restore WeeChat session on another machine if you copy the content of directory "~/.weechat".
 ........................................
@@ -739,51 +782,52 @@ command: 実行するコマンド (コマンドが '/' で始まらない場合�
          refresh
          scroll [-window <number>] [+/-]<value>[s|m|h|d|M|y]
          scroll_horiz [-window <number>] [+/-]<value>[%]
-         scroll_up|scroll_down|scroll_top|scroll_bottom|scroll_previous_highlight|scroll_next_highlight|scroll_unread [-window <number>]
+         scroll_up|scroll_down|scroll_top|scroll_bottom|scroll_beyond_end|scroll_previous_highlight|scroll_next_highlight|scroll_unread [-window <number>]
          swap [-window <number>] [up|down|left|right]
          zoom[-window <number>]
 
-         list: 開けられたウィンドウのリストアップ (引数無しの場合、このリストが表示されます)
-           -1: 前のウィンドウに移動
-           +1: 次のウィンドウに移動
-           b#: バッファ番号 # のウィンドウに移動
-           up: 現在のウィンドウの上のウィンドウに移動
-         down: 現在のウィンドウの下のウィンドウに移動
-         left: 左のウィンドウに移動
-        right: 右のウィンドウに移動
-       number: ウィンドウ番号 (/window list を参照)
-       splith: 現在のウィンドウを水平分割
-       splitv: 現在のウィンドウを垂直分割
-       resize: ウィンドウサイズの変更、新しいサイズは親ウィンドウの <pct> パーセントで指定
-      balance: 全てのウィンドウのサイズを均等にする
-        merge: ウィンドウを他のものをマージする (all = 一つのウィンドウにまとめる)
-      page_up: 1 ページ分上方向にスクロール
-    page_down: 1 ページ分下方向にスクロール
-      refresh: スクリーンのリフレッシュ
-       scroll: 指定行数 (+/-N) か指定期間 (s=秒、m=分、h=時間、d=日、M=月、y=年) スクロール
- scroll_horiz: 指定列数 (+/-N) かウィンドウサイズの割合で水平方向にスクロール (フリーコンテンツを含むバッファ以外は無効)
-    scroll_up: 数行分上方向にスクロール
-  scroll_down: 数行分下方向にスクロール
-   scroll_top: バッファの一番上にスクロール
-scroll_bottom: バッファの一番下にスクロール
-scroll_previous_highlight: 一つ前のハイライトにスクロール
-scroll_next_highlight: 次のハイライトにスクロール
-scroll_unread: 未読マーカにスクロール
-         swap: 2 つのウィンドウのバッファを入れ替え (ターゲットウィンドウの方向が引数)
-         zoom: ウィンドウを拡大
+         list: list opened windows (without argument, this list is displayed)
+           -1: jump to previous window
+           +1: jump to next window
+           b#: jump to next window displaying buffer number #
+           up: switch to window above current one
+         down: switch to window below current one
+         left: switch to window on the left
+        right: switch to window on the right
+       number: window number (see /window list)
+       splith: split current window horizontally
+       splitv: split current window vertically
+       resize: resize window size, new size is <pct> percentage of parent window
+      balance: balance the sizes of all windows
+        merge: merge window with another (all = keep only one window)
+      page_up: scroll one page up
+    page_down: scroll one page down
+      refresh: refresh screen
+       scroll: scroll a number of lines (+/-N) or with time: s=seconds, m=minutes, h=hours, d=days, M=months, y=years
+ scroll_horiz: scroll horizontally a number of columns (+/-N) or percentage of window size (this scrolling is possible only on buffers with free content)
+    scroll_up: scroll a few lines up
+  scroll_down: scroll a few lines down
+   scroll_top: scroll to top of buffer
+scroll_bottom: scroll to bottom of buffer
+scroll_beyond_end: scroll beyond the end of buffer
+scroll_previous_highlight: scroll to previous highlight
+scroll_next_highlight: scroll to next highlight
+scroll_unread: scroll to unread marker
+         swap: swap buffers of two windows (with optional direction for target window)
+         zoom: zoom on window
 
-splith と splitv に関しては、pct は新しいウィンドウのパーセンテージで、現在のウィンドウサイズに対する割合で計算されます。例えば、25 は size = current_size / 4 の新しいウィンドウを作成します。
+For splith and splitv, pct is a percentage which represents size of new window, computed with current window as size reference. For example 25 means create a new window with size = current_size / 4
 
-例:
-  バッファ #1 を表示しているウィンドウに移動:
+Examples:
+  jump to window displaying buffer #1:
     /window b1
-  2 行分上方向にスクロール:
+  scroll 2 lines up:
     /window scroll -2
-  2 日分上方向にスクロール:
+  scroll 2 days up:
     /window scroll -2d
-  今日の最初にスクロール:
+  scroll to beginning of current day:
     /window scroll -d
-  ウィンドウ #2 を拡大:
+  zoom on window #2:
     /window zoom -window 2
 ........................................
 

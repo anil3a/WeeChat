@@ -278,6 +278,20 @@ XS (XS_weechat_api_ngettext)
     API_RETURN_STRING(result);
 }
 
+XS (XS_weechat_api_strlen_screen)
+{
+    int value;
+    dXSARGS;
+
+    API_FUNC(1, "strlen_screen", API_RETURN_INT(0));
+    if (items < 1)
+        API_WRONG_ARGS(API_RETURN_INT(0));
+
+    value = weechat_strlen_screen (SvPV_nolen (ST (0))); /* string */
+
+    API_RETURN_INT(value);
+}
+
 XS (XS_weechat_api_string_match)
 {
     int value;
@@ -386,11 +400,11 @@ XS (XS_weechat_api_string_input_for_buffer)
 XS (XS_weechat_api_string_eval_expression)
 {
     char *expr, *result;
-    struct t_hashtable *pointers, *extra_vars;
+    struct t_hashtable *pointers, *extra_vars, *options;
     dXSARGS;
 
     API_FUNC(1, "string_eval_expression", API_RETURN_EMPTY);
-    if (items < 3)
+    if (items < 4)
         API_WRONG_ARGS(API_RETURN_EMPTY);
 
     expr = SvPV_nolen (ST (0));
@@ -402,13 +416,20 @@ XS (XS_weechat_api_string_eval_expression)
                                                  WEECHAT_SCRIPT_HASHTABLE_DEFAULT_SIZE,
                                                  WEECHAT_HASHTABLE_STRING,
                                                  WEECHAT_HASHTABLE_STRING);
+    options = weechat_perl_hash_to_hashtable (ST (3),
+                                              WEECHAT_SCRIPT_HASHTABLE_DEFAULT_SIZE,
+                                              WEECHAT_HASHTABLE_STRING,
+                                              WEECHAT_HASHTABLE_STRING);
 
-    result = weechat_string_eval_expression (expr, pointers, extra_vars);
+    result = weechat_string_eval_expression (expr, pointers, extra_vars,
+                                             options);
 
     if (pointers)
         weechat_hashtable_free (pointers);
     if (extra_vars)
         weechat_hashtable_free (extra_vars);
+    if (options)
+        weechat_hashtable_free (options);
 
     API_RETURN_STRING_FREE(result);
 }
@@ -4823,6 +4844,7 @@ weechat_perl_api_init (pTHX)
     API_DEF_FUNC(iconv_from_internal);
     API_DEF_FUNC(gettext);
     API_DEF_FUNC(ngettext);
+    API_DEF_FUNC(strlen_screen);
     API_DEF_FUNC(string_match);
     API_DEF_FUNC(string_has_highlight);
     API_DEF_FUNC(string_has_highlight_regex);

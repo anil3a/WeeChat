@@ -1656,7 +1656,7 @@ string_iconv (int from_utf8, const char *from_code, const char *to_code,
 /*
  * Converts a string to WeeChat internal storage charset (UTF-8).
  *
- * Note: result has to be freed after use.
+ * Note: result must be freed after use.
  */
 
 char *
@@ -1696,7 +1696,7 @@ string_iconv_to_internal (const char *charset, const char *string)
 /*
  * Converts internal string to terminal charset, for display.
  *
- * Note: result has to be freed after use.
+ * Note: result must be freed after use.
  */
 
 char *
@@ -1762,7 +1762,7 @@ string_iconv_fprintf (FILE *file, const char *data, ...)
 /*
  * Formats a string with size and unit name (bytes, KB, MB, GB).
  *
- * Note: result has to be freed after use.
+ * Note: result must be freed after use.
  */
 
 char *
@@ -1794,6 +1794,78 @@ string_format_size (unsigned long long size)
               (size <= 1) ? _("byte") : _(unit_name[num_unit]));
 
     return strdup (str_size);
+}
+
+/*
+ * Encodes a string in base16 (hexadecimal).
+ *
+ * Argument "length" is number of bytes in "from" to convert (commonly
+ * strlen(from)).
+ */
+
+void
+string_encode_base16 (const char *from, int length, char *to)
+{
+    int i;
+    const char *hexa = "0123456789ABCDEF";
+    char *ptr_to;
+
+    ptr_to = to;
+    ptr_to[0] = '\0';
+    for (i = 0; i < length; i++)
+    {
+        ptr_to[0] = hexa[((unsigned char)from[i]) / 16];
+        ptr_to[1] = hexa[((unsigned char)from[i]) % 16];
+        ptr_to += 2;
+    }
+    ptr_to[0] = '\0';
+}
+
+/*
+ * Decodes a base16 string (hexadecimal).
+ *
+ * Returns length of string in "*to" (it does not count final \0).
+ */
+
+int
+string_decode_base16 (const char *from, char *to)
+{
+    int length, to_length, i, pos;
+    unsigned char *ptr_to, value;
+
+    length = strlen (from) / 2;
+
+    ptr_to = (unsigned char *)to;
+    ptr_to[0] = '\0';
+    to_length = 0;
+
+    for (i = 0; i < length; i++)
+    {
+        pos = i * 2;
+        value = 0;
+        /* 4 bits on the left */
+        if ((from[pos] >= '0') && (from[pos] <= '9'))
+            value |= (from[pos] - '0') << 4;
+        else if ((from[pos] >= 'a') && (from[pos] <= 'f'))
+            value |= (from[pos] - 'a' + 10) << 4;
+        else if ((from[pos] >= 'A') && (from[pos] <= 'F'))
+            value |= (from[pos] - 'A' + 10) << 4;
+        /* 4 bits on the right */
+        pos++;
+        if ((from[pos] >= '0') && (from[pos] <= '9'))
+            value |= from[pos] - '0';
+        else if ((from[pos] >= 'a') && (from[pos] <= 'f'))
+            value |= from[pos] - 'a' + 10;
+        else if ((from[pos] >= 'A') && (from[pos] <= 'F'))
+            value |= from[pos] - 'A' + 10;
+
+        ptr_to[0] = value;
+        ptr_to++;
+        to_length++;
+    }
+    ptr_to[0] = '\0';
+
+    return to_length;
 }
 
 /*
@@ -2027,22 +2099,30 @@ string_input_for_buffer (const char *string)
  * must be newly allocated because it will be freed in this function).
  *
  * Argument "errors" is set with number of keys not found by callback.
+ *
+ * Note: result must be freed after use.
  */
 
 char *
 string_replace_with_callback (const char *string,
+                              const char *prefix,
+                              const char *suffix,
                               char *(*callback)(void *data, const char *text),
                               void *callback_data,
                               int *errors)
 {
-    int length, length_value, index_string, index_result;
+    int length_prefix, length_suffix, length, length_value, index_string;
+    int index_result;
     char *result, *result2, *key, *value;
     const char *pos_end_name;
 
     *errors = 0;
 
-    if (!string)
+    if (!string || !prefix || !prefix[0] || !suffix || !suffix[0])
         return NULL;
+
+    length_prefix = strlen (prefix);
+    length_suffix = strlen (suffix);
 
     length = strlen (string) + 1;
     result = malloc (length);
@@ -2053,19 +2133,18 @@ string_replace_with_callback (const char *string,
         while (string[index_string])
         {
             if ((string[index_string] == '\\')
-                && (string[index_string + 1] == '$'))
+                && (string[index_string + 1] == prefix[0]))
             {
                 index_string++;
                 result[index_result++] = string[index_string++];
             }
-            else if ((string[index_string] == '$')
-                     && (string[index_string + 1] == '{'))
+            else if (strncmp (string + index_string, prefix, length_prefix) == 0)
             {
-                pos_end_name = strchr (string + index_string + 2, '}');
+                pos_end_name = strstr (string + index_string + length_prefix, suffix);
                 if (pos_end_name)
                 {
-                    key = string_strndup (string + index_string + 2,
-                                          pos_end_name - (string + index_string + 2));
+                    key = string_strndup (string + index_string + length_prefix,
+                                          pos_end_name - (string + index_string + length_prefix));
                     if (key)
                     {
                         value = (*callback) (callback_data, key);
@@ -2086,7 +2165,7 @@ string_replace_with_callback (const char *string,
                             strcpy (result + index_result, value);
                             index_result += length_value;
                             index_string += pos_end_name - string -
-                                index_string + 1;
+                                index_string + length_suffix;
                             free (value);
                         }
                         else
@@ -2094,7 +2173,6 @@ string_replace_with_callback (const char *string,
                             result[index_result++] = string[index_string++];
                             (*errors)++;
                         }
-
                         free (key);
                     }
                     else

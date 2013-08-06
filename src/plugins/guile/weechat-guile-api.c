@@ -318,6 +318,20 @@ weechat_guile_api_ngettext (SCM single, SCM plural, SCM count)
 }
 
 SCM
+weechat_guile_api_strlen_screen (SCM string)
+{
+    int value;
+
+    API_FUNC(1, "strlen_screen", API_RETURN_INT(0));
+    if (!scm_is_string (string))
+        API_WRONG_ARGS(API_RETURN_INT(0));
+
+    value = weechat_strlen_screen (API_SCM_TO_STRING(string));
+
+    API_RETURN_INT(value);
+}
+
+SCM
 weechat_guile_api_string_match (SCM string, SCM mask, SCM case_sensitive)
 {
     int value;
@@ -425,15 +439,15 @@ weechat_guile_api_string_input_for_buffer (SCM string)
 
 SCM
 weechat_guile_api_string_eval_expression (SCM expr, SCM pointers,
-                                          SCM extra_vars)
+                                          SCM extra_vars, SCM options)
 {
     char *result;
     SCM return_value;
-    struct t_hashtable *c_pointers, *c_extra_vars;
+    struct t_hashtable *c_pointers, *c_extra_vars, *c_options;
 
     API_FUNC(1, "string_eval_expression", API_RETURN_EMPTY);
     if (!scm_is_string (expr) || !scm_list_p (pointers)
-        || !scm_list_p (extra_vars))
+        || !scm_list_p (extra_vars) || !scm_list_p (options))
         API_WRONG_ARGS(API_RETURN_EMPTY);
 
     c_pointers = weechat_guile_alist_to_hashtable (pointers,
@@ -444,14 +458,21 @@ weechat_guile_api_string_eval_expression (SCM expr, SCM pointers,
                                                      WEECHAT_SCRIPT_HASHTABLE_DEFAULT_SIZE,
                                                      WEECHAT_HASHTABLE_STRING,
                                                      WEECHAT_HASHTABLE_STRING);
+    c_options = weechat_guile_alist_to_hashtable (options,
+                                                  WEECHAT_SCRIPT_HASHTABLE_DEFAULT_SIZE,
+                                                  WEECHAT_HASHTABLE_STRING,
+                                                  WEECHAT_HASHTABLE_STRING);
 
     result = weechat_string_eval_expression (API_SCM_TO_STRING(expr),
-                                             c_pointers, c_extra_vars);
+                                             c_pointers, c_extra_vars,
+                                             c_options);
 
     if (c_pointers)
         weechat_hashtable_free (c_pointers);
     if (c_extra_vars)
         weechat_hashtable_free (c_extra_vars);
+    if (c_options)
+        weechat_hashtable_free (c_options);
 
     API_RETURN_STRING_FREE(result);
 }
@@ -4586,6 +4607,7 @@ weechat_guile_api_module_init (void *data)
     API_DEF_FUNC(iconv_from_internal, 2);
     API_DEF_FUNC(gettext, 1);
     API_DEF_FUNC(ngettext, 3);
+    API_DEF_FUNC(strlen_screen, 1);
     API_DEF_FUNC(string_match, 3);
     API_DEF_FUNC(string_has_highlight, 2);
     API_DEF_FUNC(string_has_highlight_regex, 2);
@@ -4593,7 +4615,7 @@ weechat_guile_api_module_init (void *data)
     API_DEF_FUNC(string_remove_color, 2);
     API_DEF_FUNC(string_is_command_char, 1);
     API_DEF_FUNC(string_input_for_buffer, 1);
-    API_DEF_FUNC(string_eval_expression, 3);
+    API_DEF_FUNC(string_eval_expression, 4);
     API_DEF_FUNC(mkdir_home, 2);
     API_DEF_FUNC(mkdir, 2);
     API_DEF_FUNC(mkdir_parents, 2);

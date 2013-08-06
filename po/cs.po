@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-07-11 21:45+0200\n"
-"PO-Revision-Date: 2013-06-10 09:13+0200\n"
+"POT-Creation-Date: 2013-08-05 08:28+0200\n"
+"PO-Revision-Date: 2013-07-31 18:41+0200\n"
 "Last-Translator: Jiri Golembiovsky <golemj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: cs\n"
@@ -57,7 +57,7 @@ msgid ""
 "      --upgrade            upgrade WeeChat using session files (see /help "
 "upgrade in WeeChat)\n"
 "  -v, --version            display WeeChat version\n"
-"  plugin:option            option for plugin (see man weechat-curses)\n"
+"  plugin:option            option for plugin (see man weechat)\n"
 msgstr ""
 "  -a, --no-connect  vypne automatické připojení k serverům při startu\n"
 "  -c, --colors      zobrazí výchozí barvy v terminálu\n"
@@ -431,6 +431,13 @@ msgstr "Klávesa:"
 msgid "No key found"
 msgstr "Žádná klávesa nenalezena"
 
+#, c-format
+msgid ""
+"%sError: it is not safe to bind key \"%s\" because it does not start with a "
+"ctrl or meta code (tip: use alt-k to find key codes); if you want to bind "
+"this key anyway, turn off option weechat.look.key_bind_safe"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "%sError: context \"%s\" not found"
 msgstr "%sChyba: filtr \"%s\" nenalezen"
@@ -686,6 +693,51 @@ msgstr "Volby uloženy do %s"
 #, c-format
 msgid "%sError: failed to save options to %s"
 msgstr "%sChyba: selhalo uložení voleb do %s"
+
+msgid "There is no encrypted data"
+msgstr ""
+
+#, fuzzy
+msgid "All encrypted data has been deleted"
+msgstr "Všechny pole byly smazány"
+
+msgid "Encrypted data has been successfully decrypted"
+msgstr ""
+
+#, c-format
+msgid "%sFailed to decrypt data (wrong passphrase?)"
+msgstr ""
+
+#, c-format
+msgid ""
+"%sYou must decrypt data still encrypted before doing any operation on "
+"secured data or passphrase"
+msgstr ""
+
+#, fuzzy
+msgid "Passphrase deleted"
+msgstr "Pole bylo smazáno"
+
+msgid "Passphrase is not set"
+msgstr ""
+
+msgid "Passphrase changed"
+msgstr ""
+
+msgid "Passphrase added"
+msgstr ""
+
+#, c-format
+msgid "Secured data \"%s\" set"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Secured data \"%s\" deleted"
+msgstr "Pole bylo smazáno"
+
+#, fuzzy, c-format
+msgid "%sSecured data \"%s\" not found"
+msgstr "%s%s: skript \"%s\" nenalezen"
 
 #, fuzzy
 msgid "default: "
@@ -1087,7 +1139,8 @@ msgstr ""
 msgid "define color aliases and display palette of colors"
 msgstr "definuje alias barvy a zobrazí paletu barev"
 
-msgid "alias <color> <name> || unalias <color> || reset"
+#, fuzzy
+msgid "alias <color> <name> || unalias <color> || reset || -o"
 msgstr "alias <barva> <name> || unalias <barva> || reset"
 
 #, fuzzy
@@ -1100,6 +1153,7 @@ msgid ""
 "  reset: reset all color pairs (required when no more color pairs are "
 "available if automatic reset is disabled, see option weechat.look."
 "color_pairs_auto_reset)\n"
+"     -o: send terminal/colors info to current buffer as input\n"
 "\n"
 "Without argument, this command displays colors in a new buffer.\n"
 "\n"
@@ -1217,11 +1271,13 @@ msgstr ""
 msgid "evaluate expression and send result to buffer"
 msgstr ""
 
-msgid "[-n] <expression> || [-n] <expression1> <operator> <expression2>"
+msgid "[-n] <expression> || [-n] -c <expression1> <operator> <expression2>"
 msgstr ""
 
 msgid ""
 "        -n: display result without sending it to buffer (debug mode)\n"
+"        -c: evaluate as condition: use operators and parentheses, return a "
+"boolean value (\"0\" or \"1\")\n"
 "expression: expression to evaluate, variables with format ${variable} are "
 "replaced (see below)\n"
 "  operator: a logical or comparison operator:\n"
@@ -1249,9 +1305,10 @@ msgid ""
 "\n"
 "Some variables are replaced in expression, using the format ${variable}, "
 "variable can be, by order of priority :\n"
-"  1. the name of an option (file.section.option)\n"
-"  2. the name of a local variable in buffer\n"
-"  3. a hdata name/variable (the value is automatically converted to string), "
+"  1. a color (format: color:xxx)\n"
+"  2. an option (format: file.section.option)\n"
+"  3. a local variable in buffer\n"
+"  4. a hdata name/variable (the value is automatically converted to string), "
 "by default \"window\" and \"buffer\" point to current window/buffer.\n"
 "Format for hdata can be one of following:\n"
 "  hdata.var1.var2...: start with a hdata (pointer must be known), and ask "
@@ -1265,19 +1322,19 @@ msgid ""
 "function \"weechat_hdata_get\".\n"
 "\n"
 "Examples:\n"
-"  /eval -n ${weechat.look.scroll_amount}  ==> 3\n"
-"  /eval -n ${window}                      ==> 0x2549aa0\n"
-"  /eval -n ${window.buffer}               ==> 0x2549320\n"
-"  /eval -n ${window.buffer.full_name}     ==> core.weechat\n"
-"  /eval -n ${window.buffer.number}        ==> 1\n"
-"  /eval -n ${window.buffer.number} > 2    ==> 0\n"
-"  /eval -n ${window.win_width} > 100      ==> 1\n"
-"  /eval -n (8 > 12) || (5 > 2)            ==> 1\n"
-"  /eval -n (8 > 12) && (5 > 2)            ==> 0\n"
-"  /eval -n abcd =~ ^ABC                   ==> 1\n"
-"  /eval -n abcd =~ (?-i)^ABC              ==> 0\n"
-"  /eval -n abcd =~ (?-i)^abc              ==> 1\n"
-"  /eval -n abcd !~ abc                    ==> 0"
+"  /eval -n ${weechat.look.scroll_amount}   ==> 3\n"
+"  /eval -n ${window}                       ==> 0x2549aa0\n"
+"  /eval -n ${window.buffer}                ==> 0x2549320\n"
+"  /eval -n ${window.buffer.full_name}      ==> core.weechat\n"
+"  /eval -n ${window.buffer.number}         ==> 1\n"
+"  /eval -n -c ${window.buffer.number} > 2  ==> 0\n"
+"  /eval -n -c ${window.win_width} > 100    ==> 1\n"
+"  /eval -n -c (8 > 12) || (5 > 2)          ==> 1\n"
+"  /eval -n -c (8 > 12) && (5 > 2)          ==> 0\n"
+"  /eval -n -c abcd =~ ^ABC                 ==> 1\n"
+"  /eval -n -c abcd =~ (?-i)^ABC            ==> 0\n"
+"  /eval -n -c abcd =~ (?-i)^abc            ==> 1\n"
+"  /eval -n -c abcd !~ abc                  ==> 0"
 msgstr ""
 
 msgid ""
@@ -1901,6 +1958,54 @@ msgstr ""
 "\n"
 "Bez argumentu jsou uloženy všechny soubory (WeeChat a pluginů)."
 
+msgid ""
+"manage secured data (passwords or private data encrypted in file sec.conf)"
+msgstr ""
+
+msgid ""
+"passphrase <passphrase>|-delete || decrypt <passphrase>|-discard || set "
+"<name> <value> || del <name>"
+msgstr ""
+
+msgid ""
+"passphrase: change the passphrase (without passphrase, data is stored as "
+"plain text in file sec.conf)\n"
+"   -delete: delete passphrase\n"
+"   decrypt: decrypt data still encrypted (it happens only if passphrase was "
+"not given on startup)\n"
+"  -discard: discard all data still encrypted data\n"
+"       set: add or change secured data\n"
+"       del: delete secured data\n"
+"\n"
+"Without argument, this command displays secured data in a new buffer.\n"
+"\n"
+"When a passphrase is used (data encrypted), it is asked by WeeChat on "
+"startup.\n"
+"It is possible to set environment variable \"WEECHAT_PASSPHRASE\" to prevent "
+"the prompt (this same variable is used by WeeChat on /upgrade).\n"
+"\n"
+"Secured data with format ${sec.data.xxx} can be used in:\n"
+"  - command line argument \"--run-command\"\n"
+"  - irc server options: autojoin, command, password, sasl_{username|"
+"password}\n"
+"  - options weechat.startup.command_{before|after}_plugins\n"
+"  - command /eval.\n"
+"\n"
+"Examples:\n"
+"  set a passphrase:\n"
+"    /secure passphrase this is my passphrase\n"
+"  encrypt freenode SASL password:\n"
+"    /secure set freenode mypassword\n"
+"    /set irc.server.freenode.sasl_password \"${sec.data.freenode}\"\n"
+"  encrypt oftc password for nickserv:\n"
+"    /secure set oftc mypassword\n"
+"    /set irc.server.oftc.command \"/msg nickserv identify ${sec.data."
+"oftc}\"\n"
+"  alias to ghost the nick \"mynick\":\n"
+"    /alias ghost /eval /msg -server freenode nickserv ghost mynick ${sec."
+"data.freenode}"
+msgstr ""
+
 msgid "set config options"
 msgstr "nastaví konfigurační možnosti"
 
@@ -2019,7 +2124,7 @@ msgid ""
 "  3. unload all plugins\n"
 "  4. save WeeChat configuration\n"
 "  5. quit WeeChat\n"
-"Then later you can restore session with command: weechat-curses --upgrade\n"
+"Then later you can restore session with command: weechat --upgrade\n"
 "IMPORTANT: you must restore the session with exactly same configuration "
 "(files *.conf).\n"
 "It is possible to restore WeeChat session on another machine if you copy the "
@@ -2116,9 +2221,9 @@ msgid ""
 "balance || merge [-window <number>] [all] || page_up|page_down [-window "
 "<number>] || refresh || scroll [-window <number>] [+/-]<value>[s|m|h|d|M|y] "
 "|| scroll_horiz [-window <number>] [+/-]<value>[%] || scroll_up|scroll_down|"
-"scroll_top|scroll_bottom|scroll_previous_highlight|scroll_next_highlight|"
-"scroll_unread [-window <number>] || swap [-window <number>] [up|down|left|"
-"right] || zoom[-window <number>]"
+"scroll_top|scroll_bottom|scroll_beyond_end|scroll_previous_highlight|"
+"scroll_next_highlight|scroll_unread [-window <number>] || swap [-window "
+"<number>] [up|down|left|right] || zoom[-window <number>]"
 msgstr ""
 "list || -1|+1|b#|up|down|left|right || splith|splitv [<pct>] || resize "
 "[+/-]<pct> || balance || merge [all] || page_up|page_down || refresh || "
@@ -2156,6 +2261,7 @@ msgid ""
 "  scroll_down: scroll a few lines down\n"
 "   scroll_top: scroll to top of buffer\n"
 "scroll_bottom: scroll to bottom of buffer\n"
+"scroll_beyond_end: scroll beyond the end of buffer\n"
 "scroll_previous_highlight: scroll to previous highlight\n"
 "scroll_next_highlight: scroll to next highlight\n"
 "scroll_unread: scroll to unread marker\n"
@@ -2317,6 +2423,9 @@ msgstr ""
 msgid "names of layouts"
 msgstr "jména polí"
 
+msgid "names of secured data (file sec.conf, section data)"
+msgstr ""
+
 msgid ""
 "Warning: you should now issue /save to write \"save_config_on_exit\" option "
 "in configuration file"
@@ -2357,10 +2466,16 @@ msgstr ""
 msgid "Notify level for buffer"
 msgstr "Úroveň upozornění pro buffer"
 
-msgid "command executed when WeeChat starts, after loading plugins"
+#, fuzzy
+msgid ""
+"command executed when WeeChat starts, after loading plugins (note: content "
+"is evaluated, see /help eval)"
 msgstr "příkaz spuštěný při startu WeeChat, po načtení pluginů"
 
-msgid "command executed when WeeChat starts, before loading plugins"
+#, fuzzy
+msgid ""
+"command executed when WeeChat starts, before loading plugins (note: content "
+"is evaluated, see /help eval)"
 msgstr "příkaz spuštěný při startu WeeChat, před načtením pluginů"
 
 msgid "display WeeChat logo at startup"
@@ -2415,10 +2530,14 @@ msgstr ""
 "all=všechny zprávy (výchozí), message=zprávy+zváraznění, highlight=pouze "
 "zvýraznění, none=nikdy nezobrazovat v hotlistu"
 
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+#, fuzzy
 msgid ""
 "time format for each line displayed in buffers (see man strftime for date/"
-"time specifiers), colors are allowed with format \"${color}\", for example "
-"french time: \"${lightblue}%H${white}%M${lightred}%S\""
+"time specifiers) (note: content is evaluated, so you can use colors with "
+"format \"${color:xxx}\", see /help eval); for example time using grayscale "
+"(requires support of 256 colors): \"${color:252}%H${color:245}%M"
+"${color:240}%S\""
 msgstr ""
 "formát času zobrazeného na každém řádku v bufferu (viz. man strftime pro "
 "specifikaci data/času), barvy jsou povoleny ve formátu \"${barva}\", "
@@ -2598,6 +2717,10 @@ msgid "if set, force display of names in hotlist for merged buffers"
 msgstr ""
 "pokud je nastaveno, přetíží zobrazování jména v hotlistu pro spojené buffery"
 
+#, fuzzy
+msgid "text displayed at the beginning of the hotlist"
+msgstr "řetězec zobrazený mezi buffery v hotlistu"
+
 msgid ""
 "if set, uses short names to display buffer names in hotlist (start after "
 "first '.' in name)"
@@ -2613,6 +2736,10 @@ msgstr ""
 "group_time_desc [skupina_čas_sestupne], group_number_asc "
 "[skupina_číslo_vzestupně], group_number_desc [skupina_číslo_sestupně], "
 "number_asc [číslo_vzestupně], number_desc [číslo_sestupně] )"
+
+#, fuzzy
+msgid "text displayed at the end of the hotlist"
+msgstr "řetězec zobrazený mezi buffery v hotlistu"
 
 msgid ""
 "keep only unique numbers in hotlist (this applies only on hotlist items "
@@ -2674,6 +2801,10 @@ msgstr ""
 msgid "jump back to initial buffer after reaching end of hotlist"
 msgstr ""
 
+msgid ""
+"allow only binding of \"safe\" keys (beginning with a ctrl or meta code)"
+msgstr ""
+
 #, fuzzy
 msgid "text to display before nick in prefix of message, example: \"<\""
 msgstr "text pro zobrazení před přezdívkou v okně rozhovoru"
@@ -2709,20 +2840,34 @@ msgstr ""
 "maximální počet řádků pro vložení bez dotazování uživatele (0 = vypnout tuto "
 "vlastnost)"
 
-msgid "prefix for error messages, colors are allowed with format \"${color}\""
-msgstr ""
-
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
 msgid ""
-"prefix for network messages, colors are allowed with format \"${color}\""
+"prefix for error messages (note: content is evaluated, so you can use colors "
+"with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
-msgid "prefix for action messages, colors are allowed with format \"${color}\""
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for network messages (note: content is evaluated, so you can use "
+"colors with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
-msgid "prefix for join messages, colors are allowed with format \"${color}\""
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for action messages (note: content is evaluated, so you can use "
+"colors with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
-msgid "prefix for quit messages, colors are allowed with format \"${color}\""
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for join messages (note: content is evaluated, so you can use colors "
+"with format \"${color:xxx}\", see /help eval)"
+msgstr ""
+
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for quit messages (note: content is evaluated, so you can use colors "
+"with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
 msgid "prefix alignment (none, left, right (default))"
@@ -3332,6 +3477,97 @@ msgstr "uživatelské jméno pro proxy server"
 msgid "password for proxy server"
 msgstr "heslo pro proxy server"
 
+msgid "Please enter your passphrase to decrypt the data secured by WeeChat:"
+msgstr ""
+
+msgid ""
+"(enter just one space to skip the passphrase, but this will DISABLE all "
+"secured data!)"
+msgstr ""
+
+msgid ""
+"To recover your secured data, you can use /secure decrypt (see /help secure)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sWarning: unable to read passphrase from file \"%s\""
+msgstr "%s%s: nemůžu parsovat soubor \"%s\""
+
+#, c-format
+msgid ""
+"%sError: not possible to reload file sec.conf because there is still "
+"encrypted data (use /secure decrypt, see /help secure)"
+msgstr ""
+
+#, c-format
+msgid "%sPassphrase is not set, unable to decrypt data \"%s\""
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sWrong passphrase, unable to decrypt data \"%s\""
+msgstr "%sChyba: nemohu posunout pole \"%s\""
+
+#, c-format
+msgid "*** Wrong passphrase (decrypt error: %s) ***"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sError encrypting data \"%s\" (%d)"
+msgstr "%s%s: chyba vytváření aliasu \"%s\" => \"%s\""
+
+msgid ""
+"cipher used to crypt data (the number after algorithm is the size of the key "
+"in bits)"
+msgstr ""
+
+msgid "hash algorithm used to check the decrypted data"
+msgstr ""
+
+msgid ""
+"path to a file containing the passphrase to encrypt/decrypt secured data; "
+"this option is used only when reading file sec.conf; only first line of file "
+"is used; this file is used only if the environment variable "
+"\"WEECHAT_PASSPHRASE\" is not set (the environment variable has higher "
+"priority); security note: it is recommended to keep this file readable only "
+"by you and store it outside WeeChat home (for example in your home); "
+"example: \"~/.weechat-passphrase\""
+msgstr ""
+
+msgid ""
+"use salt when generating key used in encryption (recommended for maximum "
+"security); when enabled, the content of crypted data in file sec.conf will "
+"be different on each write of the file; if you put the file sec.conf in a "
+"version control system, then you can turn off this option to have always "
+"same content in file"
+msgstr ""
+
+msgid "WeeChat secured data (sec.conf) | Keys: [alt-v] Toggle values"
+msgstr ""
+
+msgid "on"
+msgstr "na"
+
+msgid "off"
+msgstr "off"
+
+msgid "Passphrase"
+msgstr ""
+
+msgid "Passphrase is set"
+msgstr ""
+
+msgid "Passphrase is NOT set"
+msgstr ""
+
+msgid "Secured data:"
+msgstr ""
+
+msgid "Secured data STILL ENCRYPTED: (use /secure decrypt, see /help secure)"
+msgstr ""
+
+msgid "No secured data set"
+msgstr ""
+
 msgid "bytes"
 msgstr "bajtů"
 
@@ -3603,10 +3839,6 @@ msgstr "Vyhledávání textu (přesné)"
 #, c-format
 msgid "%s-MORE(%d)-"
 msgstr "%s-VÍCE(%d)-"
-
-#. TRANSLATORS: if possible use short word or abbreviation here ("Act" is abbreviation of "Activity" in english)
-msgid "Act: "
-msgstr "Akt: "
 
 #, fuzzy, c-format
 msgid "Notify changed for \"%s%s%s\": \"%s%s%s\" to \"%s%s%s\""
@@ -3938,8 +4170,13 @@ msgstr ""
 msgid "%s%s: error creating aspell option \"%s\" => \"%s\""
 msgstr "%s%s: chyba vytváření aspell volby \"%s\" => \"%s\""
 
-msgid "color used for misspelled words"
+#, fuzzy
+msgid "text color for misspelled words (input bar)"
 msgstr "barva použitá pro slova s chybou"
+
+#, fuzzy
+msgid "text color for suggestions on a misspelled word (status bar)"
+msgstr "barva textu pro čas (stavový řádek)"
 
 msgid ""
 "comma separated list of commands for which spell checking is enabled (spell "
@@ -4059,93 +4296,6 @@ msgstr ""
 "  reset: resetovat znakové sady aktuálního bufferu"
 
 #, fuzzy
-msgid "Demo plugin"
-msgstr "Plugin"
-
-msgid "demo message without prefix"
-msgstr "demo zpráva bez prefixu"
-
-#, c-format
-msgid "%sdemo message with error prefix"
-msgstr "%sdemo zpráva s chybovým prefixem"
-
-msgid "colors"
-msgstr "barvy"
-
-msgid "Available infos:"
-msgstr "Dostupné informace:"
-
-msgid "Available infolists:"
-msgstr "Dostupné infolisty:"
-
-#, c-format
-msgid "demo_signal: signal: %s, type_data: %s, signal_data: \"%s\""
-msgstr "ukázkový_signál: signál: %s, typ_dat: %s, data_signálu: \"%s\""
-
-#, c-format
-msgid "demo_signal: signal: %s, type_data: %s, signal_data: %d"
-msgstr "ukázkový_signál: signál: %s, typ_dat: %s, data_signalu: %d"
-
-#, c-format
-msgid "demo_signal: signal: %s, type_data: %s, signal_data: 0x%lx"
-msgstr "ukázkový_signál: signál: %s, typ_dat: %s, data_signalu: 0x%lx"
-
-#, c-format
-msgid ""
-"demo_signal: signal: %s, type_data: %s, signal_data: 0x%lx (unknown type)"
-msgstr ""
-"ukázkový_signál: signál: %s, typ_dat: %s, data_signál: 0x%lx (neznámý typ)"
-
-msgid "print some messages on current buffer"
-msgstr "vypsat některé zprávy do aktuálního bufferu"
-
-msgid "<text>"
-msgstr "<text>"
-
-msgid "text: write this text"
-msgstr "text: zapsat tento text"
-
-msgid "open a new buffer"
-msgstr "otevřít nový buffer"
-
-msgid "<name>"
-msgstr "<jméno>"
-
-msgid "get and display an info"
-msgstr "získat a zobrazit informace"
-
-msgid "<info> [<arguments>]"
-msgstr "<info> [<argumenty>]"
-
-msgid ""
-"     info: info to display\n"
-"arguments: optional arguments for info\n"
-"\n"
-"Without argument, this command displays list of available infos"
-msgstr ""
-"     info: infoinformace, kterou zobrazit\n"
-"argumenty: volitelné argumety pro info\n"
-"\n"
-"Spuštění příkazu bez argumetů zobrazí seznam dostupných informací"
-
-msgid "get and display an infolist"
-msgstr "získat a zobrazit infolist"
-
-msgid "<infolist> [<arguments>]"
-msgstr "<infolist> [<argumenty>]"
-
-msgid ""
-" infolist: infolist to display\n"
-"arguments: optional arguments for infolist\n"
-"\n"
-"Without argument, this command displays list of available infolists"
-msgstr ""
-" infolist: infolist, který zobrazit\n"
-"argumenty: volitelné argumenty pro infolist\n"
-"\n"
-"Spuštění příkazu bez argumetů zobrazí seznam dostupných infolistů"
-
-#, fuzzy
 msgid "FIFO pipe for remote control"
 msgstr "%s%s: nemohu vytvořit rouru pro vzdálené ovládání (%s)"
 
@@ -4238,6 +4388,14 @@ msgstr "%s%s: nemohu přidělit nový kanál"
 #, c-format
 msgid "%s%s%s %s(%s%s%s)%s is back on server"
 msgstr "%s%s%s %s(%s%s%s)%s se zpet na serveru"
+
+#, fuzzy, c-format
+msgid ""
+"%s%s: \"-yes\" argument is required for nick \"*\" (security reason), see /"
+"help %s"
+msgstr ""
+"%sChyba: \"-yes\" argument je požadován pro reset kaláves (bezpečnostní "
+"opatření)"
 
 #, c-format
 msgid "%s: future away: %s"
@@ -4423,12 +4581,6 @@ msgstr "nepřipojen"
 msgid " (temporary)"
 msgstr " (dočasný)"
 
-msgid "on"
-msgstr "na"
-
-msgid "off"
-msgstr "off"
-
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuta"
@@ -4499,8 +4651,8 @@ msgstr ""
 "%s%s: nemůžete odebrat server \"%s\", protože jste k němu připojent. Skuste "
 "nejprve \"/dissconnect %s\"."
 
-#, c-format
-msgid "%s: Server %s%s%s has been deleted"
+#, fuzzy, c-format
+msgid "%s: server %s%s%s has been deleted"
 msgstr "%s: Server %s%s%s byl odebrán"
 
 #, c-format
@@ -4733,11 +4885,34 @@ msgstr "odebrat status polo-operátora kanálu z přezdívky (přezdívek)"
 msgid "<nick> [<nick>...]"
 msgstr "<přezdívka> [<přezdívka>...]"
 
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: remove channel half-operator status from everybody on channel except "
+"yourself"
+msgstr ""
+
 msgid "remove channel operator status from nick(s)"
 msgstr "odebrat status operátora kanálu z přezdívky (přezdívek)"
 
+#, fuzzy
+msgid "<nick> [<nick>...] || * -yes"
+msgstr "<přezdívka> [<přezdívka>...]"
+
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: remove channel operator status from everybody on channel except "
+"yourself"
+msgstr ""
+
 msgid "remove voice from nick(s)"
 msgstr "odebrat hlas z přezdívky (přezdívek)"
+
+#, fuzzy
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: remove voice from everybody on channel"
+msgstr ""
+"jméno aliasu (může začínat nebo končit \"*\" jako zástupný znak) (volitelné)"
 
 msgid "shutdown the server"
 msgstr "vypnout server"
@@ -4765,6 +4940,11 @@ msgstr ""
 
 msgid "give channel half-operator status to nick(s)"
 msgstr "dát status polo-operátora kanálu přezdívce (přezdívkám)"
+
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: give channel half-operator status to everybody on channel"
+msgstr ""
 
 msgid "ignore nicks/hosts from servers or channels"
 msgstr "ignorovat přezdívky/hosty na serveru nebo kanálu"
@@ -5175,6 +5355,11 @@ msgstr ""
 msgid "give channel operator status to nick(s)"
 msgstr "dát status operátora kanálu přezdívce (přezdívkám)"
 
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: give channel operator status to everybody on channel"
+msgstr ""
+
 msgid "get operator privileges"
 msgstr "dát práva operátora"
 
@@ -5566,6 +5751,13 @@ msgstr ""
 msgid "give voice to nick(s)"
 msgstr "dá hlas přezdívce/přezdívkám"
 
+#, fuzzy
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: give voice to everybody on channel"
+msgstr ""
+"jméno aliasu (může začínat nebo končit \"*\" jako zástupný znak) (volitelné)"
+
 msgid "send a notice to channel ops"
 msgstr "poslat notifikaci operátorům kanálu"
 
@@ -5585,6 +5777,9 @@ msgid ""
 msgstr ""
 "poslat zprávu všem aktuálně připojeným uživatelům, kteří mají u sebe "
 "nastaven uživatelský mód 'w'"
+
+msgid "<text>"
+msgstr "<text>"
 
 msgid "text: text to send"
 msgstr "text: text pro poslání"
@@ -5791,11 +5986,13 @@ msgid ""
 "password, \"external\" for authentication using client side SSL cert"
 msgstr ""
 
-msgid "username for SASL authentication"
-msgstr "uživatelské jméno pro SASL autentizaci"
+msgid ""
+"username for SASL authentication (note: content is evaluated, see /help eval)"
+msgstr ""
 
-msgid "password for SASL authentication"
-msgstr "heslo pro SASL autentizaci"
+msgid ""
+"password for SASL authentication (note: content is evaluated, see /help eval)"
+msgstr ""
 
 msgid "timeout (in seconds) before giving up SASL authentication"
 msgstr "časový limit (v sekundách) před vzdaním SASL autentizace"
@@ -5825,10 +6022,12 @@ msgstr ""
 "vlastní jméno hosta/IP pro server (nepovinné, pokud je volné použije se "
 "lokální jméno hosta)"
 
+#, fuzzy
 msgid ""
 "command(s) to run when connected to server (many commands should be "
 "separated by \";\", use \"\\;\" for a semicolon, special variables $nick, "
-"$channel and $server are replaced by their value)"
+"$channel and $server are replaced by their value) (note: content is "
+"evaluated, see /help eval)"
 msgstr ""
 "příkaz(y), které provést po přípojení k serveru (více příkazů se odděluje "
 "pomocí \";\", použijte \"\\;\" pro středník, speciální proměnné $nick, "
@@ -5841,9 +6040,11 @@ msgstr ""
 "počkání (v sekundách) po spuštění příkazu (například: dád nějaký čas pro "
 "autorizaci)"
 
+#, fuzzy
 msgid ""
 "comma separated list of channels to join when connected to server (example: "
-"\"#chan1,#chan2,#chan3 key1,key2\")"
+"\"#chan1,#chan2,#chan3 key1,key2\") (note: content is evaluated, see /help "
+"eval)"
 msgstr ""
 "čárkou rozdělený seznam kanálů na které přistoupit po připojení na server "
 "(příklad: \"#kanál1,#kanál2,#kanál3 klíč1,klíč2\")"
@@ -6822,18 +7023,6 @@ msgstr "%sPřezdívka %s%s%s: %s[%s%s%s]"
 msgid "%sNicks %s%s%s: %s[%s%s]"
 msgstr "%sPřezdívka %s%s%s: %s[%s%s]"
 
-#, c-format
-msgid ""
-"%sChannel %s%s%s: %s%d%s %s %s(%s%d%s %s, %s%d%s %s, %s%d%s %s, %s%d%s %s%s)"
-msgstr ""
-"%sKanál %s%s%s: %s%d%s %s %s(%s%d%s %s, %s%d%s %s, %s%d%s %s, %s%d%s %s%s)"
-
-msgid "nick"
-msgid_plural "nicks"
-msgstr[0] "přezdívek"
-msgstr[1] "přezdívka"
-msgstr[2] "přezdívky"
-
 msgid "op"
 msgid_plural "ops"
 msgstr[0] "opů"
@@ -6851,6 +7040,16 @@ msgid_plural "voices"
 msgstr[0] "voiců"
 msgstr[1] "voice"
 msgstr[2] "voiců"
+
+#, fuzzy, c-format
+msgid "%sChannel %s%s%s: %s%d%s %s %s(%s%s)"
+msgstr "%sReop kanálu %s%s%s: %s%s"
+
+msgid "nick"
+msgid_plural "nicks"
+msgstr[0] "přezdívek"
+msgstr[1] "přezdívka"
+msgstr[2] "přezdívky"
 
 #. TRANSLATORS: "%s" after "on" is a date
 #, c-format
@@ -7536,6 +7735,10 @@ msgstr ""
 
 msgid "list of hooks"
 msgstr "seznam napojení"
+
+#, fuzzy
+msgid "hook pointer (optional)"
+msgstr "ukazatel přezdívky (volitelné)"
 
 msgid ""
 "type,arguments (type is command/timer/.., arguments to get only some hooks "
@@ -8258,12 +8461,20 @@ msgstr ""
 "%sChyba: \"-yes\" argument je požadován pro obnovení výchozích rmodifikátorů "
 "(bezpečnostní opatření)"
 
+#, fuzzy, c-format
+msgid "%d rmodifier added"
+msgid_plural "%d rmodifiers added"
+msgstr[0] "%d rmodifikátorů odebráno"
+msgstr[1] "%d rmodifikátorů odebráno"
+msgstr[2] "%d rmodifikátorů odebráno"
+
 msgid "alter modifier strings with regular expressions"
 msgstr "změnit řetězce modifikátorů pomocí regulárních výrazů"
 
+#, fuzzy
 msgid ""
 "list|listdefault || add <name> <modifiers> <groups> <regex> || del <name>|-"
-"all [<name>...] || default -yes"
+"all [<name>...] || missing || default -yes"
 msgstr ""
 "list|listdefault || add <name> <modifiers> <groups> <regex> || del <name>|-"
 "all [<name>...] || default -yes"
@@ -8282,6 +8493,7 @@ msgid ""
 "become case sensitive)\n"
 "        del: delete a rmodifier\n"
 "       -all: delete all rmodifiers\n"
+"    missing: add missing rmodifiers\n"
 "    default: restore default rmodifiers\n"
 "\n"
 "Examples:\n"
@@ -8487,6 +8699,10 @@ msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "jméno skriptu (může začínat nebo končit \"*\" jako zástupným znakem) "
 "(volitelné)"
+
+#, fuzzy
+msgid "callback of a script"
+msgstr "seznam skriptů"
 
 #, fuzzy, c-format
 msgid ""
@@ -8696,6 +8912,30 @@ msgstr "%s%s: server \"%s\" již existuje, nemohu jej vytvořít!"
 msgid "%s: all scripts are up-to-date"
 msgstr "%s: skripty odebrány"
 
+#, fuzzy, c-format
+msgid "configuration file \"%s\" (options %s.*)"
+msgstr "konfigurační nastavení"
+
+#, fuzzy, c-format
+msgid "command /%s"
+msgstr "příkazy weechat"
+
+#, fuzzy, c-format
+msgid "completion %%(%s)"
+msgstr "Volba \"%s%s%s\":"
+
+#, fuzzy, c-format
+msgid "bar item \"%s\""
+msgstr "seznam položek polí"
+
+#, fuzzy, c-format
+msgid "options %s%s%s"
+msgstr "Volba \"%s%s%s\":"
+
+#, fuzzy
+msgid "(old options?)"
+msgstr "(výchozí volby)"
+
 msgid "Script"
 msgstr ""
 
@@ -8744,6 +8984,13 @@ msgstr "ukončit WeeChat"
 #, fuzzy
 msgid "Max WeeChat"
 msgstr "ukončit WeeChat"
+
+#, fuzzy
+msgid "Script has defined:"
+msgstr "načteny %s skripty:"
+
+msgid "(nothing)"
+msgstr ""
 
 msgid "Alt+key/input: v=back to list d=jump to diff"
 msgstr ""
@@ -9517,6 +9764,8 @@ msgstr ""
 msgid "Constants"
 msgstr ""
 
-#, fuzzy
-#~ msgid "%s default keys (context: \"%s\"):\n"
-#~ msgstr "%s výchozí klávesy:\n"
+#~ msgid "username for SASL authentication"
+#~ msgstr "uživatelské jméno pro SASL autentizaci"
+
+#~ msgid "password for SASL authentication"
+#~ msgstr "heslo pro SASL autentizaci"

@@ -32,6 +32,7 @@
 
 #include "../core/weechat.h"
 #include "../core/wee-config.h"
+#include "../core/wee-eval.h"
 #include "../core/wee-hashtable.h"
 #include "../core/wee-hook.h"
 #include "../core/wee-string.h"
@@ -65,12 +66,19 @@ char *gui_chat_lines_waiting_buffer = NULL;     /* lines waiting for core   */
 void
 gui_chat_init ()
 {
-    /* build empty prefixes */
-    gui_chat_prefix[GUI_CHAT_PREFIX_ERROR] = strdup (gui_chat_prefix_empty);
-    gui_chat_prefix[GUI_CHAT_PREFIX_NETWORK] = strdup (gui_chat_prefix_empty);
-    gui_chat_prefix[GUI_CHAT_PREFIX_ACTION] = strdup (gui_chat_prefix_empty);
-    gui_chat_prefix[GUI_CHAT_PREFIX_JOIN] = strdup (gui_chat_prefix_empty);
-    gui_chat_prefix[GUI_CHAT_PREFIX_QUIT] = strdup (gui_chat_prefix_empty);
+    char *default_prefix[GUI_CHAT_NUM_PREFIXES] =
+        { GUI_CHAT_PREFIX_ERROR_DEFAULT, GUI_CHAT_PREFIX_NETWORK_DEFAULT,
+          GUI_CHAT_PREFIX_ACTION_DEFAULT, GUI_CHAT_PREFIX_JOIN_DEFAULT,
+          GUI_CHAT_PREFIX_QUIT_DEFAULT };
+    char str_prefix[64];
+    int i;
+
+    /* build default prefixes */
+    for (i = 0; i < GUI_CHAT_NUM_PREFIXES; i++)
+    {
+        snprintf (str_prefix, sizeof (str_prefix), "%s\t", default_prefix[i]);
+        gui_chat_prefix[i] = strdup (str_prefix);
+    }
 
     /* some hsignals */
     hook_hsignal (NULL, "chat_quote_time_prefix_message",
@@ -112,7 +120,7 @@ gui_chat_prefix_build ()
                  ptr_prefix);
 
         if (pos_color)
-            gui_chat_prefix[i] = gui_color_string_replace_colors (prefix);
+            gui_chat_prefix[i] = eval_expression (prefix, NULL, NULL, NULL);
         else
             gui_chat_prefix[i] = strdup (prefix);
     }
@@ -366,7 +374,7 @@ gui_chat_get_time_string (time_t date)
 
     if (strstr (text_time, "${"))
     {
-        text_with_color = gui_color_string_replace_colors (text_time);
+        text_with_color = eval_expression (text_time, NULL, NULL, NULL);
         if (text_with_color)
         {
             if (strcmp (text_time, text_with_color) != 0)

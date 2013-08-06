@@ -91,7 +91,7 @@ compile WeeChat.
 | libncursesw5-dev ^(2)^          |             | *yes*    | ncurses interface
 | libcurl4-gnutls-dev             |             | *yes*    | URL transfer
 | zlib1g-dev                      |             | *yes*    | compression of packets in relay plugin (weechat protocol), script plugin
-| libgcrypt11-dev                 |             | *yes*    | IRC SASL authentication (DH-BLOWFISH/DH-AES), script plugin
+| libgcrypt11-dev                 |             | *yes*    | secured data, IRC SASL authentication (DH-BLOWFISH/DH-AES), script plugin
 | libgnutls-dev                   | ≥ 2.2.0     |          | SSL connection to IRC server, support of SSL in relay plugin
 | gettext                         |             |          | internationalization (translation of messages; base language is English)
 | ca-certificates                 |             |          | certificates for SSL connections
@@ -102,8 +102,8 @@ compile WeeChat.
 | liblua5.1-0-dev                 |             |          | lua plugin
 | tcl-dev                         | ≥ 8.5       |          | tcl plugin
 | guile-2.0-dev                   | ≥ 2.0       |          | guile (scheme) plugin
-| asciidoc                        | ≥ 8.5.0     |          | build documentation (HTML files)
-| source-highlight                |             |          | syntax highlight for sources in HTML documentation
+| asciidoc                        | ≥ 8.5.0     |          | build man page and documentation
+| source-highlight                |             |          | syntax highlight for sources in documentation
 | xsltproc,
   docbook-xml, docbook-xsl        |             |          | build man page
 |========================================
@@ -144,7 +144,7 @@ Options can be used for cmake, with format: "-DOPTION=VALUE".
 
 List of commonly used options:
 
-[width="100%",cols="2m,2,2m,12",options="header"]
+[width="100%",cols="2m,2,5m,12",options="header"]
 |========================================
 | Option | Values | Default value | Description
 
@@ -158,6 +158,11 @@ List of commonly used options:
 | WEECHAT_HOME | directory | ~/.weechat |
   The default home directory when running WeeChat.
 
+| CA_FILE | file | /etc/ssl/certs/ca-certificates.crt |
+  File containing the certificate authorities.
+  This is the default value of option
+  <<option_weechat.network.gnutls_ca_file,weechat.network.gnutls_ca_file>>.
+
 | ENABLE_ALIAS | `ON`, `OFF` | ON |
   Compile <<alias_plugin,Alias plugin>>.
 
@@ -167,8 +172,8 @@ List of commonly used options:
 | ENABLE_CHARSET | `ON`, `OFF` | ON |
   Compile <<charset_plugin,Charset plugin>>.
 
-| ENABLE_DEMO | `ON`, `OFF` | OFF |
-  Compile Demo plugin.
+| ENABLE_MAN | `ON`, `OFF` | OFF |
+  Compile man page.
 
 | ENABLE_DOC | `ON`, `OFF` | OFF |
   Compile documentation (it takes a long time, recommended only if you build
@@ -360,16 +365,16 @@ When WeeChat crashes, your system will create a file 'core' or 'core.12345'
 This file is created in directory where you have run WeeChat (this is *not*
 directory where WeeChat is installed!).
 
-For example if 'weechat-curses' is installed in '/usr/bin/' and 'core' file is
+For example if 'weechat' is installed in '/usr/bin/' and 'core' file is
 in '/home/xxx/', then run gdb with this command:
 
 ----------------------------------------
-gdb /usr/bin/weechat-curses /home/xxx/core
+gdb /usr/bin/weechat /home/xxx/core
 ----------------------------------------
 
 [NOTE]
 If you installed binary package 'weechat-dbg' (for example under Debian), then
-you can use this path for WeeChat binary: '/usr/lib/debug/usr/bin/weechat-curses'
+you can use this path for WeeChat binary: '/usr/lib/debug/usr/bin/weechat'
 
 Then under gdb, use command `bt full` to display backtrace.
 You will see something like that:
@@ -410,10 +415,10 @@ Debug a running WeeChat
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 To debug a running WeeChat (for example if WeeChat seems blocked), you can use
-gdb with process id (replace '12345' with PID of weechat-curses process):
+gdb with process id (replace '12345' with PID of weechat process):
 
 ----------------------------------------
-gdb /usr/bin/weechat-curses 12345
+gdb /usr/bin/weechat 12345
 ----------------------------------------
 
 Then like for a crash, use command `bt full`:
@@ -437,7 +442,7 @@ include::cmdline_options.en.txt[]
 To start WeeChat, issue this command:
 
 ----------------------------------------
-$ weechat-curses
+$ weechat
 ----------------------------------------
 
 When you run WeeChat for the first time, a default configuration file is
@@ -1336,7 +1341,7 @@ for colors in WeeChat:
 ^(1)^ Even if your terminal supports more than 256 pairs, only 256 pairs can be
 used in WeeChat, because of a ncurses limitation.
 
-You can run `weechat-curses --colors` or use command `/color` in WeeChat to
+You can run `weechat --colors` or use command `/color` in WeeChat to
 display limits for your environment.
 
 Some recommended values for 'TERM' if you want 256 colors:
@@ -1463,6 +1468,12 @@ Example of bold with terminal foreground color:
 /set weechat.color.status_time *99999
 ----------------------------------------
 
+[[sec_options]]
+Secured data options (sec.conf)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+include::autogen/user/sec_options.txt[]
+
 [[weechat_options]]
 WeeChat options (weechat.conf)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1519,7 +1530,6 @@ Default plugins are:
 | alias     | Define alias for commands
 | aspell    | Spell checking for command line
 | charset   | Charset decoding/encoding for buffers
-| demo      | Demo plugin (not compiled by default)
 | fifo      | FIFO pipe used to remotely send commands to WeeChat
 | irc       | IRC chat protocol
 | logger    | Log buffers to files
@@ -1799,7 +1809,7 @@ Example to join '#weechat' and '#toto' on server 'irc.freenode.net' server,
 default port (6667), with nick 'nono':
 
 ----------------------------------------
-$ weechat-curses irc://nono@irc.freenode.net/#weechat,#toto
+$ weechat irc://nono@irc.freenode.net/#weechat,#toto
 ----------------------------------------
 
 [[irc_options]]

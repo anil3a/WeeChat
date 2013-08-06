@@ -1,7 +1,7 @@
 WeeChat Release Notes
 =====================
 Sébastien Helleu <flashcode@flashtux.org>
-v0.4.2-dev, 2013-05-20
+v0.4.2-dev, 2013-08-05
 
 
 This document lists important changes for each version, that require manual
@@ -12,6 +12,69 @@ For a complete list of changes, please look at
 http://weechat.org/files/changelog/ChangeLog-devel.html[ChangeLog]
 (file 'ChangeLog' in sources).
 
+
+Version 0.4.2 (under dev!)
+--------------------------
+
+=== New rmodifier ===
+
+A new rmodifier "secure" has been added to hide passphrase and passwords
+displayed by command "/secure". Use command `/rmodifier missing` to add it.
+
+=== Color codes in options ===
+
+The format for color codes in some options has changed. The options are
+evaluated with the function "string_eval_expression", which uses the format
+`${color:xxx}`.
+
+Following options are affected:
+
+* 'weechat.look.buffer_time_format'
+* 'weechat.look.prefix_action'
+* 'weechat.look.prefix_error'
+* 'weechat.look.prefix_join'
+* 'weechat.look.prefix_network'
+* 'weechat.look.prefix_quit'
+
+The options using old format `${xxx}` must be changed with new format
+`${color:xxx}` (where xxx is a color name or number, with optional color
+attributes).
+
+Example:
+
+----------------------------------------
+/set weechat.look.buffer_time_format "${color:251}%H${color:243}%M${color:238}%S"
+----------------------------------------
+
+=== Binary and man page ===
+
+WeeChat binary and man page have been renamed from `weechat-curses` to
+`weechat`.
+
+A symbolic link has been added for binary: `weechat-curses` -> `weechat`
+(so that the /upgrade from a old version will still work).
+
+If you upgrade from an old version, it is recommended to force the use of the
+new binary name with the command: `/upgrade /path/to/weechat` (replace the path
+accordingly).
+
+[NOTE]
+For packagers: you should create the link `weechat-curses` -> `weechat` if it's
+not automatically created in the package (both cmake and configure are creating
+this link on make install).
+
+=== Man page / documentation ===
+
+Documentation is not built by default any more, you have to use option
+`-DENABLE_DOC=ON` in cmake to enable it.
+
+The man page is now built with asciidoc and translated in several
+languages. A new cmake option `ENABLE_MAN` has been added to compile man page
+(`OFF` by default).
+
+=== Aspell colors ===
+
+Option 'aspell.look.color' has been renamed to 'aspell.color.misspelled'.
 
 Version 0.4.1 (2013-05-20)
 --------------------------
@@ -77,7 +140,7 @@ FlashCo+ │ test       # 8, off
 
 After `/upgrade`, if you set new options to non-empty strings, and if old
 options were set to non-empty strings too, you will see double prefix/suffix
-on old messages, this is normal behaviour (lines displayed before `/upgrade`
+on old messages, this is normal behavior (lines displayed before `/upgrade`
 have prefix/suffix saved in prefix, but new lines don't have them any more).
 
 New options in logger plugin (logger.conf):

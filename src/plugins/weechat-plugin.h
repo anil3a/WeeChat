@@ -52,7 +52,7 @@ struct timeval;
  * please change the date with current one; for a second change at same
  * date, increment the 01, otherwise please keep 01.
  */
-#define WEECHAT_PLUGIN_API_VERSION "20130421-01"
+#define WEECHAT_PLUGIN_API_VERSION "20130804-01"
 
 /* macros for defining plugin infos */
 #define WEECHAT_PLUGIN_NAME(__name)                                     \
@@ -225,6 +225,7 @@ struct t_weechat_plugin
     int (*strcmp_ignore_chars) (const char *string1, const char *string2,
                                 const char *chars_ignored, int case_sensitive);
     char *(*strcasestr) (const char *string, const char *search);
+    int (*strlen_screen) (const char *string);
     int (*string_match) (const char *string, const char *mask,
                          int case_sensitive);
     char *(*string_replace) (const char *string, const char *search,
@@ -255,7 +256,8 @@ struct t_weechat_plugin
     const char *(*string_input_for_buffer) (const char *string);
     char *(*string_eval_expression )(const char *expr,
                                      struct t_hashtable *pointers,
-                                     struct t_hashtable *extra_vars);
+                                     struct t_hashtable *extra_vars,
+                                     struct t_hashtable *options);
 
     /* UTF-8 strings */
     int (*utf8_has_8bits) (const char *string);
@@ -969,6 +971,8 @@ extern int weechat_plugin_end (struct t_weechat_plugin *plugin);
                                         __case_sensitive)
 #define weechat_strcasestr(__string, __search)                          \
     weechat_plugin->strcasestr(__string, __search)
+#define weechat_strlen_screen(__string)                                 \
+    weechat_plugin->strlen_screen(__string)
 #define weechat_string_match(__string, __mask, __case_sensitive)        \
     weechat_plugin->string_match(__string, __mask, __case_sensitive)
 #define weechat_string_replace(__string, __search, __replace)           \
@@ -1017,9 +1021,9 @@ extern int weechat_plugin_end (struct t_weechat_plugin *plugin);
 #define weechat_string_input_for_buffer(__string)                       \
     weechat_plugin->string_input_for_buffer(__string)
 #define weechat_string_eval_expression(__expr, __pointers,              \
-                                       __extra_vars)                    \
+                                       __extra_vars, __options)         \
     weechat_plugin->string_eval_expression(__expr, __pointers,          \
-                                           __extra_vars)                \
+                                           __extra_vars, __options)
 
 /* UTF-8 strings */
 #define weechat_utf8_has_8bits(__string)                                \

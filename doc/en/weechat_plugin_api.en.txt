@@ -790,6 +790,48 @@ char *pos = weechat_strcasestr ("aBcDeF", "de"); /* result: pointer to "DeF" */
 [NOTE]
 This function is not available in scripting API.
 
+weechat_strlen_screen
+^^^^^^^^^^^^^^^^^^^^^
+
+_New in version 0.4.2._
+
+Return number of chars needed on screen to display UTF-8 string.
+Non-printable chars have a width of 1 (this is the difference with the function
+<<_weechat_utf8_strlen_screen,weechat_utf8_strlen_screen>>).
+
+Prototype:
+
+[source,C]
+----------------------------------------
+int weechat_strlen_screen (const char *string);
+----------------------------------------
+
+Arguments:
+
+* 'string': string
+
+Return value:
+
+* number of chars needed on screen to display UTF-8 string
+
+C example:
+
+[source,C]
+----------------------------------------
+int length_on_screen = weechat_strlen_screen ("é"); /* == 1 */
+----------------------------------------
+
+Script (Python):
+
+[source,python]
+----------------------------------------
+# prototype
+length = weechat.strlen_screen(string)
+
+# example
+length = weechat.strlen_screen("é") # 1
+----------------------------------------
+
 weechat_string_match
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -1657,7 +1699,7 @@ str3 = weechat.string_input_for_buffer("//test") # "/test"
 weechat_string_eval_expression
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-_New in version 0.4.0._
+_New in version 0.4.0, updated in 0.4.2._
 
 Evaluate an expression and return result as a string.
 Special variables with format `${variable}` are expanded (see command `/eval` in
@@ -1669,7 +1711,8 @@ Prototype:
 ----------------------------------------
 char *weechat_string_eval_expression (const char *expr,
                                       struct t_hashtable *pointers,
-                                      struct t_hashtable *extra_vars);
+                                      struct t_hashtable *extra_vars,
+                                      struct t_hashtable *options);
 ----------------------------------------
 
 Arguments:
@@ -1679,6 +1722,14 @@ Arguments:
   pointer); pointers "window" and "buffer" are automatically added if they are
   not in hashtable (with pointer to current window/buffer) (can be NULL)
 * 'extra_vars': extra variables that will be expanded (can be NULL)
+* 'options': a hashtable with some options (keys and values must be string)
+  (can be NULL):
+** 'type': default behavior is just to replace values in expression, other
+   types can be selected:
+*** 'condition': the expression is evaluated as a condition: operators and
+    parentheses are used, result is a boolean ("0" or "1")
+** 'prefix': prefix before variables to replace (default: "${")
+** 'suffix': suffix after variables to replace (default: "}")
 
 Return value:
 
@@ -1689,9 +1740,16 @@ C examples:
 
 [source,C]
 ----------------------------------------
-char *str1 = weechat_string_eval_expression ("${buffer.full_name}", NULL, NULL);       /* "core.weechat" */
-char *str2 = weechat_string_eval_expression ("${window.win_width} > 100", NULL, NULL); /* "1" */
-char *str3 = weechat_string_eval_expression ("abc =~ def", NULL, NULL);                /* "0" */
+struct t_hashtable *options = weechat_hashtable_new (8,
+                                                     WEECHAT_HASHTABLE_STRING,
+                                                     WEECHAT_HASHTABLE_STRING,
+                                                     NULL,
+                                                     NULL);
+if (options)
+    weechat_hashtable_set (options, "type", "condition");
+char *str1 = weechat_string_eval_expression ("${buffer.full_name}", NULL, NULL, NULL);          /* "core.weechat" */
+char *str2 = weechat_string_eval_expression ("${window.win_width} > 100", NULL, NULL, options); /* "1" */
+char *str3 = weechat_string_eval_expression ("abc =~ def", NULL, NULL, options);                /* "0" */
 ----------------------------------------
 
 Script (Python):
@@ -1699,12 +1757,12 @@ Script (Python):
 [source,python]
 ----------------------------------------
 # prototype
-str = weechat.string_eval_expression(expr, pointers, extra_vars)
+str = weechat.string_eval_expression(expr, pointers, extra_vars, options)
 
 # examples
-str1 = weechat.string_input_for_buffer("${buffer.full_name}", {}, {})       # "core.weechat"
-str2 = weechat.string_input_for_buffer("${window.win_width} > 100", {}, {}) # "1"
-str3 = weechat.string_input_for_buffer("abc =~ def", {}, {})                # "0"
+str1 = weechat.string_eval_expression("${buffer.full_name}", {}, {}, {})                          # "core.weechat"
+str2 = weechat.string_eval_expression("${window.win_width} > 100", {}, {}, {"type": "condition"}) # "1"
+str3 = weechat.string_eval_expression("abc =~ def", {}, {}, {"type": "condition"})                # "0"
 ----------------------------------------
 
 [[utf-8]]
@@ -11857,7 +11915,7 @@ C example:
 ----------------------------------------
 struct t_gui_bar *my_bar = weechat_bar_new ("mybar",
                                             "off",
-                                            100,
+                                            "100",
                                             "window",
                                             "",
                                             "top",
@@ -11882,7 +11940,7 @@ bar = weechat.bar_new(name, hidden, priority, type, condition, position,
     color_fg, color_delim, color_bg, separator, items)
 
 # example
-bar = weechat.bar_new("mybar", "off", 100, "window", "", "top", "horizontal", "vertical",
+bar = weechat.bar_new("mybar", "off", "100", "window", "", "top", "horizontal", "vertical",
     "0", "5", "default", "cyan", "blue", "off", "time,buffer_number+buffer_name")
 ----------------------------------------
 

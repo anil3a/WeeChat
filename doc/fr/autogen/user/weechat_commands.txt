@@ -125,12 +125,14 @@ Exemples:
 /color  alias <couleur> <nom>
         unalias <couleur>
         reset
+        -o
 
   alias: ajouter un alias pour une couleur
 unalias: supprimer un alias pour une couleur
 couleur: numéro de couleur (supérieur ou égal à 0, le max dépend du terminal, généralement 63 ou 255)
     nom: nom d'alias pour la couleur (par exemple: "orange")
   reset: réinitialiser toutes les paires de couleurs (requis quand il n'y a plus de paires de couleurs disponibles si la réinitialisation automatique est désactivée, voir l'option weechat.look.color_pairs_auto_reset)
+     -o: envoyer les infos terminal/couleurs sur le tampon courant comme entrée
 
 Sans paramètre, cette commande affiche les couleurs dans un nouveau tampon.
 
@@ -205,9 +207,10 @@ infolists: afficher des infos sur les infolists
 [command]*`eval`* évaluer une expression et envoyer le résultat au tampon::
 ........................................
 /eval  [-n] <expression>
-       [-n] <expression1> <opérateur> <expression2>
+       [-n] -c <expression1> <opérateur> <expression2>
 
         -n: afficher le résultat sans envoyer au tampon (mode debug)
+        -c: évaluer comme une condition : utiliser les opérateurs et les parenthèses, retourner une valeur booléenne ("0" ou "1")
 expression: expression à évaluer, les variables avec le format ${variable} sont remplacées (voir ci-dessous)
  opérateur: un opérateur logique ou de comparaison :
             - opérateurs logiques :
@@ -230,9 +233,10 @@ Pour forcer une comparaison de chaînes, ajoutez des guillemets autour de chaque
   "50" > "100"  ==> 1
 
 Des variables sont remplacées dans l'expression, en utilisant le format ${variable}, la variable pouvant être, par ordre de priorité :
-  1. le nom d'une option (fichier.section.option)
-  2. le nom d'une variable locale du tampon
-  3. le nom d'un hdata/variable (la valeur est automatiquement convertie en chaîne), par défaut "window" et "buffer" pointent vers la fenêtre et le tampon courants.
+  1. une couleur (format: color:xxx)
+  2. une option (format: fichier.section.option)
+  3. une variable locale du tampon
+  4. un un hdata/variable (la valeur est automatiquement convertie en chaîne), par défaut "window" et "buffer" pointent vers la fenêtre et le tampon courants.
 Le format du hdata peut être le suivant :
   hdata.var1.var2...: démarrer avec un hdata (le pointeur doit être connu), et demander les variables l'une après l'autre (d'autres hdata peuvent être suivis)
   hdata[list].var1.var2...: démarrer avec un hdata en utilisant une liste, par exemple :
@@ -241,19 +245,19 @@ Le format du hdata peut être le suivant :
 Pour le nom du hdata et des variables, voir la "Référence API extension", fonction "weechat_hdata_get".
 
 Exemples:
-  /eval -n ${weechat.look.scroll_amount}  ==> 3
-  /eval -n ${window}                      ==> 0x2549aa0
-  /eval -n ${window.buffer}               ==> 0x2549320
-  /eval -n ${window.buffer.full_name}     ==> core.weechat
-  /eval -n ${window.buffer.number}        ==> 1
-  /eval -n ${window.buffer.number} > 2    ==> 0
-  /eval -n ${window.win_width} > 100      ==> 1
-  /eval -n (8 > 12) || (5 > 2)            ==> 1
-  /eval -n (8 > 12) && (5 > 2)            ==> 0
-  /eval -n abcd =~ ^ABC                   ==> 1
-  /eval -n abcd =~ (?-i)^ABC              ==> 0
-  /eval -n abcd =~ (?-i)^abc              ==> 1
-  /eval -n abcd !~ abc                    ==> 0
+  /eval -n ${weechat.look.scroll_amount}   ==> 3
+  /eval -n ${window}                       ==> 0x2549aa0
+  /eval -n ${window.buffer}                ==> 0x2549320
+  /eval -n ${window.buffer.full_name}      ==> core.weechat
+  /eval -n ${window.buffer.number}         ==> 1
+  /eval -n -c ${window.buffer.number} > 2  ==> 0
+  /eval -n -c ${window.win_width} > 100    ==> 1
+  /eval -n -c (8 > 12) || (5 > 2)          ==> 1
+  /eval -n -c (8 > 12) && (5 > 2)          ==> 0
+  /eval -n -c abcd =~ ^ABC                 ==> 1
+  /eval -n -c abcd =~ (?-i)^ABC            ==> 0
+  /eval -n -c abcd =~ (?-i)^abc            ==> 1
+  /eval -n -c abcd !~ abc                  ==> 0
 ........................................
 
 [[command_weechat_filter]]
@@ -608,6 +612,45 @@ fichier: fichier de configuration à sauvegarder (sans l'extension ".conf")
 Sans paramètre, tous les fichiers (WeeChat et extensions) sont sauvegardés.
 ........................................
 
+[[command_weechat_secure]]
+[command]*`secure`* gestion des données sécurisées (mots de passe ou données privées chiffrés dans le fichier sec.conf)::
+........................................
+/secure  passphrase <phrase de chiffrement>|-delete
+         decrypt <phrase de chiffrement>|-discard
+         set <nom> <valeur>
+         del <nom>
+
+passphrase: modifier la phrase de chiffrement (sans phrase de chiffrement, les données sont stockées en texte brut dans le fichier sec.conf)
+   -delete: supprimer la phrase de chiffrement
+   decrypt: déchiffrer les données toujours chiffrées
+  -discard: jeter toutes les données encore chiffrées
+       set: ajouter ou modifier une donnée sécurisée
+       del: supprimer une donnée sécurisée
+
+Sans paramètre, cette commande affiche les données sécurisées dans un nouveau tampon.
+
+Lorsqu'une phrase de chiffrement est utilisée (données chiffrées), elle est demandée au démarrage de WeeChat.
+Il est possible de définir la variable d'environnement WEECHAT_PASSPHRASE pour éviter la demande (cette même variable est utilisée par WeeChat sur le /upgrade).
+
+Les données sécurisées avec le format ${sec.data.xxx} peuvent être utilisées dans :
+  - le paramètre de ligne de commande "--run-command"
+  - les options de serveur irc: autojoin, command, password, sasl_{username|password}
+  - les options weechat.startup.command_{before|after}_plugins
+  - la commande /eval.
+
+Exemples :
+  définir une phrase de chiffrement :
+    /secure passphrase ceci est ma phrase de chiffrement
+  chiffrer le mot de passe freenode SASL :
+    /secure set freenode motdepasse
+    /set irc.server.freenode.sasl_password "${sec.data.freenode}"
+  chiffrer le mot de passe oftc pour nickserv :
+    /secure set oftc motdepasse
+    /set irc.server.oftc.command "/msg nickserv identify ${sec.data.oftc}"
+  alias pour ghost du pseudo "pseudo" :
+    /alias ghost /eval /msg -server freenode nickserv ghost pseudo ${sec.data.freenode}
+........................................
+
 [[command_weechat_set]]
 [command]*`set`* modifier des options de configuration::
 ........................................
@@ -678,7 +721,7 @@ Avec l'option "-quit", le processus est légèrement différent :
   3. décharger les extensions
   4. sauvegarder la configuration WeeChat
   5. quitter WeeChat
-Et plus tard vous pouvez restaurer la session avec la commande: weechat-curses --upgrade
+Et plus tard vous pouvez restaurer la session avec la commande: weechat --upgrade
 IMPORTANT: vous devez restaurer la session avec exactement la même configuration (fichiers *.conf).
 Il est également possible de restaurer la session WeeChat sur une autre machine si vous y copiez le contenu du répertoire "~/.weechat".
 ........................................
@@ -739,7 +782,7 @@ Exemples:
          refresh
          scroll [-window <numéro>] [+/-]<valeur>[s|m|h|d|M|y]
          scroll_horiz [-window <numéro>] [+/-]<valeur>[%]
-         scroll_up|scroll_down|scroll_top|scroll_bottom|scroll_previous_highlight|scroll_next_highlight|scroll_unread [-window <numéro>]
+         scroll_up|scroll_down|scroll_top|scroll_bottom|scroll_beyond_end|scroll_previous_highlight|scroll_next_highlight|scroll_unread [-window <numéro>]
          swap [-window <numéro>] [up|down|left|right]
          zoom [-window <numéro>]
 
@@ -766,6 +809,7 @@ Exemples:
   scroll_down: faire défiler de quelques lignes vers le bas
    scroll_top: faire défiler jusqu'au début du tampon
 scroll_bottom: faire défiler jusqu'en bas du tampon
+scroll_beyond_end: faire défiler au-delà de la fin du tampon
 scroll_previous_highlight: faire défiler jusqu'au highlight précédent
 scroll_next_highlight: faire défiler jusqu'au highlight suivant
 scroll_unread: faire défiler jusqu'au marqueur de données non lues

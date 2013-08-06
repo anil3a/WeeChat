@@ -112,8 +112,10 @@ struct t_config_option *config_look_hotlist_names_count;
 struct t_config_option *config_look_hotlist_names_length;
 struct t_config_option *config_look_hotlist_names_level;
 struct t_config_option *config_look_hotlist_names_merged_buffers;
+struct t_config_option *config_look_hotlist_prefix;
 struct t_config_option *config_look_hotlist_short_names;
 struct t_config_option *config_look_hotlist_sort;
+struct t_config_option *config_look_hotlist_suffix;
 struct t_config_option *config_look_hotlist_unique_numbers;
 struct t_config_option *config_look_input_cursor_scroll;
 struct t_config_option *config_look_input_share;
@@ -124,6 +126,7 @@ struct t_config_option *config_look_item_buffer_filter;
 struct t_config_option *config_look_jump_current_to_previous_buffer;
 struct t_config_option *config_look_jump_previous_buffer_when_closing;
 struct t_config_option *config_look_jump_smart_back_to_buffer;
+struct t_config_option *config_look_key_bind_safe;
 struct t_config_option *config_look_nick_prefix;
 struct t_config_option *config_look_nick_suffix;
 struct t_config_option *config_look_mouse;
@@ -687,7 +690,7 @@ config_change_network_gnutls_ca_file (void *data,
     (void) data;
     (void) option;
 
-    if (network_init_ok)
+    if (network_init_gnutls_ok)
         network_set_gnutls_ca_file ();
 }
 
@@ -1703,7 +1706,7 @@ config_weechat_filter_read_cb (void *data,
 }
 
 /*
- * Writes a filter option in WeeChat configuration file.
+ * Writes section "filter" in WeeChat configuration file.
  */
 
 int
@@ -1870,12 +1873,14 @@ config_weechat_init_options ()
     config_startup_command_after_plugins = config_file_new_option (
         weechat_config_file, ptr_section,
         "command_after_plugins", "string",
-        N_("command executed when WeeChat starts, after loading plugins"),
+        N_("command executed when WeeChat starts, after loading plugins "
+           "(note: content is evaluated, see /help eval)"),
         NULL, 0, 0, "", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
     config_startup_command_before_plugins = config_file_new_option (
         weechat_config_file, ptr_section,
         "command_before_plugins", "string",
-        N_("command executed when WeeChat starts, before loading plugins"),
+        N_("command executed when WeeChat starts, before loading plugins "
+           "(note: content is evaluated, see /help eval)"),
         NULL, 0, 0, "", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
     config_startup_display_logo = config_file_new_option (
         weechat_config_file, ptr_section,
@@ -1953,10 +1958,12 @@ config_weechat_init_options ()
     config_look_buffer_time_format = config_file_new_option (
         weechat_config_file, ptr_section,
         "buffer_time_format", "string",
+        /* TRANSLATORS: string "${color:xxx}" must NOT be translated */
         N_("time format for each line displayed in buffers (see man strftime "
-           "for date/time specifiers), colors are allowed with format "
-           "\"${color}\", for example french time: "
-           "\"${lightblue}%H${white}%M${lightred}%S\""),
+           "for date/time specifiers) (note: content is evaluated, so you can "
+           "use colors with format \"${color:xxx}\", see /help eval); for "
+           "example time using grayscale (requires support of 256 colors): "
+           "\"${color:252}%H${color:245}%M${color:240}%S\""),
         NULL, 0, 0, "%H:%M:%S", NULL, 0, NULL, NULL, &config_change_buffer_time_format, NULL, NULL, NULL);
     config_look_color_basic_force_bold = config_file_new_option (
         weechat_config_file, ptr_section,
@@ -2127,6 +2134,11 @@ config_weechat_init_options ()
         "hotlist_names_merged_buffers", "boolean",
         N_("if set, force display of names in hotlist for merged buffers"),
         NULL, 0, 0, "off", NULL, 0, NULL, NULL, &config_change_buffer_content, NULL, NULL, NULL);
+    config_look_hotlist_prefix = config_file_new_option (
+        weechat_config_file, ptr_section,
+        "hotlist_prefix", "string",
+        N_("text displayed at the beginning of the hotlist"),
+        NULL, 0, 0, "H: ", NULL, 0, NULL, NULL, &config_change_buffer_content, NULL, NULL, NULL);
     config_look_hotlist_short_names = config_file_new_option (
         weechat_config_file, ptr_section,
         "hotlist_short_names", "boolean",
@@ -2142,6 +2154,11 @@ config_weechat_init_options ()
         "group_time_asc|group_time_desc|group_number_asc|"
         "group_number_desc|number_asc|number_desc",
         0, 0, "group_time_asc", NULL, 0, NULL, NULL, &config_change_hotlist_sort, NULL, NULL, NULL);
+    config_look_hotlist_suffix = config_file_new_option (
+        weechat_config_file, ptr_section,
+        "hotlist_suffix", "string",
+        N_("text displayed at the end of the hotlist"),
+        NULL, 0, 0, "", NULL, 0, NULL, NULL, &config_change_buffer_content, NULL, NULL, NULL);
     config_look_hotlist_unique_numbers = config_file_new_option (
         weechat_config_file, ptr_section,
         "hotlist_unique_numbers", "boolean",
@@ -2203,6 +2220,12 @@ config_weechat_init_options ()
         "jump_smart_back_to_buffer", "boolean",
         N_("jump back to initial buffer after reaching end of hotlist"),
         NULL, 0, 0, "on", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+    config_look_key_bind_safe = config_file_new_option (
+        weechat_config_file, ptr_section,
+        "key_bind_safe", "boolean",
+        N_("allow only binding of \"safe\" keys (beginning with a ctrl or meta "
+           "code)"),
+        NULL, 0, 0, "on", NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
     config_look_nick_prefix = config_file_new_option (
         weechat_config_file, ptr_section,
         "nick_prefix", "string",
@@ -2251,33 +2274,43 @@ config_weechat_init_options ()
     config_look_prefix[GUI_CHAT_PREFIX_ERROR] = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_error", "string",
-        N_("prefix for error messages, colors are allowed with format "
-           "\"${color}\""),
-        NULL, 0, 0, "=!=", NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
+        /* TRANSLATORS: string "${color:xxx}" must NOT be translated */
+        N_("prefix for error messages (note: content is evaluated, so you can "
+           "use colors with format \"${color:xxx}\", see /help eval)"),
+        NULL, 0, 0, GUI_CHAT_PREFIX_ERROR_DEFAULT,
+        NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
     config_look_prefix[GUI_CHAT_PREFIX_NETWORK] = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_network", "string",
-        N_("prefix for network messages, colors are allowed with format "
-           "\"${color}\""),
-        NULL, 0, 0, "--", NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
+        /* TRANSLATORS: string "${color:xxx}" must NOT be translated */
+        N_("prefix for network messages (note: content is evaluated, so you can "
+           "use colors with format \"${color:xxx}\", see /help eval)"),
+        NULL, 0, 0, GUI_CHAT_PREFIX_NETWORK_DEFAULT,
+        NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
     config_look_prefix[GUI_CHAT_PREFIX_ACTION] = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_action", "string",
-        N_("prefix for action messages, colors are allowed with format "
-           "\"${color}\""),
-        NULL, 0, 0, " *", NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
+        /* TRANSLATORS: string "${color:xxx}" must NOT be translated */
+        N_("prefix for action messages (note: content is evaluated, so you can "
+           "use colors with format \"${color:xxx}\", see /help eval)"),
+        NULL, 0, 0, GUI_CHAT_PREFIX_ACTION_DEFAULT,
+        NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
     config_look_prefix[GUI_CHAT_PREFIX_JOIN] = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_join", "string",
-        N_("prefix for join messages, colors are allowed with format "
-           "\"${color}\""),
-        NULL, 0, 0, "-->", NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
+        /* TRANSLATORS: string "${color:xxx}" must NOT be translated */
+        N_("prefix for join messages (note: content is evaluated, so you can "
+           "use colors with format \"${color:xxx}\", see /help eval)"),
+        NULL, 0, 0, GUI_CHAT_PREFIX_JOIN_DEFAULT,
+        NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
     config_look_prefix[GUI_CHAT_PREFIX_QUIT] = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_quit", "string",
-        N_("prefix for quit messages, colors are allowed with format "
-           "\"${color}\""),
-        NULL, 0, 0, "<--", NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
+        /* TRANSLATORS: string "${color:xxx}" must NOT be translated */
+        N_("prefix for quit messages (note: content is evaluated, so you can "
+           "use colors with format \"${color:xxx}\", see /help eval)"),
+        NULL, 0, 0, GUI_CHAT_PREFIX_QUIT_DEFAULT,
+        NULL, 0, NULL, NULL, &config_change_prefix, NULL, NULL, NULL);
     config_look_prefix_align = config_file_new_option (
         weechat_config_file, ptr_section,
         "prefix_align", "integer",
@@ -2985,7 +3018,7 @@ config_weechat_init_options ()
         "gnutls_ca_file", "string",
         N_("file containing the certificate authorities (\"%h\" will be "
            "replaced by WeeChat home, \"~/.weechat\" by default)"),
-        NULL, 0, 0, "/etc/ssl/certs/ca-certificates.crt", NULL, 0, NULL, NULL,
+        NULL, 0, 0, CA_FILE, NULL, 0, NULL, NULL,
         &config_change_network_gnutls_ca_file, NULL, NULL, NULL);
     config_network_gnutls_handshake_timeout = config_file_new_option (
         weechat_config_file, ptr_section,

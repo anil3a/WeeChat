@@ -21,7 +21,7 @@
 docdir = $(datadir)/doc/$(PACKAGE)
 
 EXTRA_DIST = CMakeLists.txt \
-             weechat-curses.1.fr.txt \
+             weechat.1.fr.txt \
              cmdline_options.fr.txt \
              weechat_user.fr.txt \
              weechat_plugin_api.fr.txt \
@@ -32,17 +32,26 @@ EXTRA_DIST = CMakeLists.txt \
              $(wildcard autogen/user/*.txt) \
              $(wildcard autogen/plugin_api/*.txt)
 
-all-local: weechat-curses.1 \
-		weechat_user.fr.html \
+if MAN
+  man_targets = weechat.1
+  man_install = install-man
+  man_uninstall = uninstall-man
+endif
+if DOC
+  doc_targets = weechat_user.fr.html \
 		weechat_plugin_api.fr.html \
 		weechat_scripting.fr.html \
 		weechat_faq.fr.html \
 		weechat_quickstart.fr.html \
 		weechat_tester.fr.html
+  doc_install = install-doc
+  doc_uninstall = uninstall-doc
+endif
+all-local: $(man_targets) $(doc_targets)
 
 # man page
-weechat-curses.1: weechat-curses.1.fr.txt cmdline_options.fr.txt
-	$(A2X) -a lang=fr -a revision="WeeChat $(VERSION)" -d manpage -f manpage -L -D . $(abs_top_srcdir)/doc/fr/weechat-curses.1.fr.txt
+weechat.1: weechat.1.fr.txt cmdline_options.fr.txt
+	$(A2X) -a lang=fr -a revision="WeeChat $(VERSION)" -d manpage -f manpage -L -D . $(abs_top_srcdir)/doc/fr/weechat.1.fr.txt
 
 # user's guide
 weechat_user.fr.html: weechat_user.fr.txt cmdline_options.fr.txt $(wildcard autogen/user/*.txt)
@@ -68,24 +77,32 @@ weechat_quickstart.fr.html: weechat_quickstart.fr.txt
 weechat_tester.fr.html: weechat_tester.fr.txt
 	$(ASCIIDOC) -a lang=fr -a toc -a date=`date "+%F"` -a revision="$(VERSION)" -a stylesheet=$(abs_top_srcdir)/doc/asciidoc.css -n -o weechat_tester.fr.html $(abs_top_srcdir)/doc/fr/weechat_tester.fr.txt
 
-# install docs
+# install man/docs
 
-install-data-hook:
+install-data-hook: $(man_install) $(doc_install)
+
+install-man:
 	$(mkinstalldirs) $(DESTDIR)$(mandir)/fr/man1/
 	$(INSTALL_DATA) *.1 $(DESTDIR)$(mandir)/fr/man1/
+
+install-doc:
 	$(mkinstalldirs) $(DESTDIR)$(docdir)/
 	$(INSTALL_DATA) *.html $(DESTDIR)$(docdir)/
 
-# uninstall docs
+# uninstall man/docs
 
-uninstall-hook:
-	$(RM) $(DESTDIR)$(mandir)/fr/man1/weechat-curses.1
+uninstall-hook: $(man_uninstall) $(doc_uninstall)
+
+uninstall-man:
+	$(RM) $(DESTDIR)$(mandir)/fr/man1/weechat.1
 	-rmdir $(DESTDIR)$(mandir)/fr/man1
+
+uninstall-doc:
 	$(RM) $(DESTDIR)$(docdir)/*.fr.html
 	-rmdir $(DESTDIR)$(docdir)
 
 # clean
 
 clean-local:
-	-rm -f weechat-curses.1
+	-rm -f weechat.1
 	-rm -f *.html

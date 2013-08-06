@@ -97,7 +97,7 @@ compilare WeeChat.
 // TRANSLATION MISSING
 | zlib1g-dev                     |             | *sì*      | compression of packets in relay plugin (weechat protocol), script plugin
 // TRANSLATION MISSING
-| libgcrypt11-dev                |             | *sì*      | IRC SASL authentication (DH-BLOWFISH/DH-AES), script plugin
+| libgcrypt11-dev                |             | *sì*      | secured data, IRC SASL authentication (DH-BLOWFISH/DH-AES), script plugin
 // TRANSLATION MISSING
 | libgnutls-dev                  | ≥ 2.2.0     |           | connessione SSL al server IRC, support of SSL in relay plugin
 | gettext                        |             |           | internazionalizzazione (traduzione dei messaggi; la lingua base è l'inglese)
@@ -109,8 +109,9 @@ compilare WeeChat.
 | liblua5.1-0-dev                |             |           | plugin lua
 | tcl-dev                        | ≥ 8.5       |           | plugin tcl
 | guile-2.0-dev                  | ≥ 2.0       |           | plugin guile (scheme)
-| asciidoc                       | ≥ 8.5.0     |           | compilazione della documentazione (file HTML)
-| source-highlight               |             |           | evidenziazione della sintassi per i sorgenti nella documentazione HTML
+// TRANSLATION MISSING
+| asciidoc                       | ≥ 8.5.0     |           | build man page and documentation
+| source-highlight               |             |           | evidenziazione della sintassi per i sorgenti nella documentazione
 // TRANSLATION MISSING
 | xsltproc,
   docbook-xml, docbook-xsl       |             |           | build man page
@@ -155,7 +156,7 @@ Options can be used for cmake, with format: "-DOPTION=VALUE".
 List of commonly used options:
 
 // TRANSLATION MISSING
-[width="100%",cols="2m,2,2m,12",options="header"]
+[width="100%",cols="2m,2,5m,12",options="header"]
 |========================================
 | Option | Values | Default value | Description
 
@@ -169,6 +170,11 @@ List of commonly used options:
 | WEECHAT_HOME | directory | ~/.weechat |
   The default home directory when running WeeChat.
 
+| CA_FILE | file | /etc/ssl/certs/ca-certificates.crt |
+  File containing the certificate authorities.
+  This is the default value of option
+  <<option_weechat.network.gnutls_ca_file,weechat.network.gnutls_ca_file>>.
+
 | ENABLE_ALIAS | `ON`, `OFF` | ON |
   Compile <<alias_plugin,Alias plugin>>.
 
@@ -178,8 +184,8 @@ List of commonly used options:
 | ENABLE_CHARSET | `ON`, `OFF` | ON |
   Compile <<charset_plugin,Charset plugin>>.
 
-| ENABLE_DEMO | `ON`, `OFF` | OFF |
-  Compile Demo plugin.
+| ENABLE_MAN | `ON`, `OFF` | OFF |
+  Compile man page.
 
 | ENABLE_DOC | `ON`, `OFF` | OFF |
   Compile documentation (it takes a long time, recommended only if you build
@@ -377,17 +383,17 @@ In caso di errore di WeeChat, il sistema creerà un file 'core' oppure 'core.123
 Questo file viene creato nella directory in cui è in esecuzione WeeChat (e
 *non* la directory dove WeeChat è installato!).
 
-Ad esempio, se 'weechat-curses' è installato in '/usr/bin/' ed il file 'core'
+Ad esempio, se 'weechat' è installato in '/usr/bin/' ed il file 'core'
 si trova in '/home/xxx/', allora eseguire gdb con questo comando:
 
 ----------------------------------------
-gdb /usr/bin/weechat-curses /home/xxx/core
+gdb /usr/bin/weechat /home/xxx/core
 ----------------------------------------
 
 [NOTE]
 Se è stato installato il pacchetto binario 'weechat-dbg' (ad esempio in Debian), è
 possibile usare questo path per il binario di WeeChat:
-'/usr/lib/debug/usr/bin/weechat-curses'
+'/usr/lib/debug/usr/bin/weechat'
 
 All'interno di gdb, usare il comando `bt full` per visualizzare
 il backtrace. Verrà mostrato qualcosa di simile a questo:
@@ -429,10 +435,10 @@ Debug di WeeChat durante l'esecuzione
 
 Per eseguire il debug di un'istanza di WeeChat in esecuzione (ad esempio se
 WeeChat sembra sia bloccato), è possibile usare gdb con l'id del processo
-(sostituire '12345' con il PID del processo weechat-curses):
+(sostituire '12345' con il PID del processo weechat):
 
 ----------------------------------------
-gdb /usr/bin/weechat-curses 12345
+gdb /usr/bin/weechat 12345
 ----------------------------------------
 
 Poi, come per un crash, usare il comando `bt full`:
@@ -456,7 +462,7 @@ include::cmdline_options.it.txt[]
 Per avviare WeeChat, digitare questo comando:
 
 ----------------------------------------
-$ weechat-curses
+$ weechat
 ----------------------------------------
 
 Alla prima esecuzione di WeeChat, viene creato un file di configurazione
@@ -1369,7 +1375,7 @@ seguenti limiti per i colori in WeeChat:
 ^(1)^ Anche se il terminale supporta più di 256 coppie, possono essere utilizzate
 solo 256 coppie in WeeChat, a causa di una limitazione di ncurses.
 
-È possibile eseguire `weechat-curses --colors` o utilizzare il comando `/color` in
+È possibile eseguire `weechat --colors` o utilizzare il comando `/color` in
 WeeChat per visualizzare i limiti del proprio ambiente.
 
 Alcuni valori raccomandati per 'TERM' se si desiderano 256 colori:
@@ -1499,6 +1505,13 @@ Esempio di grassetto con il colore di primo piano del terminale:
 /set weechat.color.status_time *99999
 ----------------------------------------
 
+// TRANSLATION MISSING
+[[sec_options]]
+Secured data options (sec.conf)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+include::autogen/user/sec_options.txt[]
+
 [[weechat_options]]
 Opzioni di WeeChat (weechat.conf)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1556,7 +1569,6 @@ I plugin predefiniti sono:
 | alias     | Definisce gli alias per i comandi
 | aspell    | Controllo ortografico per la riga di comando
 | charset   | Set di caratteri per la codifica/decodifica nei buffer
-| demo      | Plugin Demo (non viene compilato per default)
 | fifo      | pipe FIFO utilizzata per inviare comandi da remoto su WeeChat
 | irc       | protocollo chat per IRC
 | logger    | Registra i buffer su file
@@ -1844,7 +1856,7 @@ Esempio per entrare in '#weechat' e '#tizio' sul server 'irc.freenode.net',
 porta predefinita (6667), con il nick 'caio':
 
 ----------------------------------------
-$ weechat-curses irc://caio@irc.freenode.net/#weechat,#tizio
+$ weechat irc://caio@irc.freenode.net/#weechat,#tizio
 ----------------------------------------
 
 [[irc_options]]

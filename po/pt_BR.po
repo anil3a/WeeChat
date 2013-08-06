@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-07-11 21:45+0200\n"
-"PO-Revision-Date: 2013-06-10 09:19+0200\n"
+"POT-Creation-Date: 2013-08-05 08:28+0200\n"
+"PO-Revision-Date: 2013-07-31 18:42+0200\n"
 "Last-Translator: Sergio Durigan Junior <sergiosdj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: pt_BR\n"
@@ -81,7 +81,7 @@ msgid ""
 "      --upgrade            upgrade WeeChat using session files (see /help "
 "upgrade in WeeChat)\n"
 "  -v, --version            display WeeChat version\n"
-"  plugin:option            option for plugin (see man weechat-curses)\n"
+"  plugin:option            option for plugin (see man weechat)\n"
 msgstr ""
 "  -a, --no-connect  desabilita a auto-conexão a servidores durante a "
 "inicialização\n"
@@ -468,6 +468,13 @@ msgid "No key found"
 msgstr "Nenhuma tecla encontrada"
 
 #, c-format
+msgid ""
+"%sError: it is not safe to bind key \"%s\" because it does not start with a "
+"ctrl or meta code (tip: use alt-k to find key codes); if you want to bind "
+"this key anyway, turn off option weechat.look.key_bind_safe"
+msgstr ""
+
+#, c-format
 msgid "%sError: context \"%s\" not found"
 msgstr "%sErro: contexto \"%s\" não encontrado"
 
@@ -723,6 +730,51 @@ msgstr "Opções salvas para %s"
 #, c-format
 msgid "%sError: failed to save options to %s"
 msgstr "%sErro: falhou ao salvar as opções para %s"
+
+msgid "There is no encrypted data"
+msgstr ""
+
+#, fuzzy
+msgid "All encrypted data has been deleted"
+msgstr "Todas as barras foram excluídas"
+
+msgid "Encrypted data has been successfully decrypted"
+msgstr ""
+
+#, c-format
+msgid "%sFailed to decrypt data (wrong passphrase?)"
+msgstr ""
+
+#, c-format
+msgid ""
+"%sYou must decrypt data still encrypted before doing any operation on "
+"secured data or passphrase"
+msgstr ""
+
+#, fuzzy
+msgid "Passphrase deleted"
+msgstr "Barra excluída"
+
+msgid "Passphrase is not set"
+msgstr ""
+
+msgid "Passphrase changed"
+msgstr ""
+
+msgid "Passphrase added"
+msgstr ""
+
+#, c-format
+msgid "Secured data \"%s\" set"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Secured data \"%s\" deleted"
+msgstr "Barra excluída"
+
+#, fuzzy, c-format
+msgid "%sSecured data \"%s\" not found"
+msgstr "%s%s: script \"%s\" não encontrado"
 
 #, fuzzy
 msgid "default: "
@@ -1124,11 +1176,13 @@ msgstr ""
 msgid "define color aliases and display palette of colors"
 msgstr "define apelidos para cores e mostra a palheta de cores"
 
-msgid "alias <color> <name> || unalias <color> || reset"
+#, fuzzy
+msgid "alias <color> <name> || unalias <color> || reset || -o"
 msgstr "alias <cor> <apelido> || unalias <cor> || reset"
 
 # Translate orange? Is it a internal name?
 # TODO: revisit here when color names were specified as translatable or not
+#, fuzzy
 msgid ""
 "  alias: add an alias for a color\n"
 "unalias: delete an alias\n"
@@ -1138,6 +1192,7 @@ msgid ""
 "  reset: reset all color pairs (required when no more color pairs are "
 "available if automatic reset is disabled, see option weechat.look."
 "color_pairs_auto_reset)\n"
+"     -o: send terminal/colors info to current buffer as input\n"
 "\n"
 "Without argument, this command displays colors in a new buffer.\n"
 "\n"
@@ -1284,11 +1339,13 @@ msgstr ""
 msgid "evaluate expression and send result to buffer"
 msgstr ""
 
-msgid "[-n] <expression> || [-n] <expression1> <operator> <expression2>"
+msgid "[-n] <expression> || [-n] -c <expression1> <operator> <expression2>"
 msgstr ""
 
 msgid ""
 "        -n: display result without sending it to buffer (debug mode)\n"
+"        -c: evaluate as condition: use operators and parentheses, return a "
+"boolean value (\"0\" or \"1\")\n"
 "expression: expression to evaluate, variables with format ${variable} are "
 "replaced (see below)\n"
 "  operator: a logical or comparison operator:\n"
@@ -1316,9 +1373,10 @@ msgid ""
 "\n"
 "Some variables are replaced in expression, using the format ${variable}, "
 "variable can be, by order of priority :\n"
-"  1. the name of an option (file.section.option)\n"
-"  2. the name of a local variable in buffer\n"
-"  3. a hdata name/variable (the value is automatically converted to string), "
+"  1. a color (format: color:xxx)\n"
+"  2. an option (format: file.section.option)\n"
+"  3. a local variable in buffer\n"
+"  4. a hdata name/variable (the value is automatically converted to string), "
 "by default \"window\" and \"buffer\" point to current window/buffer.\n"
 "Format for hdata can be one of following:\n"
 "  hdata.var1.var2...: start with a hdata (pointer must be known), and ask "
@@ -1332,19 +1390,19 @@ msgid ""
 "function \"weechat_hdata_get\".\n"
 "\n"
 "Examples:\n"
-"  /eval -n ${weechat.look.scroll_amount}  ==> 3\n"
-"  /eval -n ${window}                      ==> 0x2549aa0\n"
-"  /eval -n ${window.buffer}               ==> 0x2549320\n"
-"  /eval -n ${window.buffer.full_name}     ==> core.weechat\n"
-"  /eval -n ${window.buffer.number}        ==> 1\n"
-"  /eval -n ${window.buffer.number} > 2    ==> 0\n"
-"  /eval -n ${window.win_width} > 100      ==> 1\n"
-"  /eval -n (8 > 12) || (5 > 2)            ==> 1\n"
-"  /eval -n (8 > 12) && (5 > 2)            ==> 0\n"
-"  /eval -n abcd =~ ^ABC                   ==> 1\n"
-"  /eval -n abcd =~ (?-i)^ABC              ==> 0\n"
-"  /eval -n abcd =~ (?-i)^abc              ==> 1\n"
-"  /eval -n abcd !~ abc                    ==> 0"
+"  /eval -n ${weechat.look.scroll_amount}   ==> 3\n"
+"  /eval -n ${window}                       ==> 0x2549aa0\n"
+"  /eval -n ${window.buffer}                ==> 0x2549320\n"
+"  /eval -n ${window.buffer.full_name}      ==> core.weechat\n"
+"  /eval -n ${window.buffer.number}         ==> 1\n"
+"  /eval -n -c ${window.buffer.number} > 2  ==> 0\n"
+"  /eval -n -c ${window.win_width} > 100    ==> 1\n"
+"  /eval -n -c (8 > 12) || (5 > 2)          ==> 1\n"
+"  /eval -n -c (8 > 12) && (5 > 2)          ==> 0\n"
+"  /eval -n -c abcd =~ ^ABC                 ==> 1\n"
+"  /eval -n -c abcd =~ (?-i)^ABC            ==> 0\n"
+"  /eval -n -c abcd =~ (?-i)^abc            ==> 1\n"
+"  /eval -n -c abcd !~ abc                  ==> 0"
 msgstr ""
 
 msgid ""
@@ -1967,6 +2025,54 @@ msgstr ""
 "\n"
 "Sem argumentos, todos os arquivos (WeeChat e plugins) são salvos."
 
+msgid ""
+"manage secured data (passwords or private data encrypted in file sec.conf)"
+msgstr ""
+
+msgid ""
+"passphrase <passphrase>|-delete || decrypt <passphrase>|-discard || set "
+"<name> <value> || del <name>"
+msgstr ""
+
+msgid ""
+"passphrase: change the passphrase (without passphrase, data is stored as "
+"plain text in file sec.conf)\n"
+"   -delete: delete passphrase\n"
+"   decrypt: decrypt data still encrypted (it happens only if passphrase was "
+"not given on startup)\n"
+"  -discard: discard all data still encrypted data\n"
+"       set: add or change secured data\n"
+"       del: delete secured data\n"
+"\n"
+"Without argument, this command displays secured data in a new buffer.\n"
+"\n"
+"When a passphrase is used (data encrypted), it is asked by WeeChat on "
+"startup.\n"
+"It is possible to set environment variable \"WEECHAT_PASSPHRASE\" to prevent "
+"the prompt (this same variable is used by WeeChat on /upgrade).\n"
+"\n"
+"Secured data with format ${sec.data.xxx} can be used in:\n"
+"  - command line argument \"--run-command\"\n"
+"  - irc server options: autojoin, command, password, sasl_{username|"
+"password}\n"
+"  - options weechat.startup.command_{before|after}_plugins\n"
+"  - command /eval.\n"
+"\n"
+"Examples:\n"
+"  set a passphrase:\n"
+"    /secure passphrase this is my passphrase\n"
+"  encrypt freenode SASL password:\n"
+"    /secure set freenode mypassword\n"
+"    /set irc.server.freenode.sasl_password \"${sec.data.freenode}\"\n"
+"  encrypt oftc password for nickserv:\n"
+"    /secure set oftc mypassword\n"
+"    /set irc.server.oftc.command \"/msg nickserv identify ${sec.data."
+"oftc}\"\n"
+"  alias to ghost the nick \"mynick\":\n"
+"    /alias ghost /eval /msg -server freenode nickserv ghost mynick ${sec."
+"data.freenode}"
+msgstr ""
+
 msgid "set config options"
 msgstr "define opções de configuração"
 
@@ -2084,7 +2190,7 @@ msgid ""
 "  3. unload all plugins\n"
 "  4. save WeeChat configuration\n"
 "  5. quit WeeChat\n"
-"Then later you can restore session with command: weechat-curses --upgrade\n"
+"Then later you can restore session with command: weechat --upgrade\n"
 "IMPORTANT: you must restore the session with exactly same configuration "
 "(files *.conf).\n"
 "It is possible to restore WeeChat session on another machine if you copy the "
@@ -2189,9 +2295,9 @@ msgid ""
 "balance || merge [-window <number>] [all] || page_up|page_down [-window "
 "<number>] || refresh || scroll [-window <number>] [+/-]<value>[s|m|h|d|M|y] "
 "|| scroll_horiz [-window <number>] [+/-]<value>[%] || scroll_up|scroll_down|"
-"scroll_top|scroll_bottom|scroll_previous_highlight|scroll_next_highlight|"
-"scroll_unread [-window <number>] || swap [-window <number>] [up|down|left|"
-"right] || zoom[-window <number>]"
+"scroll_top|scroll_bottom|scroll_beyond_end|scroll_previous_highlight|"
+"scroll_next_highlight|scroll_unread [-window <number>] || swap [-window "
+"<number>] [up|down|left|right] || zoom[-window <number>]"
 msgstr ""
 "list || -1|+1|b#|up|down|left|right || splith|splitv [<pct>] || resize "
 "[+/-]<pct> || balance || merge [all] || page_up|page_down || refresh || "
@@ -2229,6 +2335,7 @@ msgid ""
 "  scroll_down: scroll a few lines down\n"
 "   scroll_top: scroll to top of buffer\n"
 "scroll_bottom: scroll to bottom of buffer\n"
+"scroll_beyond_end: scroll beyond the end of buffer\n"
 "scroll_previous_highlight: scroll to previous highlight\n"
 "scroll_next_highlight: scroll to next highlight\n"
 "scroll_unread: scroll to unread marker\n"
@@ -2391,6 +2498,9 @@ msgstr ""
 msgid "names of layouts"
 msgstr "nomes das barras"
 
+msgid "names of secured data (file sec.conf, section data)"
+msgstr ""
+
 msgid ""
 "Warning: you should now issue /save to write \"save_config_on_exit\" option "
 "in configuration file"
@@ -2432,11 +2542,17 @@ msgstr "%sAviso: %s, linha %d: opção \"%s\" desconhecido para seção \"%s\""
 msgid "Notify level for buffer"
 msgstr "Nível de notificação para o buffer"
 
-msgid "command executed when WeeChat starts, after loading plugins"
+#, fuzzy
+msgid ""
+"command executed when WeeChat starts, after loading plugins (note: content "
+"is evaluated, see /help eval)"
 msgstr ""
 "comando executado quando o WeeChat inicia, após o carregamento dos plugins"
 
-msgid "command executed when WeeChat starts, before loading plugins"
+#, fuzzy
+msgid ""
+"command executed when WeeChat starts, before loading plugins (note: content "
+"is evaluated, see /help eval)"
 msgstr ""
 "comando executado quando o WeeChat inicia, antes do carregamento dos plugins"
 
@@ -2494,10 +2610,14 @@ msgstr ""
 "message=mensagens+destaques, highlights=apenas destaques, none=nunca mostrar "
 "na lista atual"
 
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+#, fuzzy
 msgid ""
 "time format for each line displayed in buffers (see man strftime for date/"
-"time specifiers), colors are allowed with format \"${color}\", for example "
-"french time: \"${lightblue}%H${white}%M${lightred}%S\""
+"time specifiers) (note: content is evaluated, so you can use colors with "
+"format \"${color:xxx}\", see /help eval); for example time using grayscale "
+"(requires support of 256 colors): \"${color:252}%H${color:245}%M"
+"${color:240}%S\""
 msgstr ""
 "formato de tempo para cada linha mostrada nos buffers (veja man strftime "
 "para especificadores de data/tempo),, cores são permitidas com o formato "
@@ -2676,6 +2796,10 @@ msgstr ""
 "se utilizado, força a exibição de nomes na lista de atividade atual para "
 "buffers mesclados"
 
+#, fuzzy
+msgid "text displayed at the beginning of the hotlist"
+msgstr "string exibida entre buffers na lista de atividade"
+
 msgid ""
 "if set, uses short names to display buffer names in hotlist (start after "
 "first '.' in name)"
@@ -2690,6 +2814,10 @@ msgstr ""
 "tipo de ordenação da lista de atividade (group_time_asc (default), "
 "group_time_desc, group_number_asc, group_number_desc, number_asc, "
 "number_desc)"
+
+#, fuzzy
+msgid "text displayed at the end of the hotlist"
+msgstr "string exibida entre buffers na lista de atividade"
 
 msgid ""
 "keep only unique numbers in hotlist (this applies only on hotlist items "
@@ -2752,6 +2880,10 @@ msgstr ""
 msgid "jump back to initial buffer after reaching end of hotlist"
 msgstr ""
 
+msgid ""
+"allow only binding of \"safe\" keys (beginning with a ctrl or meta code)"
+msgstr ""
+
 #, fuzzy
 msgid "text to display before nick in prefix of message, example: \"<\""
 msgstr "texto a ser exibido antes do apelido na janela de chat"
@@ -2787,20 +2919,34 @@ msgstr ""
 "número máximo de linhas para serem coladas sem perguntar ao usuário (0 = "
 "desabilita essa característica)"
 
-msgid "prefix for error messages, colors are allowed with format \"${color}\""
-msgstr ""
-
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
 msgid ""
-"prefix for network messages, colors are allowed with format \"${color}\""
+"prefix for error messages (note: content is evaluated, so you can use colors "
+"with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
-msgid "prefix for action messages, colors are allowed with format \"${color}\""
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for network messages (note: content is evaluated, so you can use "
+"colors with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
-msgid "prefix for join messages, colors are allowed with format \"${color}\""
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for action messages (note: content is evaluated, so you can use "
+"colors with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
-msgid "prefix for quit messages, colors are allowed with format \"${color}\""
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for join messages (note: content is evaluated, so you can use colors "
+"with format \"${color:xxx}\", see /help eval)"
+msgstr ""
+
+#. TRANSLATORS: string "${color:xxx}" must NOT be translated
+msgid ""
+"prefix for quit messages (note: content is evaluated, so you can use colors "
+"with format \"${color:xxx}\", see /help eval)"
 msgstr ""
 
 msgid "prefix alignment (none, left, right (default))"
@@ -3423,6 +3569,97 @@ msgstr ""
 msgid "password for proxy server"
 msgstr ""
 
+msgid "Please enter your passphrase to decrypt the data secured by WeeChat:"
+msgstr ""
+
+msgid ""
+"(enter just one space to skip the passphrase, but this will DISABLE all "
+"secured data!)"
+msgstr ""
+
+msgid ""
+"To recover your secured data, you can use /secure decrypt (see /help secure)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sWarning: unable to read passphrase from file \"%s\""
+msgstr "%s%s: não foi possível interpretar arquivo \"%s\""
+
+#, c-format
+msgid ""
+"%sError: not possible to reload file sec.conf because there is still "
+"encrypted data (use /secure decrypt, see /help secure)"
+msgstr ""
+
+#, c-format
+msgid "%sPassphrase is not set, unable to decrypt data \"%s\""
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sWrong passphrase, unable to decrypt data \"%s\""
+msgstr "%sErro: não foi possível rolar a barra \"%s\""
+
+#, c-format
+msgid "*** Wrong passphrase (decrypt error: %s) ***"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%sError encrypting data \"%s\" (%d)"
+msgstr "%s%s: erro ao criar atalho \"%s\" => \"%s\""
+
+msgid ""
+"cipher used to crypt data (the number after algorithm is the size of the key "
+"in bits)"
+msgstr ""
+
+msgid "hash algorithm used to check the decrypted data"
+msgstr ""
+
+msgid ""
+"path to a file containing the passphrase to encrypt/decrypt secured data; "
+"this option is used only when reading file sec.conf; only first line of file "
+"is used; this file is used only if the environment variable "
+"\"WEECHAT_PASSPHRASE\" is not set (the environment variable has higher "
+"priority); security note: it is recommended to keep this file readable only "
+"by you and store it outside WeeChat home (for example in your home); "
+"example: \"~/.weechat-passphrase\""
+msgstr ""
+
+msgid ""
+"use salt when generating key used in encryption (recommended for maximum "
+"security); when enabled, the content of crypted data in file sec.conf will "
+"be different on each write of the file; if you put the file sec.conf in a "
+"version control system, then you can turn off this option to have always "
+"same content in file"
+msgstr ""
+
+msgid "WeeChat secured data (sec.conf) | Keys: [alt-v] Toggle values"
+msgstr ""
+
+msgid "on"
+msgstr "ligado"
+
+msgid "off"
+msgstr "desligado"
+
+msgid "Passphrase"
+msgstr ""
+
+msgid "Passphrase is set"
+msgstr ""
+
+msgid "Passphrase is NOT set"
+msgstr ""
+
+msgid "Secured data:"
+msgstr ""
+
+msgid "Secured data STILL ENCRYPTED: (use /secure decrypt, see /help secure)"
+msgstr ""
+
+msgid "No secured data set"
+msgstr ""
+
 msgid "bytes"
 msgstr ""
 
@@ -3693,10 +3930,6 @@ msgstr "Busca de texto (exata)"
 #, c-format
 msgid "%s-MORE(%d)-"
 msgstr "%s-MORE(%d)-"
-
-#. TRANSLATORS: if possible use short word or abbreviation here ("Act" is abbreviation of "Activity" in english)
-msgid "Act: "
-msgstr "Ativ: "
 
 #, c-format
 msgid "Notify changed for \"%s%s%s\": \"%s%s%s\" to \"%s%s%s\""
@@ -3990,8 +4223,13 @@ msgstr ""
 msgid "%s%s: error creating aspell option \"%s\" => \"%s\""
 msgstr "%s%s: erro ao criar opção para aspell \"%s\" => \"%s\""
 
-msgid "color used for misspelled words"
+#, fuzzy
+msgid "text color for misspelled words (input bar)"
 msgstr "cor usada em palavras erradas"
+
+#, fuzzy
+msgid "text color for suggestions on a misspelled word (status bar)"
+msgstr "cor de texto para o tempo (barra de status)"
 
 msgid ""
 "comma separated list of commands for which spell checking is enabled (spell "
@@ -4108,84 +4346,6 @@ msgid ""
 "  reset: reset charsets for current buffer"
 msgstr ""
 
-#, fuzzy
-msgid "Demo plugin"
-msgstr "plugin"
-
-msgid "demo message without prefix"
-msgstr ""
-
-#, c-format
-msgid "%sdemo message with error prefix"
-msgstr ""
-
-msgid "colors"
-msgstr "cores"
-
-msgid "Available infos:"
-msgstr ""
-
-msgid "Available infolists:"
-msgstr ""
-
-#, c-format
-msgid "demo_signal: signal: %s, type_data: %s, signal_data: \"%s\""
-msgstr ""
-
-#, c-format
-msgid "demo_signal: signal: %s, type_data: %s, signal_data: %d"
-msgstr ""
-
-#, c-format
-msgid "demo_signal: signal: %s, type_data: %s, signal_data: 0x%lx"
-msgstr ""
-
-#, c-format
-msgid ""
-"demo_signal: signal: %s, type_data: %s, signal_data: 0x%lx (unknown type)"
-msgstr ""
-
-msgid "print some messages on current buffer"
-msgstr "imprime algumas mensagens no buffer atual"
-
-msgid "<text>"
-msgstr "<texto>"
-
-msgid "text: write this text"
-msgstr "texto: escreva este texto"
-
-msgid "open a new buffer"
-msgstr "abre um novo buffer"
-
-msgid "<name>"
-msgstr "<nome>"
-
-msgid "get and display an info"
-msgstr "obtem e exbibe uma informação"
-
-msgid "<info> [<arguments>]"
-msgstr "<info> [<argumentos>]"
-
-msgid ""
-"     info: info to display\n"
-"arguments: optional arguments for info\n"
-"\n"
-"Without argument, this command displays list of available infos"
-msgstr ""
-
-msgid "get and display an infolist"
-msgstr ""
-
-msgid "<infolist> [<arguments>]"
-msgstr "<infolist> [<argumentos>]"
-
-msgid ""
-" infolist: infolist to display\n"
-"arguments: optional arguments for infolist\n"
-"\n"
-"Without argument, this command displays list of available infolists"
-msgstr ""
-
 msgid "FIFO pipe for remote control"
 msgstr ""
 
@@ -4272,6 +4432,14 @@ msgstr ""
 #, c-format
 msgid "%s%s%s %s(%s%s%s)%s is back on server"
 msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"%s%s: \"-yes\" argument is required for nick \"*\" (security reason), see /"
+"help %s"
+msgstr ""
+"%sErro: argumento \"-yes\" é requerido para as teclas de reset (por motivo "
+"de segurança)"
 
 #, c-format
 msgid "%s: future away: %s"
@@ -4454,12 +4622,6 @@ msgstr "não conectado"
 msgid " (temporary)"
 msgstr " (temporário)"
 
-msgid "on"
-msgstr "ligado"
-
-msgid "off"
-msgstr "desligado"
-
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuto"
@@ -4526,9 +4688,9 @@ msgid ""
 "disconnect %s\" before."
 msgstr ""
 
-#, c-format
-msgid "%s: Server %s%s%s has been deleted"
-msgstr ""
+#, fuzzy, c-format
+msgid "%s: server %s%s%s has been deleted"
+msgstr "Todos os filtros foram excluídos"
 
 #, c-format
 msgid ""
@@ -4693,11 +4855,35 @@ msgstr "remover status de semi-operador do(s) apelido(s)"
 msgid "<nick> [<nick>...]"
 msgstr "<apelido> [<apelido>...]"
 
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: remove channel half-operator status from everybody on channel except "
+"yourself"
+msgstr ""
+
 msgid "remove channel operator status from nick(s)"
 msgstr "remover status de operador de canal do(s) apelido(s)"
 
+#, fuzzy
+msgid "<nick> [<nick>...] || * -yes"
+msgstr "<apelido> [<apelido>...]"
+
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: remove channel operator status from everybody on channel except "
+"yourself"
+msgstr ""
+
 msgid "remove voice from nick(s)"
 msgstr ""
+
+#, fuzzy
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: remove voice from everybody on channel"
+msgstr ""
+"nome do atalho (pode começar ou terminar com \"*\" como um coringa) "
+"(opcional)"
 
 msgid "shutdown the server"
 msgstr "desligar o servidor"
@@ -4720,6 +4906,11 @@ msgstr ""
 
 msgid "give channel half-operator status to nick(s)"
 msgstr "dar status de semi-operador de canal ao(s) apelido(s)"
+
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: give channel half-operator status to everybody on channel"
+msgstr ""
 
 msgid "ignore nicks/hosts from servers or channels"
 msgstr "ignorar apelidos/hosts de servidores ou canais"
@@ -5007,6 +5198,11 @@ msgid ""
 msgstr ""
 
 msgid "give channel operator status to nick(s)"
+msgstr ""
+
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: give channel operator status to everybody on channel"
 msgstr ""
 
 msgid "get operator privileges"
@@ -5315,6 +5511,14 @@ msgstr ""
 msgid "give voice to nick(s)"
 msgstr ""
 
+#, fuzzy
+msgid ""
+"nick: nick or mask (can start or end with \"*\" as wildcard)\n"
+"   *: give voice to everybody on channel"
+msgstr ""
+"nome do atalho (pode começar ou terminar com \"*\" como um coringa) "
+"(opcional)"
+
 msgid "send a notice to channel ops"
 msgstr ""
 
@@ -5332,6 +5536,9 @@ msgid ""
 msgstr ""
 "envia uma mensagem para todos os usuários conectados que setaram o modo de "
 "usuário 'w' para eles mesmos"
+
+msgid "<text>"
+msgstr "<texto>"
 
 msgid "text: text to send"
 msgstr "texto: texto a ser enviado"
@@ -5532,11 +5739,13 @@ msgid ""
 "password, \"external\" for authentication using client side SSL cert"
 msgstr ""
 
-msgid "username for SASL authentication"
-msgstr "nome de usuário para autenticação SASL"
+msgid ""
+"username for SASL authentication (note: content is evaluated, see /help eval)"
+msgstr ""
 
-msgid "password for SASL authentication"
-msgstr "senha para autenticação SASL"
+msgid ""
+"password for SASL authentication (note: content is evaluated, see /help eval)"
+msgstr ""
 
 msgid "timeout (in seconds) before giving up SASL authentication"
 msgstr "limite de tempo (sem segundos) antes de desistir da autenticação SASL"
@@ -5567,10 +5776,12 @@ msgid ""
 "used)"
 msgstr ""
 
+#, fuzzy
 msgid ""
 "command(s) to run when connected to server (many commands should be "
 "separated by \";\", use \"\\;\" for a semicolon, special variables $nick, "
-"$channel and $server are replaced by their value)"
+"$channel and $server are replaced by their value) (note: content is "
+"evaluated, see /help eval)"
 msgstr ""
 "comando(s) para executar quando conectar ao servidor (em caso de mais de um "
 "comando, deve-se separá-los por \";\", use \"\\;\" para ponto-e-vírgula, "
@@ -5584,9 +5795,11 @@ msgstr ""
 "tempo de espera (em segundos) depois que um comando for executado (exemplo: "
 "espere algum tempo para a autenticação)"
 
+#, fuzzy
 msgid ""
 "comma separated list of channels to join when connected to server (example: "
-"\"#chan1,#chan2,#chan3 key1,key2\")"
+"\"#chan1,#chan2,#chan3 key1,key2\") (note: content is evaluated, see /help "
+"eval)"
 msgstr ""
 "lista de canais (separados por vírgula) para entrar quando conectar ao "
 "servidor (exemplo: \"#chan1,#chan2,#chan3 senha1,senha2\")"
@@ -6516,17 +6729,6 @@ msgstr "%sApelidos: %s%s%s: %s[%s%s%s]"
 msgid "%sNicks %s%s%s: %s[%s%s]"
 msgstr "%sApelidos %s%s%s: %s[%s%s]"
 
-#, c-format
-msgid ""
-"%sChannel %s%s%s: %s%d%s %s %s(%s%d%s %s, %s%d%s %s, %s%d%s %s, %s%d%s %s%s)"
-msgstr ""
-"%sCanal %s%s%s: %s%d%s %s %s(%s%d%s %s, %s%d%s %s, %s%d%s %s, %s%d%s %s%s)"
-
-msgid "nick"
-msgid_plural "nicks"
-msgstr[0] "apelido"
-msgstr[1] "apelidos"
-
 msgid "op"
 msgid_plural "ops"
 msgstr[0] "operado"
@@ -6541,6 +6743,15 @@ msgid "voice"
 msgid_plural "voices"
 msgstr[0] ""
 msgstr[1] ""
+
+#, fuzzy, c-format
+msgid "%sChannel %s%s%s: %s%d%s %s %s(%s%s)"
+msgstr "%sresposta CTCP para %s%s%s: %s%s%s%s%s"
+
+msgid "nick"
+msgid_plural "nicks"
+msgstr[0] "apelido"
+msgstr[1] "apelidos"
 
 #. TRANSLATORS: "%s" after "on" is a date
 #, c-format
@@ -7205,6 +7416,10 @@ msgstr ""
 
 msgid "list of hooks"
 msgstr ""
+
+#, fuzzy
+msgid "hook pointer (optional)"
+msgstr "ponteiro do apelido (opcional)"
 
 msgid ""
 "type,arguments (type is command/timer/.., arguments to get only some hooks "
@@ -7893,12 +8108,19 @@ msgstr ""
 "%sErro: argumento \"-yes\" é necessário para restaurar rmodifiers padrões "
 "(motivo de segurança)"
 
+#, fuzzy, c-format
+msgid "%d rmodifier added"
+msgid_plural "%d rmodifiers added"
+msgstr[0] "%d rmodifiers removidos"
+msgstr[1] "%d rmodifiers removidos"
+
 msgid "alter modifier strings with regular expressions"
 msgstr "alterar string modifier com expressões regulares"
 
+#, fuzzy
 msgid ""
 "list|listdefault || add <name> <modifiers> <groups> <regex> || del <name>|-"
-"all [<name>...] || default -yes"
+"all [<name>...] || missing || default -yes"
 msgstr ""
 "list|listdefault || add <nome> <modificadores> <grupos> <expressão_regular> "
 "|| del <nome>|-all [<nome>...] || default -yes"
@@ -7916,6 +8138,7 @@ msgid ""
 "become case sensitive)\n"
 "        del: delete a rmodifier\n"
 "       -all: delete all rmodifiers\n"
+"    missing: add missing rmodifiers\n"
 "    default: restore default rmodifiers\n"
 "\n"
 "Examples:\n"
@@ -8101,6 +8324,10 @@ msgid "script name (can start or end with \"*\" as wildcard) (optional)"
 msgstr ""
 "nome do script (pode começar ou terminar com \"*\" como um coringa) "
 "(opcional)"
+
+#, fuzzy
+msgid "callback of a script"
+msgstr "list de scripts"
 
 #, fuzzy, c-format
 msgid ""
@@ -8312,6 +8539,30 @@ msgstr ""
 msgid "%s: all scripts are up-to-date"
 msgstr "%s: scripts descarregados"
 
+#, fuzzy, c-format
+msgid "configuration file \"%s\" (options %s.*)"
+msgstr "opções de configuração"
+
+#, fuzzy, c-format
+msgid "command /%s"
+msgstr "comandos do weechat"
+
+#, fuzzy, c-format
+msgid "completion %%(%s)"
+msgstr "Opção \"%s%s%s\":"
+
+#, fuzzy, c-format
+msgid "bar item \"%s\""
+msgstr "item da barra"
+
+#, fuzzy, c-format
+msgid "options %s%s%s"
+msgstr "Opção \"%s%s%s\":"
+
+#, fuzzy
+msgid "(old options?)"
+msgstr "(opções padrão)"
+
 msgid "Script"
 msgstr ""
 
@@ -8360,6 +8611,13 @@ msgstr "quit WeeChat"
 #, fuzzy
 msgid "Max WeeChat"
 msgstr "quit WeeChat"
+
+#, fuzzy
+msgid "Script has defined:"
+msgstr "scripts %s carregados:"
+
+msgid "(nothing)"
+msgstr ""
 
 msgid "Alt+key/input: v=back to list d=jump to diff"
 msgstr ""
@@ -9140,5 +9398,8 @@ msgstr ""
 msgid "Constants"
 msgstr ""
 
-#~ msgid "%s default keys (context: \"%s\"):\n"
-#~ msgstr "Teclas de atalho padrão do %s (contexto \"%s\"):\n"
+#~ msgid "username for SASL authentication"
+#~ msgstr "nome de usuário para autenticação SASL"
+
+#~ msgid "password for SASL authentication"
+#~ msgstr "senha para autenticação SASL"

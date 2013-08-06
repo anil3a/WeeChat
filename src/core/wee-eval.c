@@ -33,6 +33,7 @@
 #include "wee-hashtable.h"
 #include "wee-hdata.h"
 #include "wee-hook.h"
+#include "wee-secure.h"
 #include "wee-string.h"
 #include "../gui/gui-buffer.h"
 #include "../gui/gui-color.h"
@@ -40,9 +41,11 @@
 #include "../plugins/plugin.h"
 
 
-char *logical_ops[EVAL_NUM_LOGICAL_OPS] = { "&&", "||" };
+char *logical_ops[EVAL_NUM_LOGICAL_OPS] = { "||", "&&" };
 char *comparisons[EVAL_NUM_COMPARISONS] = { "==", "!=", "<=", "<", ">=", ">",
                                             "=~", "!~" };
+
+struct t_hashtable *eval_hashtable_pointers = NULL;
 
 
 /*
@@ -214,9 +217,10 @@ end:
 /*
  * Replaces variables, which can be, by order of priority:
  *   1. an extra variable (from hashtable "extra_vars")
- *   2. an name of option (file.section.option)
- *   3. a buffer local variable
- *   4. a hdata name/variable
+ *   2. a color (format: color:xxx)
+ *   3. an option (format: file.section.option)
+ *   4. a buffer local variable
+ *   5. a hdata name/variable
  *
  * Examples:
  *   option: ${weechat.look.scroll_amount}
@@ -240,34 +244,52 @@ eval_replace_vars_cb (void *data, const char *text)
     extra_vars = (struct t_hashtable *)(((void **)data)[1]);
 
     /* 1. look for var in hashtable "extra_vars" */
-    ptr_value = hashtable_get (extra_vars, text);
-    if (ptr_value)
-        return strdup (ptr_value);
-
-    /* 2. look for name of option: if found, return this value */
-    config_file_search_with_string (text, NULL, NULL, &ptr_option, NULL);
-    if (ptr_option)
+    if (extra_vars)
     {
-        switch (ptr_option->type)
+        ptr_value = hashtable_get (extra_vars, text);
+        if (ptr_value)
+            return strdup (ptr_value);
+    }
+
+    /* 2. look for a color */
+    if (strncmp (text, "color:", 6) == 0)
+    {
+        ptr_value = gui_color_get_custom (text + 6);
+        return strdup ((ptr_value) ? ptr_value : "");
+    }
+
+    /* 3. look for name of option: if found, return this value */
+    if (strncmp (text, "sec.data.", 9) == 0)
+    {
+        ptr_value = hashtable_get (secure_hashtable_data, text + 9);
+        return strdup ((ptr_value) ? ptr_value : "");
+    }
+    else
+    {
+        config_file_search_with_string (text, NULL, NULL, &ptr_option, NULL);
+        if (ptr_option)
         {
-            case CONFIG_OPTION_TYPE_BOOLEAN:
-                return strdup (CONFIG_BOOLEAN(ptr_option) ? EVAL_STR_TRUE : EVAL_STR_FALSE);
-            case CONFIG_OPTION_TYPE_INTEGER:
-                if (ptr_option->string_values)
-                    return strdup (ptr_option->string_values[CONFIG_INTEGER(ptr_option)]);
-                snprintf (str_value, sizeof (str_value),
-                          "%d", CONFIG_INTEGER(ptr_option));
-                return strdup (str_value);
-            case CONFIG_OPTION_TYPE_STRING:
-                return strdup (CONFIG_STRING(ptr_option));
-            case CONFIG_OPTION_TYPE_COLOR:
-                return strdup (gui_color_get_name (CONFIG_COLOR(ptr_option)));
-            case CONFIG_NUM_OPTION_TYPES:
-                return NULL;
+            switch (ptr_option->type)
+            {
+                case CONFIG_OPTION_TYPE_BOOLEAN:
+                    return strdup (CONFIG_BOOLEAN(ptr_option) ? EVAL_STR_TRUE : EVAL_STR_FALSE);
+                case CONFIG_OPTION_TYPE_INTEGER:
+                    if (ptr_option->string_values)
+                        return strdup (ptr_option->string_values[CONFIG_INTEGER(ptr_option)]);
+                    snprintf (str_value, sizeof (str_value),
+                              "%d", CONFIG_INTEGER(ptr_option));
+                    return strdup (str_value);
+                case CONFIG_OPTION_TYPE_STRING:
+                    return strdup (CONFIG_STRING(ptr_option));
+                case CONFIG_OPTION_TYPE_COLOR:
+                    return strdup (gui_color_get_name (CONFIG_COLOR(ptr_option)));
+                case CONFIG_NUM_OPTION_TYPES:
+                    return NULL;
+            }
         }
     }
 
-    /* 3. look for local variable in buffer */
+    /* 4. look for local variable in buffer */
     ptr_buffer = hashtable_get (pointers, "buffer");
     if (ptr_buffer)
     {
@@ -276,7 +298,7 @@ eval_replace_vars_cb (void *data, const char *text)
             return strdup (ptr_value);
     }
 
-    /* 4. look for hdata */
+    /* 5. look for hdata */
     value = NULL;
     hdata_name = NULL;
     list_name = NULL;
@@ -333,11 +355,14 @@ end:
 
 /*
  * Replaces variables in a string.
+ *
+ * Note: result must be freed after use.
  */
 
 char *
 eval_replace_vars (const char *expr, struct t_hashtable *pointers,
-                   struct t_hashtable *extra_vars)
+                   struct t_hashtable *extra_vars,
+                   const char *prefix, const char *suffix)
 {
     int errors;
     void *ptr[2];
@@ -345,7 +370,7 @@ eval_replace_vars (const char *expr, struct t_hashtable *pointers,
     ptr[0] = pointers;
     ptr[1] = extra_vars;
 
-    return string_replace_with_callback (expr,
+    return string_replace_with_callback (expr, prefix, suffix,
                                          &eval_replace_vars_cb,
                                          ptr,
                                          &errors);
@@ -453,19 +478,21 @@ end:
 }
 
 /*
- * Evaluates an expression (this function must not be called directly).
+ * Evaluates a condition (this function must not be called directly).
  *
  * Argument keep_parentheses is almost always 0, it is 1 only if the expression
  * is a regex (to keep flags inside the parentheses).
  *
  * For return value, see function eval_expression().
- * Note: result must be freed after use.
+ *
+ * Note: result must be freed after use (if not NULL).
  */
 
 char *
-eval_expression_internal (const char *expr, struct t_hashtable *pointers,
-                          struct t_hashtable *extra_vars,
-                          int keep_parentheses)
+eval_expression_condition (const char *expr, struct t_hashtable *pointers,
+                           struct t_hashtable *extra_vars,
+                           int keep_parentheses,
+                           const char *prefix, const char *suffix)
 {
     int logic, comp, length, level, rc;
     const char *pos_end;
@@ -525,7 +552,9 @@ eval_expression_internal (const char *expr, struct t_hashtable *pointers,
             sub_expr = string_strndup (expr2 + 1, pos - expr2 - 1);
             if (!sub_expr)
                 goto end;
-            tmp_value = eval_expression_internal (sub_expr, pointers, extra_vars, 0);
+            tmp_value = eval_expression_condition (sub_expr, pointers,
+                                                   extra_vars,
+                                                   0, prefix, suffix);
             free (sub_expr);
             if (!pos[1])
             {
@@ -567,7 +596,9 @@ eval_expression_internal (const char *expr, struct t_hashtable *pointers,
             sub_expr = string_strndup (expr2, pos_end + 1 - expr2);
             if (!sub_expr)
                 goto end;
-            tmp_value = eval_expression_internal (sub_expr, pointers, extra_vars, 0);
+            tmp_value = eval_expression_condition (sub_expr, pointers,
+                                                   extra_vars,
+                                                   0, prefix, suffix);
             free (sub_expr);
             rc = eval_is_true (tmp_value);
             if (tmp_value)
@@ -587,7 +618,8 @@ eval_expression_internal (const char *expr, struct t_hashtable *pointers,
             {
                 pos++;
             }
-            tmp_value = eval_expression_internal (pos, pointers, extra_vars, 0);
+            tmp_value = eval_expression_condition (pos, pointers, extra_vars,
+                                                   0, prefix, suffix);
             rc = eval_is_true (tmp_value);
             if (tmp_value)
                 free (tmp_value);
@@ -616,16 +648,19 @@ eval_expression_internal (const char *expr, struct t_hashtable *pointers,
             sub_expr = string_strndup (expr2, pos_end + 1 - expr2);
             if (!sub_expr)
                 goto end;
-            tmp_value = eval_expression_internal (sub_expr, pointers, extra_vars, 0);
+            tmp_value = eval_expression_condition (sub_expr, pointers,
+                                                   extra_vars,
+                                                   0, prefix, suffix);
             free (sub_expr);
             pos += strlen (comparisons[comp]);
             while (pos[0] == ' ')
             {
                 pos++;
             }
-            tmp_value2 = eval_expression_internal (pos, pointers, extra_vars,
-                                                   ((comp == EVAL_COMPARE_REGEX_MATCHING)
-                                                    || (comp == EVAL_COMPARE_REGEX_NOT_MATCHING)) ? 1 : 0);
+            tmp_value2 = eval_expression_condition (pos, pointers, extra_vars,
+                                                    ((comp == EVAL_COMPARE_REGEX_MATCHING)
+                                                     || (comp == EVAL_COMPARE_REGEX_NOT_MATCHING)) ? 1 : 0,
+                                                    prefix, suffix);
             value = eval_compare (tmp_value, comp, tmp_value2);
             if (tmp_value)
                 free (tmp_value);
@@ -639,7 +674,7 @@ eval_expression_internal (const char *expr, struct t_hashtable *pointers,
      * at this point, there is no more logical operator neither comparison,
      * so we just replace variables in string and return the result
      */
-    value = eval_replace_vars (expr2, pointers, extra_vars);
+    value = eval_replace_vars (expr2, pointers, extra_vars, prefix, suffix);
 
 end:
     if (expr2)
@@ -653,56 +688,75 @@ end:
  *
  * The hashtable "pointers" must have string for keys, pointer for values.
  * The hashtable "extra_vars" must have string for keys and values.
+ * The hashtable "options" must have string for keys and values.
  *
- * The expression can contain:
+ * Supported options:
+ *   - prefix: change the default prefix before variables to replace ("${")
+ *   - suffix: change the default suffix after variables to replace ('}")
+ *   - type:
+ *       - condition: evaluate as a condition (use operators/parentheses,
+ *         return a boolean)
+ *
+ * If the expression is a condition, it can contain:
  *   - conditions:  ==  != <  <=  >  >=
  *   - logical operators:  &&  ||
  *   - parentheses for priority
  *
- * Examples (the [ ] are NOT part of result):
+ * Examples of simple expression without condition (the [ ] are NOT part of
+ * result):
  *   >> ${window.buffer.number}
  *   == [2]
  *   >> buffer:${window.buffer.full_name}
  *   == [buffer:irc.freenode.#weechat]
- *   >> ${window.buffer.full_name} == irc.freenode.#weechat
- *   == [1]
- *   >> ${window.buffer.full_name} == irc.freenode.#test
- *   == [0]
  *   >> ${window.win_width}
  *   == [112]
  *   >> ${window.win_height}
  *   == [40]
+ *
+ * Examples of conditions:
+ *   >> ${window.buffer.full_name} == irc.freenode.#weechat
+ *   == [1]
+ *   >> ${window.buffer.full_name} == irc.freenode.#test
+ *   == [0]
  *   >> ${window.win_width} >= 30 && ${window.win_height} >= 20
  *   == [1]
  *
- * Note: result must be freed after use.
+ * Note: result must be freed after use (if not NULL).
  */
 
 char *
 eval_expression (const char *expr, struct t_hashtable *pointers,
-                 struct t_hashtable *extra_vars)
+                 struct t_hashtable *extra_vars, struct t_hashtable *options)
 {
-    int pointers_created, extra_vars_created;
+    int condition, rc;
     char *value;
+    const char *prefix, *suffix, *default_prefix = "${", *default_suffix = "}";
+    const char *ptr_value;
     struct t_gui_window *window;
 
     if (!expr)
         return NULL;
 
-    pointers_created = 0;
-    extra_vars_created = 0;
+    condition = 0;
+    prefix = default_prefix;
+    suffix = default_suffix;
 
     /* create hashtable pointers if it's NULL */
     if (!pointers)
     {
-        pointers = hashtable_new (32,
-                                  WEECHAT_HASHTABLE_STRING,
-                                  WEECHAT_HASHTABLE_POINTER,
-                                  NULL,
-                                  NULL);
-        if (!pointers)
-            return NULL;
-        pointers_created = 1;
+        if (eval_hashtable_pointers)
+            hashtable_remove_all (eval_hashtable_pointers);
+        else
+        {
+            eval_hashtable_pointers = hashtable_new (32,
+                                                     WEECHAT_HASHTABLE_STRING,
+                                                     WEECHAT_HASHTABLE_POINTER,
+                                                     NULL,
+                                                     NULL);
+            if (!eval_hashtable_pointers)
+                return NULL;
+        }
+        pointers = eval_hashtable_pointers;
     }
 
     /*
@@ -721,25 +775,55 @@ eval_expression (const char *expr, struct t_hashtable *pointers,
         }
     }
 
-    /* create hashtable extra_vars if it's NULL */
-    if (!extra_vars)
+    /* read options */
+    if (options)
     {
-        extra_vars = hashtable_new (32,
-                                    WEECHAT_HASHTABLE_STRING,
-                                    WEECHAT_HASHTABLE_STRING,
-                                    NULL,
-                                    NULL);
-        if (!extra_vars)
-            return NULL;
-        extra_vars_created = 1;
+        /* check the type of evaluation */
+        ptr_value = hashtable_get (options, "type");
+        if (ptr_value && (strcmp (ptr_value, "condition") == 0))
+            condition = 1;
+
+        /* check for custom prefix */
+        ptr_value = hashtable_get (options, "prefix");
+        if (ptr_value && ptr_value[0])
+            prefix = ptr_value;
+
+        /* check for custom suffix */
+        ptr_value = hashtable_get (options, "suffix");
+        if (ptr_value && ptr_value[0])
+            suffix = ptr_value;
     }
 
-    value = eval_expression_internal (expr, pointers, extra_vars, 0);
-
-    if (pointers_created)
-        hashtable_free (pointers);
-    if (extra_vars_created)
-        hashtable_free (extra_vars);
+    /* evaluate expression */
+    if (condition)
+    {
+        /* evaluate as condition (return a boolean: "0" or "1") */
+        value = eval_expression_condition (expr, pointers, extra_vars,
+                                           0, prefix, suffix);
+        rc = eval_is_true (value);
+        if (value)
+            free (value);
+        value = strdup ((rc) ? EVAL_STR_TRUE : EVAL_STR_FALSE);
+    }
+    else
+    {
+        /* only replace variables in expression */
+        value = eval_replace_vars (expr, pointers, extra_vars, prefix, suffix);
+    }
 
     return value;
+}
+
+/*
+ * Frees all allocated data.
+ */
+
+void
+eval_end ()
+{
+    if (eval_hashtable_pointers)
+    {
+        hashtable_free (eval_hashtable_pointers);
+        eval_hashtable_pointers = NULL;
+    }
 }

@@ -149,8 +149,7 @@ irc_protocol_tags (const char *command, const char *tags, const char *nick)
 IRC_PROTOCOL_CALLBACK(authenticate)
 {
     int sasl_mechanism;
-    const char *sasl_username, *sasl_password;
-    char *answer;
+    char *sasl_username, *sasl_password, *answer;
 
     IRC_PROTOCOL_MIN_ARGS(2);
 
@@ -158,10 +157,12 @@ IRC_PROTOCOL_CALLBACK(authenticate)
     {
         sasl_mechanism = IRC_SERVER_OPTION_INTEGER(server,
                                                    IRC_SERVER_OPTION_SASL_MECHANISM);
-        sasl_username = IRC_SERVER_OPTION_STRING(server,
-                                                 IRC_SERVER_OPTION_SASL_USERNAME);
-        sasl_password = IRC_SERVER_OPTION_STRING(server,
-                                                 IRC_SERVER_OPTION_SASL_PASSWORD);
+        sasl_username = weechat_string_eval_expression (IRC_SERVER_OPTION_STRING(server,
+                                                                                 IRC_SERVER_OPTION_SASL_USERNAME),
+                                                        NULL, NULL, NULL);
+        sasl_password = weechat_string_eval_expression (IRC_SERVER_OPTION_STRING(server,
+                                                                                 IRC_SERVER_OPTION_SASL_PASSWORD),
+                                                        NULL, NULL, NULL);
         answer = NULL;
         switch (sasl_mechanism)
         {
@@ -198,6 +199,10 @@ IRC_PROTOCOL_CALLBACK(authenticate)
                             irc_sasl_mechanism_string[IRC_SERVER_OPTION_INTEGER(server, IRC_SERVER_OPTION_SASL_MECHANISM)]);
             irc_server_sendf (server, 0, NULL, "CAP END");
         }
+        if (sasl_username)
+            free (sasl_username);
+        if (sasl_password)
+            free (sasl_password);
     }
 
     return WEECHAT_RC_OK;
@@ -2076,9 +2081,7 @@ IRC_PROTOCOL_CALLBACK(wallops)
 
 IRC_PROTOCOL_CALLBACK(001)
 {
-    char **commands, **ptr_cmd, *vars_replaced;
-    char *away_msg;
-    const char *ptr_command;
+    char *server_command, **commands, **ptr_command, *vars_replaced, *away_msg;
 
     IRC_PROTOCOL_MIN_ARGS(3);
 
@@ -2117,19 +2120,21 @@ IRC_PROTOCOL_CALLBACK(001)
                               WEECHAT_HOOK_SIGNAL_STRING, server->name);
 
     /* execute command when connected */
-    ptr_command = IRC_SERVER_OPTION_STRING(server, IRC_SERVER_OPTION_COMMAND);
-    if (ptr_command && ptr_command[0])
+    server_command = weechat_string_eval_expression (IRC_SERVER_OPTION_STRING(server,
+                                                                              IRC_SERVER_OPTION_COMMAND),
+                                                     NULL, NULL, NULL);
+    if (server_command && server_command[0])
     {
-        /* splitting command on ';' which can be escaped with '\;' */
-        commands = weechat_string_split_command (ptr_command, ';');
+        /* split command on ';' which can be escaped with '\;' */
+        commands = weechat_string_split_command (server_command, ';');
         if (commands)
         {
-            for (ptr_cmd = commands; *ptr_cmd; ptr_cmd++)
+            for (ptr_command = commands; *ptr_command; ptr_command++)
             {
                 vars_replaced = irc_message_replace_vars (server, NULL,
-                                                          *ptr_cmd);
+                                                          *ptr_command);
                 weechat_command (server->buffer,
-                                 (vars_replaced) ? vars_replaced : *ptr_cmd);
+                                 (vars_replaced) ? vars_replaced : *ptr_command);
                 if (vars_replaced)
                     free (vars_replaced);
             }
@@ -2143,6 +2148,9 @@ IRC_PROTOCOL_CALLBACK(001)
     }
     else
         irc_server_autojoin_channels (server);
+
+    if (server_command)
+        free (server_command);
 
     return WEECHAT_RC_OK;
 }
@@ -3974,7 +3982,7 @@ IRC_PROTOCOL_CALLBACK(366)
     struct t_infolist *infolist;
     struct t_config_option *ptr_option;
     int num_nicks, num_op, num_halfop, num_voice, num_normal, length, i;
-    char *string;
+    char *string, str_nicks_count[2048];
     const char *prefix, *prefix_color, *nickname;
 
     IRC_PROTOCOL_MIN_ARGS(5);
@@ -4077,13 +4085,58 @@ IRC_PROTOCOL_CALLBACK(366)
             /* display number of nicks, ops, halfops & voices on the channel */
             irc_nick_count (server, ptr_channel, &num_nicks, &num_op, &num_halfop,
                             &num_voice, &num_normal);
+            str_nicks_count[0] = '\0';
+            if (irc_server_get_prefix_mode_index (server, 'o') >= 0)
+            {
+                length = strlen (str_nicks_count);
+                snprintf (str_nicks_count + length,
+                          sizeof (str_nicks_count) - length,
+                          "%s%s%d%s %s",
+                          (str_nicks_count[0]) ? ", " : "",
+                          IRC_COLOR_CHAT_CHANNEL,
+                          num_op,
+                          IRC_COLOR_RESET,
+                          NG_("op", "ops", num_op));
+            }
+            if (irc_server_get_prefix_mode_index (server, 'h') >= 0)
+            {
+                length = strlen (str_nicks_count);
+                snprintf (str_nicks_count + length,
+                          sizeof (str_nicks_count) - length,
+                          "%s%s%d%s %s",
+                          (str_nicks_count[0]) ? ", " : "",
+                          IRC_COLOR_CHAT_CHANNEL,
+                          num_halfop,
+                          IRC_COLOR_RESET,
+                          NG_("halfop", "halfops", num_halfop));
+            }
+            if (irc_server_get_prefix_mode_index (server, 'v') >= 0)
+            {
+                length = strlen (str_nicks_count);
+                snprintf (str_nicks_count + length,
+                          sizeof (str_nicks_count) - length,
+                          "%s%s%d%s %s",
+                          (str_nicks_count[0]) ? ", " : "",
+                          IRC_COLOR_CHAT_CHANNEL,
+                          num_voice,
+                          IRC_COLOR_RESET,
+                          NG_("voice", "voices", num_voice));
+            }
+            length = strlen (str_nicks_count);
+            snprintf (str_nicks_count + length,
+                      sizeof (str_nicks_count) - length,
+                      "%s%s%d%s %s",
+                      (str_nicks_count[0]) ? ", " : "",
+                      IRC_COLOR_CHAT_CHANNEL,
+                      num_normal,
+                      IRC_COLOR_RESET,
+                      NG_("normal", "normals", num_normal));
             weechat_printf_date_tags (irc_msgbuffer_get_target_buffer (server, NULL,
                                                                        command, "names",
                                                                        ptr_channel->buffer),
                                       date,
                                       irc_protocol_tags (command, "irc_numeric", NULL),
-                                      _("%sChannel %s%s%s: %s%d%s %s %s(%s%d%s %s, "
-                                        "%s%d%s %s, %s%d%s %s, %s%d%s %s%s)"),
+                                      _("%sChannel %s%s%s: %s%d%s %s %s(%s%s)"),
                                       weechat_prefix ("network"),
                                       IRC_COLOR_CHAT_CHANNEL,
                                       ptr_channel->name,
@@ -4093,22 +4146,7 @@ IRC_PROTOCOL_CALLBACK(366)
                                       IRC_COLOR_RESET,
                                       NG_("nick", "nicks", num_nicks),
                                       IRC_COLOR_CHAT_DELIMITERS,
-                                      IRC_COLOR_CHAT_CHANNEL,
-                                      num_op,
-                                      IRC_COLOR_RESET,
-                                      NG_("op", "ops", num_op),
-                                      IRC_COLOR_CHAT_CHANNEL,
-                                      num_halfop,
-                                      IRC_COLOR_RESET,
-                                      NG_("halfop", "halfops", num_halfop),
-                                      IRC_COLOR_CHAT_CHANNEL,
-                                      num_voice,
-                                      IRC_COLOR_RESET,
-                                      NG_("voice", "voices", num_voice),
-                                      IRC_COLOR_CHAT_CHANNEL,
-                                      num_normal,
-                                      IRC_COLOR_RESET,
-                                      NG_("normal", "normals", num_normal),
+                                      str_nicks_count,
                                       IRC_COLOR_CHAT_DELIMITERS);
         }
 

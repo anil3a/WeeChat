@@ -91,7 +91,8 @@ welche Pakete optional genutzt werden können.
 | libncursesw5-dev ^(2)^            |             | *ja*     | ncurses Oberfläche
 | libcurl4-gnutls-dev               |             | *ja*     | URL Transfer
 | zlib1g-dev                        |             | *ja*     | Kompression für Pakete, die mittels Relay- (WeeChat Protokoll), Script-Erweiterung übertragen werden
-| libgcrypt11-dev                   |             | *ja*     | IRC SASL Authentifikation (DH-BLOWFISH/DH-AES), Skript-Erweiterung
+// TRANSLATION MISSING
+| libgcrypt11-dev                   |             | *ja*     | secured data, IRC SASL Authentifikation (DH-BLOWFISH/DH-AES), Skript-Erweiterung
 | libgnutls-dev                     | ≥ 2.2.0     |          | SSL Verbindung zu einem IRC Server, Unterstützung von SSL in der Relay-Erweiterung
 | gettext                           |             |          | Internationalisierung (Übersetzung der Mitteilungen; Hauptsprache ist englisch)
 | ca-certificates                   |             |          | Zertifikate für SSL Verbindungen
@@ -102,8 +103,9 @@ welche Pakete optional genutzt werden können.
 | liblua5.1-0-dev                   |             |          | lua Erweiterung
 | tcl-dev                           | ≥ 8.5       |          | tcl Erweiterung
 | guile-2.0-dev                     | ≥ 2.0       |          | guile (scheme) Erweiterung
-| asciidoc                          | ≥ 8.5.0     |          | erstellt Dokumentation (HTML Dateien)
-| source-highlight                  |             |          | Syntax Highlight für Quelltext in HTML Dokumentation
+// TRANSLATION MISSING
+| asciidoc                          | ≥ 8.5.0     |          | build man page and documentation
+| source-highlight                  |             |          | Syntax Highlight für Quelltext in Dokumentation
 | xsltproc,
   docbook-xml, docbook-xsl          |             |          | erstellt man page
 |========================================
@@ -144,7 +146,7 @@ Optionen für cmake können mit dem Format, "-DOPTION=VALUE", genutzt werden.
 
 Liste von häufig verwendeten Optionen:
 
-[width="100%",cols="2m,2,2m,12",options="header"]
+[width="100%",cols="2m,2,5m,12",options="header"]
 |========================================
 | Option | Wert | Standardwert | Beschreibung
 
@@ -158,6 +160,12 @@ Liste von häufig verwendeten Optionen:
 | WEECHAT_HOME | directory | ~/.weechat |
   Standard-Verzeichnis in welchem die Daten liegen.
 
+// TRANSLATION MISSING
+| CA_FILE | file | /etc/ssl/certs/ca-certificates.crt |
+  File containing the certificate authorities.
+  This is the default value of option
+  <<option_weechat.network.gnutls_ca_file,weechat.network.gnutls_ca_file>>.
+
 | ENABLE_ALIAS | `ON`, `OFF` | ON |
   kompiliert <<alias_plugin,Alias Erweiterung>>.
 
@@ -167,8 +175,9 @@ Liste von häufig verwendeten Optionen:
 | ENABLE_CHARSET | `ON`, `OFF` | ON |
   kompiliert <<charset_plugin,Charset Erweiterung>>.
 
-| ENABLE_DEMO | `ON`, `OFF` | OFF |
-  kompiliert Demo-Erweiterung.
+// TRANSLATION MISSING
+| ENABLE_MAN | `ON`, `OFF` | OFF |
+  Compile man page.
 
 // TRANSLATION MISSING
 | ENABLE_DOC | `ON`, `OFF` | OFF |
@@ -361,16 +370,16 @@ Falls WeeChat abstürzen sollte wird auf Ihrem System eine 'core' bzw. 'core.123
 Diese Datei wird in dem Verzeichnis erzeugt aus welchem Sie WeeChat gestartet haben (dies
 ist *nicht* das Verzeichnis in welchem sich WeeChat befindet!).
 
-Beispiel: 'weechat-curses' ist installiert in '/usr/bin/' und die 'core' Datei befindet sich
+Beispiel: 'weechat' ist installiert in '/usr/bin/' und die 'core' Datei befindet sich
 in '/home/xxx/'. Nun wird gdb mit folgendem Befehl aufgerufen:
 
 ----------------------------------------
-gdb /usr/bin/weechat-curses /home/xxx/core
+gdb /usr/bin/weechat /home/xxx/core
 ----------------------------------------
 
 [NOTE]
 Ist das Binärpaket 'weechat-dbg' (z.B. Debian) installiert dann sollte dieser Pfad zum
-starten von WeeChat genutzt werden: '/usr/lib/debug/usr/bin/weechat-curses'
+starten von WeeChat genutzt werden: '/usr/lib/debug/usr/bin/weechat'
 
 Nun startet man 'gdb' und führt den Befehl `bt full` innerhalb gdb aus um die Fehlermeldung
 auszugeben. Eine Fehlermeldung von gdb sieht z.B. wie folgt aus:
@@ -411,10 +420,10 @@ Eine laufende Session von WeeChat debuggen
 
 Um eine laufende Session von WeeChat zu debuggen (zum Beispiel wenn WeeChat nicht
 mehr reagieren sollte) sollte man gdb mit der Prozess-ID starten ('12345' muss durch
-die PID des laufenden weechat-curses Prozesses ersetzt werden):
+die PID des laufenden weechat Prozesses ersetzt werden):
 
 ----------------------------------------
-gdb /usr/bin/weechat-curses 12345
+gdb /usr/bin/weechat 12345
 ----------------------------------------
 
 Sollte WeeChat abgestürzt sein, muss der Befehl `bt full` genutzt werden:
@@ -438,7 +447,7 @@ include::cmdline_options.de.txt[]
 Um WeeChat zu starten muss folgender Befehl ausgeführt werden:
 
 ----------------------------------------
-$ weechat-curses
+$ weechat
 ----------------------------------------
 
 Wird WeeChat zum ersten mal gestartet wird eine Konfigurationsdatei
@@ -1353,7 +1362,7 @@ was die Farbdarstellung in WeeChat betrifft:
 können lediglich 256 Farbpaare durch WeeChat genutzt werden, dies ist eine Einschränkung
 von ncurses.
 
-Mittels `weechat-curses --colors` oder dem internen WeeChat-Befehl `/color` kann man sich
+Mittels `weechat --colors` oder dem internen WeeChat-Befehl `/color` kann man sich
 die Einschränkungen für die jeweilige Umgebungsvariable anzeigen lassen.
 
 Folgende Werte sind für die 'TERM'-Umgebungsvariable zu empfehlen, sofern man 256 Farben
@@ -1487,6 +1496,13 @@ Um der Vordergrundfarbe des Terminals das Attribut "fett" zuzuordnen:
 /set weechat.color.status_time *99999
 ----------------------------------------
 
+// TRANSLATION MISSING
+[[sec_options]]
+Secured data options (sec.conf)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+include::autogen/user/sec_options.txt[]
+
 [[weechat_options]]
 WeeChat Optionen (weechat.conf)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1544,7 +1560,6 @@ Standarderweiterungen:
 | alias       | definiert Alias für Befehle
 | aspell      | Rechtschreibprüfung für Befehlszeile
 | charset     | Zeichensatz (de)-kodierung in Buffern
-| demo        | Demo Erweiterung (nicht standardmäßig kompiliert)
 | fifo        | FIFO Pipe die zur Fernsteuerung von WeeChat genutzt werden kann
 | irc         | IRC Chat-Protokoll
 | logger      | erstellt Protokolldateien von Buffern
@@ -1830,7 +1845,7 @@ Beispiel: Anmelden beim Server 'irc.freenode.net' mit dem Nick 'nono' und betret
 der Channels '#weechat' und '#toto' (Standardport (6667) wird genutzt):
 
 ----------------------------------------
-$ weechat-curses irc://nono@irc.freenode.net/#weechat,#toto
+$ weechat irc://nono@irc.freenode.net/#weechat,#toto
 ----------------------------------------
 
 [[irc_options]]
