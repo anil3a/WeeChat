@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-07-13 16:06+0900\n"
-"PO-Revision-Date: 2013-07-13 16:35+0900\n"
+"POT-Creation-Date: 2013-08-06 12:51+0900\n"
+"PO-Revision-Date: 2013-08-06 19:34+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -687,34 +687,34 @@ msgid "%sError: failed to save options to %s"
 msgstr "%sエラー: %s へのオプションの保存に失敗しました"
 
 msgid "There is no encrypted data"
-msgstr ""
+msgstr "暗号化されたデータはありません"
 
 #, fuzzy
 msgid "All encrypted data has been deleted"
 msgstr "全てのバーを削除しました"
 
 msgid "Encrypted data has been successfully decrypted"
-msgstr ""
+msgstr "暗号化されたデータの復号に成功しました"
 
 #, c-format
 msgid "%sFailed to decrypt data (wrong passphrase?)"
-msgstr ""
+msgstr "%sデータの復号に失敗しました (パスフレーズが間違っているかも?)"
 
 #, c-format
 msgid ""
 "%sYou must decrypt data still encrypted before doing any operation on "
 "secured data or passphrase"
-msgstr ""
+msgstr "%s保護されたデータやパスフレーズを操作する前にデータを復号してください"
 
 #, fuzzy
 msgid "Passphrase deleted"
 msgstr "バー \"%s\" を削除しました"
 
 msgid "Passphrase is not set"
-msgstr ""
+msgstr "パスフレーズが設定されていません"
 
 msgid "Passphrase changed"
-msgstr ""
+msgstr "パスフレーズを変更"
 
 #, fuzzy
 msgid "Passphrase added"
@@ -722,7 +722,7 @@ msgstr "追加日時"
 
 #, c-format
 msgid "Secured data \"%s\" set"
-msgstr ""
+msgstr "保護されたデータ \"%s\" を設定"
 
 #, fuzzy, c-format
 msgid "Secured data \"%s\" deleted"
@@ -2079,11 +2079,15 @@ msgstr ""
 msgid ""
 "manage secured data (passwords or private data encrypted in file sec.conf)"
 msgstr ""
+"保護されたデータを管理します (パスワードやプライベートデータは暗号化されて "
+"sec.conf ファイルに保存)"
 
 msgid ""
 "passphrase <passphrase>|-delete || decrypt <passphrase>|-discard || set "
 "<name> <value> || del <name>"
 msgstr ""
+"passphrase <passphrase>|-delete || decrypt <passphrase>|-discard || set "
+"<name> <value> || del <name>"
 
 msgid ""
 "passphrase: change the passphrase (without passphrase, data is stored as "
@@ -2570,7 +2574,7 @@ msgid "names of layouts"
 msgstr "レイアウトの名前"
 
 msgid "names of secured data (file sec.conf, section data)"
-msgstr ""
+msgstr "保護されたデータの名前 (sec.conf ファイル、セクションデータ)"
 
 msgid ""
 "Warning: you should now issue /save to write \"save_config_on_exit\" option "
