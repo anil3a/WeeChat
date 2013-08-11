@@ -509,7 +509,8 @@ command_buffer_display_localvar (void *data,
 
 COMMAND_CALLBACK(buffer)
 {
-    struct t_gui_buffer *ptr_buffer, *ptr_buffer2, *weechat_buffer;
+    struct t_gui_buffer *ptr_buffer, *ptr_buffer2, *ptr_prev_buffer;
+    struct t_gui_buffer *weechat_buffer;
     long number, number1, number2;
     char *error, *value, *pos, *str_number1, *pos_number2;
     int i, target_buffer, error_main_buffer, num_buffers;
@@ -798,9 +799,10 @@ COMMAND_CALLBACK(buffer)
                     num_buffers = 0;
                     for (i = number2; i >= number1; i--)
                     {
-                        for (ptr_buffer = last_gui_buffer; ptr_buffer;
-                             ptr_buffer = ptr_buffer->prev_buffer)
+                        ptr_buffer = last_gui_buffer;
+                        while (ptr_buffer)
                         {
+                            ptr_prev_buffer = ptr_buffer->prev_buffer;
                             if (ptr_buffer->number == i)
                             {
                                 num_buffers++;
@@ -813,6 +815,7 @@ COMMAND_CALLBACK(buffer)
                                     gui_buffer_close (ptr_buffer);
                                 }
                             }
+                            ptr_buffer = ptr_prev_buffer;
                         }
                     }
                     /*
@@ -6857,7 +6860,7 @@ command_init ()
                      "   -delete: delete passphrase\n"
                      "   decrypt: decrypt data still encrypted (it happens only "
                      "if passphrase was not given on startup)\n"
-                     "  -discard: discard all data still encrypted data\n"
+                     "  -discard: discard all data still encrypted\n"
                      "       set: add or change secured data\n"
                      "       del: delete secured data\n\n"
                      "Without argument, this command displays secured data "
