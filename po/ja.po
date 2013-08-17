@@ -1554,6 +1554,7 @@ msgstr "コマンドライン関数"
 msgid "<action> [<arguments>]"
 msgstr "<action> [<arguments>]"
 
+#, fuzzy
 msgid ""
 "list of actions:\n"
 "  return: simulate key \"enter\"\n"
@@ -1561,6 +1562,8 @@ msgid ""
 "  complete_previous: complete word with previous completion\n"
 "  search_text: search text in buffer\n"
 "  search_switch_case: switch exact case for search\n"
+"  search_switch_regex: switch search type: string/regular expression\n"
+"  search_switch_where: switch search in messages/prefixes\n"
 "  search_previous: search previous line\n"
 "  search_next: search next line\n"
 "  search_stop: stop search\n"
@@ -2857,6 +2860,12 @@ msgstr ""
 "め、このオプションはデフォルトで無効化されている)"
 
 msgid ""
+"attributes for emphasized text: one or more attribute chars (\"*\" for bold, "
+"\"!\" for reverse, \"_\" for underline); if the string is empty, the colors "
+"weechat.color.emphasized* are used"
+msgstr ""
+
+msgid ""
 "comma separated list of words to highlight; case insensitive comparison (use "
 "\"(?-i)\" at beginning of words to make them case sensitive), words may "
 "begin or end with \"*\" for partial match; example: \"test,(?-i)*toto*,flash*"
@@ -3363,6 +3372,18 @@ msgstr "時間区切りのテキスト色"
 
 msgid "text color for values"
 msgstr "値のテキスト色"
+
+msgid ""
+"text color for emphasized text (for example when searching text); this "
+"option is used only if option weechat.look.emphasized_attributes is an empty "
+"string (default value)"
+msgstr ""
+
+msgid ""
+"background color for emphasized text (for example when searching text); used "
+"only if option weechat.look.emphasized_attributes is an empty string "
+"(default value)"
+msgstr ""
 
 msgid "text color for actions in input line"
 msgstr "入力がアクションの場合のテキスト色"
@@ -4091,11 +4112,8 @@ msgid "%sPaste %d line ? [ctrl-Y] Yes [ctrl-N] No"
 msgid_plural "%sPaste %d lines ? [ctrl-Y] Yes [ctrl-N] No"
 msgstr[0] "%s %d 行を貼り付けますか? [ctrl-Y] はい [ctrl-N] いいえ"
 
-msgid "Text search"
-msgstr "テキスト検索"
-
-msgid "Text search (exact)"
-msgstr "テキスト検索 (完全一致)"
+msgid "Search"
+msgstr ""
 
 #, c-format
 msgid "%s-MORE(%d)-"
@@ -10130,12 +10148,3 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
-
-#~ msgid "time format for date displayed when day changed"
-#~ msgstr "日付が変わったときに表示される時間フォーマット"
-
-#~ msgid "username for SASL authentication"
-#~ msgstr "SASL 認証用ユーザ名"
-
-#~ msgid "password for SASL authentication"
-#~ msgstr "SASL 認証用パスワード"

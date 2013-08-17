@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
-"POT-Creation-Date: 2013-08-11 19:52+0200\n"
-"PO-Revision-Date: 2013-07-31 18:42+0200\n"
+"POT-Creation-Date: 2013-08-17 11:49+0200\n"
+"PO-Revision-Date: 2013-08-17 10:37+0200\n"
 "Last-Translator: Sergio Durigan Junior <sergiosdj@gmail.com>\n"
 "Language-Team: weechat-dev <weechat-dev@nongnu.org>\n"
 "Language: pt_BR\n"
@@ -1573,6 +1573,8 @@ msgid ""
 "  complete_previous: complete word with previous completion\n"
 "  search_text: search text in buffer\n"
 "  search_switch_case: switch exact case for search\n"
+"  search_switch_regex: switch search type: string/regular expression\n"
+"  search_switch_where: switch search in messages/prefixes\n"
 "  search_previous: search previous line\n"
 "  search_next: search next line\n"
 "  search_stop: stop search\n"
@@ -2722,6 +2724,12 @@ msgstr ""
 "(esta opção é desabilitada por padrão porque pode causar sérios problemas de "
 "visualização"
 
+msgid ""
+"attributes for emphasized text: one or more attribute chars (\"*\" for bold, "
+"\"!\" for reverse, \"_\" for underline); if the string is empty, the colors "
+"weechat.color.emphasized* are used"
+msgstr ""
+
 #, fuzzy
 msgid ""
 "comma separated list of words to highlight; case insensitive comparison (use "
@@ -3225,6 +3233,18 @@ msgstr "cor do texto para delimitadores de tempo"
 
 msgid "text color for values"
 msgstr "cor de texto para valores"
+
+msgid ""
+"text color for emphasized text (for example when searching text); this "
+"option is used only if option weechat.look.emphasized_attributes is an empty "
+"string (default value)"
+msgstr ""
+
+msgid ""
+"background color for emphasized text (for example when searching text); used "
+"only if option weechat.look.emphasized_attributes is an empty string "
+"(default value)"
+msgstr ""
 
 msgid "text color for actions in input line"
 msgstr "cor de texto para ações de linha de entrada"
@@ -3929,11 +3949,8 @@ msgid_plural "%sPaste %d lines ? [ctrl-Y] Yes [ctrl-N] No"
 msgstr[0] "%sColar %d linhas ? [ctrl-Y] Sim [ctrl-N] Não"
 msgstr[1] "%sColar %d linhas ? [ctrl-Y] Sim [ctrl-N] Não"
 
-msgid "Text search"
-msgstr "Busca de texto"
-
-msgid "Text search (exact)"
-msgstr "Busca de texto (exata)"
+msgid "Search"
+msgstr ""
 
 #, c-format
 msgid "%s-MORE(%d)-"
@@ -9405,12 +9422,3 @@ msgstr ""
 
 msgid "Constants"
 msgstr ""
-
-#~ msgid "time format for date displayed when day changed"
-#~ msgstr "formato de hora tempo para a data mostrada quando o dia muda"
-
-#~ msgid "username for SASL authentication"
-#~ msgstr "nome de usuário para autenticação SASL"
-
-#~ msgid "password for SASL authentication"
-#~ msgstr "senha para autenticação SASL"

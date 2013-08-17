@@ -348,6 +348,8 @@ liste des actions:
   complete_previous: compléter le mot avec la complétion précédente
   search_text: chercher du texte dans le tampon
   search_switch_case: basculer la casse exacte pour la recherche
+  search_switch_regex: basculer le type de recherche: chaîne/expression régulière
+  search_switch_where: basculer la recherche dans les messages/préfixes
   search_previous: chercher la ligne précédente
   search_next: chercher la ligne suivante
   search_stop: arrêter la recherche
@@ -713,7 +715,7 @@ Le processus de mise à jour comporte 4 étapes :
   1. sauvegarder la session pour le cœur et les extensions (tampons, historique, ...)
   2. décharger toutes les extensions (les fichiers de configuration (*.conf) sont écrits sur disque)
   3. sauvegarder la configuration WeeChat (weechat.conf)
-  4. exécuter le nouveau binaire WeeChat et recharger la session.<
+  4. exécuter le nouveau binaire WeeChat et recharger la session.
 
 Avec l'option "-quit", le processus est légèrement différent :
   1. fermer *TOUTES* les connexions

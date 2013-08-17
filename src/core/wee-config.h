@@ -28,14 +28,6 @@ struct t_gui_buffer;
 
 #define WEECHAT_CONFIG_NAME "weechat"
 
-enum t_config_look_nicklist
-{
-    CONFIG_LOOK_NICKLIST_LEFT = 0,
-    CONFIG_LOOK_NICKLIST_RIGHT,
-    CONFIG_LOOK_NICKLIST_TOP,
-    CONFIG_LOOK_NICKLIST_BOTTOM,
-};
-
 enum t_config_look_align_end_of_lines
 {
     CONFIG_LOOK_ALIGN_END_OF_LINES_TIME = 0,
@@ -126,6 +118,7 @@ extern struct t_config_option *config_look_confirm_quit;
 extern struct t_config_option *config_look_day_change;
 extern struct t_config_option *config_look_day_change_time_format;
 extern struct t_config_option *config_look_eat_newline_glitch;
+extern struct t_config_option *config_look_emphasized_attributes;
 extern struct t_config_option *config_look_highlight;
 extern struct t_config_option *config_look_highlight_regex;
 extern struct t_config_option *config_look_highlight_tags;
@@ -221,6 +214,8 @@ extern struct t_config_option *config_color_chat_text_found_bg;
 extern struct t_config_option *config_color_chat_time;
 extern struct t_config_option *config_color_chat_time_delimiters;
 extern struct t_config_option *config_color_chat_value;
+extern struct t_config_option *config_color_emphasized;
+extern struct t_config_option *config_color_emphasized_bg;
 extern struct t_config_option *config_color_input_actions;
 extern struct t_config_option *config_color_input_text_not_found;
 extern struct t_config_option *config_color_separator;
@@ -273,6 +268,7 @@ extern struct t_config_option *config_plugin_save_config_on_unload;
 
 extern int config_length_nick_prefix_suffix;
 extern int config_length_prefix_same_nick;
+extern int config_emphasized_attributes;
 extern regex_t *config_highlight_regex;
 extern char **config_highlight_tags;
 extern int config_num_highlight_tags;
