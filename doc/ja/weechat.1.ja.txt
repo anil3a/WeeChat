@@ -1,4 +1,3 @@
-// TRANSLATION MISSING (WHOLE FILE)
 WEECHAT(1)
 ==========
 :doctype: manpage
