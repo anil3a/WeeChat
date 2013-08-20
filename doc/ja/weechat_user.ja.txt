@@ -708,10 +708,9 @@ WeeChat を起動したターミナルの例:
 
 バーアイテムのリストは `/bar listitems` コマンドで表示されます。
 
-// TRANSLATION MISSING
-Before or after item name, you can use chars (that are not alphanumeric, "-" or
-"_"). They will be displayed before/after item with the delimiters color
-defined in bar (option 'color_delim').
+アイテム名の前または後に文字を表示させることができます (英数字以外の文字、"-"
+または "_")。この文字はバー ('color_delim' オプション)
+で定義された区切り文字の色をつけてアイテムの前または後に表示されます。
 
 アイテムを含むバーの例 "[time],buffer_number+:+buffer_plugin+.+buffer_name":
 
@@ -721,18 +720,15 @@ defined in bar (option 'color_delim').
 └─────────────────────────────────────────────────────────────────────────────────────────┘
 ........................................
 
-// TRANSLATION MISSING
-A special syntax can be used to force the buffer used when displaying the bar
-item: "@buffer:item" (where "buffer" is the full name of buffer and "item" is
-the name of a bar item).
+特殊構文を使うことで、バーアイテム: "@buffer:item"
+("buffer" はバッファの完全な名前、"item" はバーアイテムの名前)
+を表示する際に強制的に指定されたバッファを利用することが可能です。
 
-// TRANSLATION MISSING
-This is useful in root bars, to display item for a specific buffer which is
-not displayed in the current window (or even not displayed at all).
+これはルートバーに現在のウィンドウで表示されない (またはどこにも表示されない)
+特定のバッファのアイテムを表示させる際に便利です。
 
-// TRANSLATION MISSING
-Example: nicklist of bitlbee in a root bar (if the bar is called
-'bitlist' and if bitlbee server is called 'bitlbee'):
+例: bitlbee のニックネームリストをルートバーに表示させる
+(バーが 'bitlist' で bitlbee サーバが 'bitlbee' の場合):
 
 ----------------------------------------
 /set weechat.bar.bitlist.items "@irc.bitlbee.&bitlbee:buffer_nicklist"
