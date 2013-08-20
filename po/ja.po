@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2013-08-19 02:59+0900\n"
-"PO-Revision-Date: 2013-08-20 16:02+0900\n"
+"PO-Revision-Date: 2013-08-21 00:19+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -878,19 +878,17 @@ msgstr ""
 "%sエラー: ウィンドウのマージに失敗、現在のウィンドウの近くには同じサイズの異"
 "なるウィンドウがありません"
 
-#, fuzzy
 msgid "set or remove away status"
-msgstr "離席、着席の切り替え"
+msgstr "離席状態の切り替え"
 
 msgid "[-all] [<message>]"
 msgstr "[-all] [<message>]"
 
-#, fuzzy
 msgid ""
 "   -all: set or remove away status on all connected servers\n"
 "message: message for away (if no message is given, away status is removed)"
 msgstr ""
-"   -all: 全ての接続済みサーバに対して離席状態を変更\n"
+"   -all: 全ての接続済みサーバに対して離席状態を切り替え\n"
 "message: 離席メッセージ (メッセージが無い場合は、離席状態を解除)"
 
 msgid "manage bars"
@@ -4180,9 +4178,9 @@ msgstr "キーに対するコマンド: \"%s\""
 msgid "Sending hsignal: \"%s\""
 msgstr "hsignal 送信中: \"%s\""
 
-#, fuzzy, c-format
+#, c-format
 msgid "Executing command: \"%s\" on buffer \"%s\""
-msgstr "コマンド実行中: \"%s\""
+msgstr "バッファ \"%2$s\" でコマンドを実行中: \"%1$s\""
 
 msgid "Not enough memory for new line"
 msgstr "新しい行に使うメモリが足りません"
