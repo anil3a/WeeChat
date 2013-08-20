@@ -878,14 +878,16 @@ msgstr ""
 "%sエラー: ウィンドウのマージに失敗、現在のウィンドウの近くには同じサイズの異"
 "なるウィンドウがありません"
 
-msgid "toggle away status"
+#, fuzzy
+msgid "set or remove away status"
 msgstr "離席、着席の切り替え"
 
 msgid "[-all] [<message>]"
 msgstr "[-all] [<message>]"
 
+#, fuzzy
 msgid ""
-"   -all: toggle away status on all connected servers\n"
+"   -all: set or remove away status on all connected servers\n"
 "message: message for away (if no message is given, away status is removed)"
 msgstr ""
 "   -all: 全ての接続済みサーバに対して離席状態を変更\n"
@@ -4178,8 +4180,8 @@ msgstr "キーに対するコマンド: \"%s\""
 msgid "Sending hsignal: \"%s\""
 msgstr "hsignal 送信中: \"%s\""
 
-#, c-format
-msgid "Executing command: \"%s\""
+#, fuzzy, c-format
+msgid "Executing command: \"%s\" on buffer \"%s\""
 msgstr "コマンド実行中: \"%s\""
 
 msgid "Not enough memory for new line"
