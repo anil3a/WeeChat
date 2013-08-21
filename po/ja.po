@@ -209,6 +209,10 @@ msgstr "%sエラー: バッファが見つかりません"
 msgid "%sError: WeeChat main buffer can't be closed"
 msgstr "%sエラー: WeeChat メインバッファを閉じることはできません"
 
+#, fuzzy, c-format
+msgid "%sError: unable to set notify level \"%s\""
+msgstr "%1$sエラー: バー \"%3$s\" にオプション \"%2$s\" を設定できません"
+
 #, c-format
 msgid "Local variables for buffer \"%s\":"
 msgstr "バッファ \"%s\" のローカル変数:"
