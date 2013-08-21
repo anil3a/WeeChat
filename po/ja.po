@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: WeeChat 0.4.2-dev\n"
 "Report-Msgid-Bugs-To: flashcode@flashtux.org\n"
 "POT-Creation-Date: 2013-08-19 02:59+0900\n"
-"PO-Revision-Date: 2013-08-21 00:19+0900\n"
+"PO-Revision-Date: 2013-08-21 20:25+0900\n"
 "Last-Translator: AYANOKOUZI, Ryuunosuke <i38w7i3@yahoo.co.jp>\n"
 "Language-Team: Japanese <https://github.com/l/WeeChat>\n"
 "Language: ja\n"
@@ -209,9 +209,9 @@ msgstr "%sエラー: バッファが見つかりません"
 msgid "%sError: WeeChat main buffer can't be closed"
 msgstr "%sエラー: WeeChat メインバッファを閉じることはできません"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%sError: unable to set notify level \"%s\""
-msgstr "%1$sエラー: バー \"%3$s\" にオプション \"%2$s\" を設定できません"
+msgstr "%sエラー: 通知レベル \"%s\" を設定できません"
 
 #, c-format
 msgid "Local variables for buffer \"%s\":"
