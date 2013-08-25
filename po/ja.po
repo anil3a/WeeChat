@@ -2642,10 +2642,6 @@ msgstr ""
 "%s警告: プロキシ \"%s\" が存在しません (作成するには /proxy コマンドを使って"
 "ください)"
 
-#, c-format
-msgid "\t\tDay changed to %s"
-msgstr "\t\t%s に日付変更"
-
 msgid "debug level for plugin (\"core\" for WeeChat core)"
 msgstr "プラグイン (\"core\" は WeeChat コア) のデバッグレベル"
 
@@ -2847,8 +2843,8 @@ msgid "display special message when day changes"
 msgstr "日付が変わった際に特殊メッセージを表示"
 
 msgid ""
-"time format for date displayed when day changed (see man strftime for date/"
-"time specifiers)"
+"message displayed when the day has changed (see man strftime for date/time "
+"specifiers) (note: content is evaluated, see /help eval)"
 msgstr ""
 "日付が変わった時に表示される時間のフォーマット (日付/時間指定子は strftime "
 "の man を参照)"
@@ -3255,6 +3251,10 @@ msgstr "バッファ名のテキスト色"
 
 msgid "text color for channel names"
 msgstr "チャンネル名のテキスト色"
+
+#, fuzzy
+msgid "text color for message displayed when the day has changed"
+msgstr "メッセージの後ろのタグのテキスト色 (/debug tags コマンドで表示)"
 
 msgid "text color for delimiters"
 msgstr "区切りのテキスト色"
@@ -10163,3 +10163,6 @@ msgstr "タイプ"
 
 msgid "Constants"
 msgstr "定数"
+
+#~ msgid "\t\tDay changed to %s"
+#~ msgstr "\t\t%s に日付変更"
