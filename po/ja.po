@@ -7805,14 +7805,17 @@ msgstr "%s===\t%s========== バックログの最後 (%d 行) =========="
 msgid "logger plugin configuration"
 msgstr "logger プラグイン設定"
 
-msgid "list || set <level> || disable"
+#, fuzzy
+msgid "list || set <level> || flush || disable"
 msgstr "list || set <level> || disable"
 
+#, fuzzy
 msgid ""
 "   list: show logging status for opened buffers\n"
 "    set: set logging level on current buffer\n"
 "  level: level for messages to be logged (0 = logging disabled, 1 = a few "
 "messages (most important) .. 9 = all messages)\n"
+"  flush: write all log files now\n"
 "disable: disable logging on current buffer (set level to 0)\n"
 "\n"
 "Options \"logger.level.*\" and \"logger.mask.*\" can be used to set level or "
